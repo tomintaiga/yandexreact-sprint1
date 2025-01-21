@@ -1,0 +1,17 @@
+.btn_icon{
+    padding-left: 20px;
+}
+
+.btn_caption{
+    padding-right: 20px;
+    padding-left: 8px;
+}
+
+.btn_div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-radius: 5px;
+}
