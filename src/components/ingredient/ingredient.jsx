@@ -14,8 +14,8 @@ const Ingredient = ({ ingredient, handler, counter }) => {
             <img src={ingredient.image} alt={ingredient.name} />
             <p style={{ display: "flex", alignItems: "center", marginTop: "4px", marginBottom: "4px" }}
                 className={"text text_type_digits-default " + isActive}>
-                {ingredient.price}
-                <CurrencyIcon type="primary" />
+                {ingredient.price}<span style={{ marginLeft: "8px" }}></span>
+                <CurrencyIcon type="primary"/>
             </p>
             <p className={"text text_type_main-default " + isActive}>{ingredient.name}</p>
         </div>
