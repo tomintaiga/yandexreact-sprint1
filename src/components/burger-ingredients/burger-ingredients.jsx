@@ -7,6 +7,28 @@ const BurgerIngredients = ({ data, items, setItems }) => {
     const [curTab, setCurTab] = React.useState("bun");
 
     const addIngredient = (ingredient) => {
+        // Проверка на количество булок
+        if(ingredient.type === "bun") {
+            const count = items.filter(item => item.type === "bun").length;
+
+            // Если былок слишком много - на выход
+            if(count >= 2) {
+                return;
+            }
+
+            // Если булок нет - наша станет первой
+            if(count === 0) {
+                setItems([ingredient, ...items]);
+                return
+            }
+
+            // Если булка уже есть - ставим в конец
+            if (count === 1) {
+                setItems([...items, ingredient]);
+                return;
+            }
+        }
+        // Начинка должна быть между булками
         setItems([...items, ingredient]);
     };
 
