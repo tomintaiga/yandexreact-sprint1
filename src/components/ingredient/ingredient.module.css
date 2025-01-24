@@ -10,4 +10,11 @@
     align-items: center;
 
     max-width: 265px;
+    position: relative;
+}
+
+.counter {
+    position: absolute;
+    top: 8px;
+    right: 8px;
 }

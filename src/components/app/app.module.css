@@ -1,7 +1,6 @@
 .root_div {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    justify-content: center;
     width: 100%;
 }
