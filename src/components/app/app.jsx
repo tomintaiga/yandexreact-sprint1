@@ -4,6 +4,7 @@ import curStyle from "./app.module.css";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import React from "react";
 import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 const url = "https://norma.nomoreparties.space/api/ingredients";
 
@@ -45,7 +46,7 @@ function App() {
             </div>
             {detailVisible && (
                 <Modal isOpen={detailVisible} title="Детали ингредиента" onClose={() => {setDetailVisible(false)}}>
-                    <p>{detailData.name}</p>
+                    <IngredientDetails ingredient={detailData}/>
                 </Modal>
             )}
         </div>

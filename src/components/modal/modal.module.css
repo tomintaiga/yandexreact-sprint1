@@ -4,7 +4,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 720px;
-    height: 718px;
+    height: 593px;
     /* interface/accent */
     border: 2px solid #4c4cff;
     border-radius: 20px;
@@ -16,6 +16,7 @@
 .modal_header{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-top: 40px;
     margin-left: 40px;
     margin-right: 40px;
