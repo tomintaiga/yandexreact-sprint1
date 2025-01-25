@@ -3,14 +3,17 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import curStyle from "./app.module.css";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import React from "react";
+import Modal from "../modal/modal";
 
 const url = "https://norma.nomoreparties.space/api/ingredients";
 
 function App() {
     const [curItems, setCurItems] = React.useState([]);
     const [data, setData] = React.useState([]);
+    const [detailVisible, setDetailVisible] = React.useState(false);
+    const [detailData, setDetailData] = React.useState({});
 
-    // Получить изгредиенты
+    // Получить ингредиенты
     React.useState(() => {
         fetch(url)
             .then(res => res.json())
@@ -23,18 +26,28 @@ function App() {
             });
     }, []);
 
+    const showDetail = (item) => {
+        setDetailData(item);
+        setDetailVisible(true);
+    }
+
     return (
         <div className={curStyle.root_div}>
             <AppHeader />
             <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-start" }}>
                 <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
                     <p style={{ marginTop: "40px", marginBottom: "20px" }} className="text text_type_main-large">Соберите бургер</p>
-                    <BurgerIngredients data={data} items={curItems} setItems={setCurItems} />
+                    <BurgerIngredients data={data} items={curItems} setItems={setCurItems} showDetail={showDetail}/>
                 </div>
                 <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
                     <BurgerConstructor items={curItems} setItems={setCurItems}/>
                 </div>
             </div>
+            {detailVisible && (
+                <Modal isOpen={detailVisible} title="Детали ингредиента" onClose={() => {setDetailVisible(false)}}>
+                    <p>{detailData.name}</p>
+                </Modal>
+            )}
         </div>
     );
 }

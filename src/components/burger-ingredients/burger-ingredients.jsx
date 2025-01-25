@@ -4,10 +4,12 @@ import Ingredient from "../ingredient/ingredient";
 import curCss from "./burger-ingredients.module.css";
 import PropTypes from "prop-types";
 
-const BurgerIngredients = ({ data, items, setItems }) => {
+const BurgerIngredients = ({ data, items, setItems, showDetail }) => {
     const [curTab, setCurTab] = React.useState("bun");
 
     const addIngredient = (ingredient) => {
+        showDetail(ingredient);
+
         // Проверка на количество булок
         if(ingredient.type === "bun") {
             const count = items.filter(item => item.type === "bun").length;
@@ -66,7 +68,8 @@ const BurgerIngredients = ({ data, items, setItems }) => {
 BurgerIngredients.propTypes = {
     data: PropTypes.array.isRequired,
     items: PropTypes.array.isRequired,
-    setItems: PropTypes.func.isRequired
+    setItems: PropTypes.func.isRequired,
+    showDetail: PropTypes.func.isRequired
 };
 
 export default BurgerIngredients;
