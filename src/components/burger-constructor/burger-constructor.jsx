@@ -1,7 +1,7 @@
 import React from 'react';
 import curStyles from './burger-constructor.module.css';
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-
+import PropTypes from 'prop-types';
 
 const BurgerConstructor = ({ items, setItems }) => {
     const [price, setPrice] = React.useState(0);
@@ -67,5 +67,10 @@ const BurgerConstructor = ({ items, setItems }) => {
         </div>
     );
 }
+
+BurgerConstructor.propTypes = {
+    items: PropTypes.array.isRequired,
+    setItems: PropTypes.func.isRequired
+};
 
 export default BurgerConstructor;

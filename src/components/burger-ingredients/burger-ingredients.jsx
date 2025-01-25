@@ -2,6 +2,7 @@ import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredient from "../ingredient/ingredient";
 import curCss from "./burger-ingredients.module.css";
+import PropTypes from "prop-types";
 
 const BurgerIngredients = ({ data, items, setItems }) => {
     const [curTab, setCurTab] = React.useState("bun");
@@ -11,7 +12,7 @@ const BurgerIngredients = ({ data, items, setItems }) => {
         if(ingredient.type === "bun") {
             const count = items.filter(item => item.type === "bun").length;
 
-            // Если былок слишком много - на выход
+            // Если булок слишком много - на выход
             if(count >= 2) {
                 return;
             }
@@ -28,7 +29,8 @@ const BurgerIngredients = ({ data, items, setItems }) => {
                 return;
             }
         }
-        // Начинка должна быть между булками
+
+        // Начинка должна быть между булками =)
         setItems([...items, ingredient]);
     };
 
@@ -61,5 +63,10 @@ const BurgerIngredients = ({ data, items, setItems }) => {
     )
 };
 
+BurgerIngredients.propTypes = {
+    data: PropTypes.array.isRequired,
+    items: PropTypes.array.isRequired,
+    setItems: PropTypes.func.isRequired
+};
 
 export default BurgerIngredients;

@@ -1,6 +1,7 @@
 import curStyles from './ingredient.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Ingredient = ({ ingredient, handler, counter }) => {
     const [isActive, setIsActive] = React.useState("text_color_inactive");
@@ -20,6 +21,12 @@ const Ingredient = ({ ingredient, handler, counter }) => {
             <p className={"text text_type_main-default " + isActive}>{ingredient.name}</p>
         </div>
     );
+};
+
+Ingredient.propTypes = {
+    ingredient: PropTypes.object.isRequired,
+    handler: PropTypes.func.isRequired,
+    counter: PropTypes.number.isRequired
 };
 
 export default Ingredient;

@@ -1,5 +1,6 @@
 import React from "react";
 import btnStyle from "./btn-icon.module.css";
+import PropTypes from "prop-types";
 
 const BntIcon = ({ IconComponent, text, onClick }) => {
     const [isActive, setIsActive] = React.useState("secondary");
@@ -13,5 +14,11 @@ const BntIcon = ({ IconComponent, text, onClick }) => {
         </div>
     );
 }
+
+BntIcon.propTypes = {
+    IconComponent: PropTypes.object.isRequired,
+    text: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired
+};
 
 export default BntIcon;
