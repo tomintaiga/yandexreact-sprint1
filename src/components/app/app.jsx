@@ -5,7 +5,8 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 import React from "react";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import ModalOverlay from "../modal-overlay/modal-overlay"; // Обновлено
+import ModalOverlay from "../modal-overlay/modal-overlay";
+import OrderDetails from "../order-details/order-details";
 
 const url = "https://norma.nomoreparties.space/api/ingredients";
 
@@ -15,6 +16,7 @@ function App() {
     const [detailVisible, setDetailVisible] = React.useState(false);
     const [detailData, setDetailData] = React.useState({});
     const [overlayVisible, setOverlayVisible] = React.useState(false);
+    const [orderVisible, setOrderVisible] = React.useState(false);
 
     // Получить ингредиенты
     React.useState(() => {
@@ -35,6 +37,11 @@ function App() {
         setOverlayVisible(true);
     }
 
+    const showOrder = () => {
+        setOrderVisible(true);
+        setOverlayVisible(true);
+    }
+
     return (
         <div className={curStyle.root_div}>
             <AppHeader />
@@ -44,13 +51,20 @@ function App() {
                     <BurgerIngredients data={data} items={curItems} setItems={setCurItems} showDetail={showDetail}/>
                 </div>
                 <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
-                    <BurgerConstructor items={curItems} setItems={setCurItems}/>
+                    <BurgerConstructor items={curItems} setItems={setCurItems} showOrder={showOrder}/>
                 </div>
             </div>
             {detailVisible && (
                 <ModalOverlay isOpen={overlayVisible} onClose={() => {setOverlayVisible(false)}}>
                     <Modal isOpen={detailVisible} title="Детали ингредиента" onClose={() => {setDetailVisible(false)}}>
                         <IngredientDetails ingredient={detailData}/>
+                    </Modal>
+                </ModalOverlay>
+            )}
+            {orderVisible && (
+                <ModalOverlay isOpen={overlayVisible} onClose={() => {setOverlayVisible(false)}}>
+                    <Modal isOpen={orderVisible} onClose={() => {setOrderVisible(false)}}>
+                        <OrderDetails />
                     </Modal>
                 </ModalOverlay>
             )}

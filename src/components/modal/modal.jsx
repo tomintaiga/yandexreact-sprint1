@@ -17,7 +17,7 @@ const Modal = ({ children, isOpen, onClose, title }) => {
         (
             <div className={curStyle.modal}>
                 <div className={curStyle.modal_header}>
-                    {title && <p className="text text_type_main-large">{title}</p>}
+                    <p className="text text_type_main-large">{title}</p>
                     <div
                         onMouseEnter={() => setIsHovered(true)}
                         onMouseLeave={() => setIsHovered(false)}

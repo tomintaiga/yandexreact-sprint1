@@ -1,0 +1,9 @@
+.order_root{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    /* max-width: 520px; */
+}

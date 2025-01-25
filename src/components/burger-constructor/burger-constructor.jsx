@@ -3,7 +3,7 @@ import curStyles from './burger-constructor.module.css';
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 
-const BurgerConstructor = ({ items, setItems }) => {
+const BurgerConstructor = ({ items, setItems, showOrder }) => {
     const [price, setPrice] = React.useState(0);
 
     React.useEffect(() => {
@@ -62,7 +62,7 @@ const BurgerConstructor = ({ items, setItems }) => {
             <div className={curStyles.total_price_div}>
                 <p className="text text_type_digits-medium" style={{ marginRight: "8px" }}>{price}</p>
                 <CurrencyIcon type="primary" />
-                <Button type="primary" size="medium" htmlType="button" style={{ marginLeft: "40px" }}>Оформить заказ</Button>
+                <Button type="primary" size="medium" htmlType="button" style={{ marginLeft: "40px" }} onClick={showOrder}>Оформить заказ</Button>
             </div>
         </div>
     );
@@ -70,7 +70,8 @@ const BurgerConstructor = ({ items, setItems }) => {
 
 BurgerConstructor.propTypes = {
     items: PropTypes.array.isRequired,
-    setItems: PropTypes.func.isRequired
+    setItems: PropTypes.func.isRequired,
+    showOrder: PropTypes.func.isRequired
 };
 
 export default BurgerConstructor;
