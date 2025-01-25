@@ -1,4 +1,5 @@
 import curCss from './ingredient-detail-caption.module.css';
+import PropTypes from 'prop-types';
 
 const IngredientDetailCaption = ({ caption, value }) => {
     return (
@@ -7,6 +8,11 @@ const IngredientDetailCaption = ({ caption, value }) => {
             <p className="text text_type_digits-default text_color_inactive">{value}</p>
         </div>
     );
+};
+
+IngredientDetailCaption.propTypes = {
+    caption: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired
 };
 
 export default IngredientDetailCaption;

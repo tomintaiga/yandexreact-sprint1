@@ -1,5 +1,6 @@
 import curCss from './ingredient-details.module.css';
 import IngredientDetailCaption from '../ingredient-detail-caption/ingredient-detail-caption';
+import PropTypes from 'prop-types';
 
 const IngredientDetails = ({ ingredient }) => {
     return (
@@ -16,6 +17,10 @@ const IngredientDetails = ({ ingredient }) => {
             </div>
         </div>
     )
+};
+
+IngredientDetails.propTypes = {
+    ingredient: PropTypes.object.isRequired
 };
 
 export default IngredientDetails;
