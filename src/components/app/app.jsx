@@ -5,7 +5,7 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 import React from "react";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import Overlay from "../overlay/overlay";
+import ModalOverlay from "../modal-overlay/modal-overlay"; // Обновлено
 
 const url = "https://norma.nomoreparties.space/api/ingredients";
 
@@ -48,11 +48,11 @@ function App() {
                 </div>
             </div>
             {detailVisible && (
-                <Overlay isOpen={overlayVisible} onClose={() => {setOverlayVisible(false)}}>
+                <ModalOverlay isOpen={overlayVisible} onClose={() => {setOverlayVisible(false)}}>
                     <Modal isOpen={detailVisible} title="Детали ингредиента" onClose={() => {setDetailVisible(false)}}>
                         <IngredientDetails ingredient={detailData}/>
                     </Modal>
-                </Overlay>
+                </ModalOverlay>
             )}
         </div>
     );
