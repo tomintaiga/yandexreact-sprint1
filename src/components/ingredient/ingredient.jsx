@@ -2,6 +2,7 @@ import curStyles from './ingredient.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 import PropTypes from 'prop-types';
+import item from "../../utils/proptypes";
 
 const Ingredient = ({ ingredient, handler, counter }) => {
     const [isActive, setIsActive] = React.useState("text_color_inactive");
@@ -24,7 +25,7 @@ const Ingredient = ({ ingredient, handler, counter }) => {
 };
 
 Ingredient.propTypes = {
-    ingredient: PropTypes.object.isRequired,
+    ingredient: PropTypes.shape(item).isRequired,
     handler: PropTypes.func.isRequired,
     counter: PropTypes.number.isRequired
 };

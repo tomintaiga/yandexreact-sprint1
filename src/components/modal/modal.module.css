@@ -1,28 +1,28 @@
 .modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 720px;
-    height: 593px;
-    /* interface/accent */
-    border: 2px solid #4c4cff;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    background: #1c1c21;
-    z-index: 100;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 720px;
+  height: 593px;
+  /* interface/accent */
+
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  background: #1c1c21;
+  z-index: 100;
 }
 
 .modal_header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 40px;
-    margin-left: 40px;
-    margin-right: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 
 .modal_header div:hover {
-    cursor: pointer;
+  cursor: pointer;
 }

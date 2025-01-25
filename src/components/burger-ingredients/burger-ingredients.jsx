@@ -3,6 +3,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredient from "../ingredient/ingredient";
 import curCss from "./burger-ingredients.module.css";
 import PropTypes from "prop-types";
+import item from "../../utils/proptypes";
 
 const BurgerIngredients = ({ data, items, setItems, showDetail }) => {
     const [curTab, setCurTab] = React.useState("bun");
@@ -66,7 +67,7 @@ const BurgerIngredients = ({ data, items, setItems, showDetail }) => {
 };
 
 BurgerIngredients.propTypes = {
-    data: PropTypes.array.isRequired,
+    data: PropTypes.arrayOf(PropTypes.shape(item)).isRequired,
     items: PropTypes.array.isRequired,
     setItems: PropTypes.func.isRequired,
     showDetail: PropTypes.func.isRequired

@@ -2,6 +2,7 @@ import React from 'react';
 import curStyles from './burger-constructor.module.css';
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
+import item from "../../utils/proptypes";
 
 const BurgerConstructor = ({ items, setItems, showOrder }) => {
     const [price, setPrice] = React.useState(0);
@@ -69,7 +70,7 @@ const BurgerConstructor = ({ items, setItems, showOrder }) => {
 }
 
 BurgerConstructor.propTypes = {
-    items: PropTypes.array.isRequired,
+    items: PropTypes.arrayOf(PropTypes.shape(item)).isRequired,
     setItems: PropTypes.func.isRequired,
     showOrder: PropTypes.func.isRequired
 };
