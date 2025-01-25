@@ -16,9 +16,9 @@ const BntIcon = ({ IconComponent, text, onClick }) => {
 }
 
 BntIcon.propTypes = {
-    IconComponent: PropTypes.object.isRequired,
+    IconComponent: PropTypes.func.isRequired,
     text: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired
+    onClick: PropTypes.func
 };
 
 export default BntIcon;
