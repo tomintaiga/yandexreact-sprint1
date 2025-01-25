@@ -13,6 +13,25 @@ const Modal = ({ children, isOpen, onClose, title }) => {
         return null;
     }
 
+    const handleKeyDown = (event) => {
+        if (event.key === 'Escape') {
+            onClose();
+        }
+    };
+
+    React.useEffect(() => {
+        if (isOpen) {
+            document.addEventListener('keydown', handleKeyDown);
+        } else {
+            document.removeEventListener('keydown', handleKeyDown);
+        }
+
+        return () => {
+            // Не забыть отписаться
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [isOpen]);
+
     return ReactDom.createPortal(
         (
             <div className={curStyle.modal}>

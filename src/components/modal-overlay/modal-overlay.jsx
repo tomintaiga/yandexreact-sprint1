@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import curCss from './modal-overlay.module.css';
 
@@ -8,25 +8,6 @@ const ModalOverlay = ({ isOpen, onClose, children }) => {
             onClose();
         }
     };
-
-    const handleKeyDown = (event) => {
-        if (event.key === 'Escape') {
-            onClose();
-        }
-    };
-
-    useEffect(() => {
-        if (isOpen) {
-            document.addEventListener('keydown', handleKeyDown);
-        } else {
-            document.removeEventListener('keydown', handleKeyDown);
-        }
-
-        return () => {
-            // Не забыть отписаться
-            document.removeEventListener('keydown', handleKeyDown);
-        };
-    }, [isOpen]);
 
     return (
         isOpen && (
