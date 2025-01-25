@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
 import curStyle from "./modal.module.css";
@@ -6,6 +7,8 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 const modalRoot = document.getElementById("modals");
 
 const Modal = ({ children, isOpen, onClose, title }) => {
+    const [isHovered, setIsHovered] = React.useState(false);
+
     if (!isOpen) {
         return null;
     }
@@ -15,7 +18,13 @@ const Modal = ({ children, isOpen, onClose, title }) => {
             <div className={curStyle.modal}>
                 <div className={curStyle.modal_header}>
                     {title && <p className="text text_type_main-large">{title}</p>}
-                    <CloseIcon type="primary" onClick={onClose} />
+                    <div
+                        onMouseEnter={() => setIsHovered(true)}
+                        onMouseLeave={() => setIsHovered(false)}
+                        onClick={onClose}
+                    >
+                        <CloseIcon type={isHovered ? 'primary' : 'secondary'} />
+                    </div>
                 </div>
                 {children}
             </div>
