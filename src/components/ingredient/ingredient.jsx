@@ -11,7 +11,7 @@ const Ingredient = ({ ingredient, handler, counter }) => {
             onMouseLeave={() => setIsActive("text_color_inactive")}
             onClick={() => handler(ingredient)}>
             {counter > 0 && <Counter count={counter} size="default" className={curStyles.counter} />}
-            <img src={ingredient.image} alt={ingredient.name} />
+            <img src={ingredient.image} alt={ingredient.name} className={curStyles.img}/>
             <p style={{ display: "flex", alignItems: "center", marginTop: "4px", marginBottom: "4px" }}
                 className={"text text_type_digits-default " + isActive}>
                 {ingredient.price}<span style={{ marginLeft: "8px" }}></span>

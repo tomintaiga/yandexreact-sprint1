@@ -32,11 +32,18 @@ const BurgerConstructor = ({ items, setItems }) => {
                 let isLocked = false;
                 if (index === 0) {
                     type = "top";
-                    caption += "\n(верх)";
+
+                    if (item.type === "bun") {
+                        caption += "\n(верх)";
+                    }
+
                     isLocked = true;
                 } else if (index === items.length - 1) {
                     type = "bottom";
-                    caption += "\n(низ)";
+                    if (item.type === "bun") {
+                        caption += "\n(низ)";
+                    }
+
                     isLocked = true;
                 }
 
@@ -53,7 +60,7 @@ const BurgerConstructor = ({ items, setItems }) => {
                 )
             })}
             <div className={curStyles.total_price_div}>
-                <p className="text text_type_digits-medium" style={{marginRight: "8px"}}>{price}</p>
+                <p className="text text_type_digits-medium" style={{ marginRight: "8px" }}>{price}</p>
                 <CurrencyIcon type="primary" />
                 <Button type="primary" size="medium" htmlType="button" style={{ marginLeft: "40px" }}>Оформить заказ</Button>
             </div>
