@@ -23,7 +23,13 @@ function App() {
         fetch(url)
             .then(res => res.json())
             .then(data => {
-                setData(data.data);
+                // Проверка ответа сервера
+                if(data.success === true) {
+                    setData(data.data);
+                } else {
+                    // Обработка ошибки
+                    console.log(data.message);
+                }
             })
             .catch(err => {
                 // Обработка ошибки
