@@ -19,7 +19,12 @@ function App() {
     // Получить ингредиенты
     React.useState(() => {
         fetch(url)
-            .then(res => res.json())
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка ${res.status}`);
+            })
             .then(data => {
                 // Проверка ответа сервера
                 if (data.success === true) {
