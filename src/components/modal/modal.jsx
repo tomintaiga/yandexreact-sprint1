@@ -58,7 +58,7 @@ Modal.propTypes = {
     children: PropTypes.node.isRequired,
     isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
-    title: PropTypes.string
+    title: PropTypes.string // Для модалки заказа, может быть пустым
 };
 
 export default Modal;
