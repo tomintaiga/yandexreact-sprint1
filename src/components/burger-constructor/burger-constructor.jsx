@@ -61,9 +61,16 @@ const BurgerConstructor = ({ items, setItems, showOrder }) => {
                 )
             })}
             <div className={curStyles.total_price_div}>
-                <p className="text text_type_digits-medium" style={{ marginRight: "8px" }}>{price}</p>
+                <p className={`text text_type_digits-medium ${curStyles.price}`} >{price}</p>
                 <CurrencyIcon type="primary" />
-                <Button type="primary" size="medium" htmlType="button" style={{ marginLeft: "40px" }} onClick={showOrder}>Оформить заказ</Button>
+                <span className={curStyles.order_btn}>
+                    <Button type="primary"
+                        size="medium"
+                        htmlType="button"
+                        onClick={showOrder}>
+                        Оформить заказ
+                    </Button>
+                </span>
             </div>
         </div>
     );

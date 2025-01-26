@@ -51,12 +51,12 @@ function App() {
     return (
         <div className={curStyle.root_div}>
             <AppHeader />
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-start" }}>
-                <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
-                    <p style={{ marginTop: "40px", marginBottom: "20px" }} className="text text_type_main-large">Соберите бургер</p>
+            <div className={curStyle.main_div}>
+                <div className={curStyle.child_div}>
+                    <p className={`text text_type_main-large ${curStyle.constructor_title}`}>Соберите бургер</p>
                     <BurgerIngredients data={data} items={curItems} setItems={setCurItems} showDetail={showDetail}/>
                 </div>
-                <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
+                <div className={curStyle.child_div}>
                     <BurgerConstructor items={curItems} setItems={setCurItems} showOrder={showOrder}/>
                 </div>
             </div>

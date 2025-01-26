@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import curCss from './modal-overlay.module.css';
+import curStyle from './modal-overlay.module.css';
 
 const ModalOverlay = ({ isOpen, onClose, children }) => {
     const handleClick = (event) => {
@@ -11,7 +11,7 @@ const ModalOverlay = ({ isOpen, onClose, children }) => {
 
     return (
         isOpen && (
-            <div className={curCss.overlay} onClick={handleClick}>
+            <div className={curStyle.overlay} onClick={handleClick}>
                 {children}
             </div>
         )

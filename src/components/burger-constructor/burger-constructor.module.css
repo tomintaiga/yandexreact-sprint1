@@ -31,3 +31,11 @@
   align-items: center;
   margin-bottom: 40px;
 }
+
+.price {
+  margin-right: 8px;
+}
+
+.order_btn{
+  margin-left: 40px;
+}

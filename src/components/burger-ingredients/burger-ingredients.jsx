@@ -1,7 +1,7 @@
 import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredient from "../ingredient/ingredient";
-import curCss from "./burger-ingredients.module.css";
+import curStyle from "./burger-ingredients.module.css";
 import PropTypes from "prop-types";
 import item from "../../utils/proptypes";
 
@@ -31,8 +31,8 @@ const BurgerIngredients = ({ data, items, setItems, showDetail }) => {
 
     return (
         <>
-            <div className={curCss.top_div}>
-                <div style={{ display: "flex" }}>
+            <div className={curStyle.top_div}>
+                <div className={curStyle.tabs}>
                     <Tab value="bun" active={curTab === "bun"} onClick={setCurTab}>
                         Булки
                     </Tab>
@@ -43,7 +43,7 @@ const BurgerIngredients = ({ data, items, setItems, showDetail }) => {
                         Начинки
                     </Tab>
                 </div>
-                <div className={curCss.products_div}>
+                <div className={curStyle.products_div}>
                     {data.map(item => (
                         <Ingredient
                             ingredient={item}

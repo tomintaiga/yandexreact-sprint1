@@ -52,9 +52,9 @@ const Modal = ({ children, isOpen, onClose, title }) => {
 };
 
 Modal.propTypes = {
-    children: PropTypes.node,
-    isOpen: PropTypes.bool,
-    onClose: PropTypes.func,
+    children: PropTypes.node.isRequired,
+    isOpen: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
     title: PropTypes.string
 };
 
