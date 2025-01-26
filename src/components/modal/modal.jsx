@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
 import curStyle from "./modal.module.css";
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import ModalOverlay from '../modal-overlay/modal-overlay';
 
 const modalRoot = document.getElementById("modals");
 
@@ -34,19 +35,21 @@ const Modal = ({ children, isOpen, onClose, title }) => {
 
     return ReactDom.createPortal(
         (
-            <div className={curStyle.modal}>
-                <div className={curStyle.modal_header}>
-                    <p className="text text_type_main-large">{title}</p>
-                    <div
-                        onMouseEnter={() => setIsHovered(true)}
-                        onMouseLeave={() => setIsHovered(false)}
-                        onClick={onClose}
-                    >
-                        <CloseIcon type={isHovered ? 'primary' : 'secondary'} />
+            <ModalOverlay isOpen={isOpen} onClose={onClose}>
+                <div className={curStyle.modal}>
+                    <div className={curStyle.modal_header}>
+                        <p className="text text_type_main-large">{title}</p>
+                        <div
+                            onMouseEnter={() => setIsHovered(true)}
+                            onMouseLeave={() => setIsHovered(false)}
+                            onClick={onClose}
+                        >
+                            <CloseIcon type={isHovered ? 'primary' : 'secondary'} />
+                        </div>
                     </div>
+                    {children}
                 </div>
-                {children}
-            </div>
+            </ModalOverlay>
         ), modalRoot
     );
 };
