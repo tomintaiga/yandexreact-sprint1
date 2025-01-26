@@ -44,7 +44,7 @@ const BurgerIngredients = ({ data, items, setItems, showDetail }) => {
                     </Tab>
                 </div>
                 <div className={curCss.products_div}>
-                    {data.filter(item => item.type === curTab).map(item => (
+                    {data.map(item => (
                         <Ingredient
                             ingredient={item}
                             key={item._id}
