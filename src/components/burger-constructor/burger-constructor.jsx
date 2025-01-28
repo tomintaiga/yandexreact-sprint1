@@ -3,6 +3,7 @@ import curStyles from './burger-constructor.module.css';
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import item from "../../utils/proptypes";
+import dropHandler from "../../assets/handler.png"
 
 const BurgerConstructor = ({ items, setItems, showOrder }) => {
     const [price, setPrice] = React.useState(0);
@@ -23,6 +24,14 @@ const BurgerConstructor = ({ items, setItems, showOrder }) => {
             newPrice += item.price;
         });
         setPrice(newPrice);
+    };
+
+    const handleMouseEnter = (event) => {
+        event.currentTarget.style.cursor = 'grab';
+    };
+
+    const handleMouseExit = (event) => {
+        event.currentTarget.style.cursor = 'arrow';
     };
 
     return (
@@ -49,15 +58,18 @@ const BurgerConstructor = ({ items, setItems, showOrder }) => {
                 }
 
                 return (
-                    <ConstructorElement
-                        type={type}
-                        key={index}
-                        text={caption}
-                        price={item.price}
-                        thumbnail={item.image}
-                        isLocked={isLocked}
-                        handleClose={() => handleDelete(index)}
-                    />
+                    <div className={curStyles.constructor_element} key={index}>
+                        <img src={dropHandler} alt="drop handler" className={curStyles.drop_handler} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseExit}/>
+                        <ConstructorElement
+                            type={type}
+                            key={index}
+                            text={caption}
+                            price={item.price}
+                            thumbnail={item.image}
+                            isLocked={isLocked}
+                            handleClose={() => handleDelete(index)}
+                        />
+                    </div>
                 )
             })}
             <div className={curStyles.total_price_div}>
