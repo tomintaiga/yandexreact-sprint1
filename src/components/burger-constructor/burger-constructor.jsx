@@ -5,24 +5,18 @@ import PropTypes from 'prop-types';
 import item from "../../utils/proptypes";
 
 const BurgerConstructor = ({ items, setItems, showOrder }) => {
-    const [price, setPrice] = React.useState(0);
-
-    React.useEffect(() => {
-        updatePrice();
+    const price = React.useMemo(() => {
+        let newPrice = 0;
+        items.forEach(item => {
+            newPrice += item.price;
+        });
+        return newPrice;
     }, [items]);
 
     const handleDelete = (index) => {
         const newItems = [...items];
         newItems.splice(index, 1);
         setItems(newItems);
-    };
-
-    const updatePrice = () => {
-        let newPrice = 0;
-        items.forEach(item => {
-            newPrice += item.price;
-        });
-        setPrice(newPrice);
     };
 
     const handleMouseEnter = (event) => {
