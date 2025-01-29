@@ -11,6 +11,9 @@ const BurgerIngredients = ({ data, items, setItems, showDetail }) => {
     const addIngredient = (ingredient) => {
         showDetail(ingredient);
 
+        // Получаем количество булочер
+        const count = items.filter(item => item.type === "bun").length;
+
         // Проверка на количество булок
         if(ingredient.type === "bun") {
             const count = items.filter(item => item.type === "bun").length;
@@ -25,10 +28,15 @@ const BurgerIngredients = ({ data, items, setItems, showDetail }) => {
             }
         }
 
+        // Если булочек нет - просто добавляем куда-то
+        if(count === 0) {
+            setItems([ingredient, ...items]);
+            return
+        }
+
         // Начинка должна быть между булками =)
         setItems([items[0], ingredient, ...items.slice(1)]);
     };
-
     return (
         <>
             <div className={curStyle.top_div}>
@@ -44,14 +52,16 @@ const BurgerIngredients = ({ data, items, setItems, showDetail }) => {
                     </Tab>
                 </div>
                 <div className={curStyle.products_div}>
-                    {data.map(item => (
-                        <Ingredient
-                            ingredient={item}
-                            key={item._id}
-                            handler={addIngredient}
-                            counter={items.filter(i => i._id === item._id).length}
-                        />
-                    ))}
+                    {data.map(item => {
+                        return  (
+                            <Ingredient
+                                ingredient={item}
+                                key={item._id}
+                                handler={addIngredient}
+                                counter={items.filter(i => i._id === item._id).length}
+                            />
+                        )
+                    })}
                 </div>
             </div>
         </>

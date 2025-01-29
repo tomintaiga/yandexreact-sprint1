@@ -29,6 +29,9 @@ function App() {
                 // Проверка ответа сервера
                 if (data.success === true) {
                     setData(data.data);
+
+                    // TODO: Удалить позже
+                    setCurItems(data.data);
                 } else {
                     // Обработка ошибки
                     console.log(data.message);
