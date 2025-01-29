@@ -10,6 +10,7 @@ import constData from "../../utils/data";
 
 const url = "https://norma.nomoreparties.space/api/ingredients";
 
+// Сортировка ингредиентов
 const sortIngredients = (data) => {
     const buns = data.filter(item => item.type === "bun");
     const sauces = data.filter(item => item.type === "sauce");
@@ -23,6 +24,9 @@ function App() {
     const [detailVisible, setDetailVisible] = React.useState(false);
     const [detailData, setDetailData] = React.useState({});
     const [orderVisible, setOrderVisible] = React.useState(false);
+    const sortedIngredients = React.useMemo(() => {
+        return sortIngredients(data);
+    }, [data]); // Вынес затратную операцию в useMemo
 
     // Получить ингредиенты
     React.useState(() => {
@@ -36,7 +40,7 @@ function App() {
             .then(data => {
                 // Проверка ответа сервера
                 if (data.success === true) {
-                    setData(sortIngredients(data.data));
+                    setData(data.data);
 
                     // TODO: Удалить позже
                     setCurItems(constData);
@@ -66,7 +70,7 @@ function App() {
             <div className={curStyle.main_div}>
                 <div className={curStyle.child_div}>
                     <p className={`text text_type_main-large ${curStyle.constructor_title}`}>Соберите бургер</p>
-                    <BurgerIngredients data={data} items={curItems} setItems={setCurItems} showDetail={showDetail} />
+                    <BurgerIngredients data={sortedIngredients} items={curItems} setItems={setCurItems} showDetail={showDetail} />
                 </div>
                 <div className={curStyle.child_div}>
                     <BurgerConstructor items={curItems} setItems={setCurItems} showOrder={showOrder} />
