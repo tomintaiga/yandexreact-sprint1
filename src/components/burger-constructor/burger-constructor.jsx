@@ -1,9 +1,8 @@
 import React from 'react';
 import curStyles from './burger-constructor.module.css';
-import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement, CurrencyIcon, Button, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import item from "../../utils/proptypes";
-import dropHandler from "../../assets/handler.png"
 
 const BurgerConstructor = ({ items, setItems, showOrder }) => {
     const [price, setPrice] = React.useState(0);
@@ -59,7 +58,7 @@ const BurgerConstructor = ({ items, setItems, showOrder }) => {
 
                 return (
                     <div className={curStyles.constructor_element} key={index}>
-                        <img src={dropHandler} alt="drop handler" className={curStyles.drop_handler} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseExit}/>
+                        <DragIcon type="primary" />
                         <ConstructorElement
                             type={type}
                             key={index}
