@@ -34,45 +34,50 @@ const BurgerConstructor = ({ items, setItems, showOrder }) => {
     };
 
     return (
-        <div className={curStyles.burger_contructor_div}>
-            {items.map((item, index) => {
-                let type = "";
-                let caption = item.name;
-                let isLocked = false;
-                if (index === 0) {
-                    type = "top";
-
-                    if (item.type === "bun") {
-                        caption += "\n(верх)";
-                    }
-
-                    isLocked = true;
-                } else if (index === items.length - 1) {
-                    type = "bottom";
-                    if (item.type === "bun") {
-                        caption += "\n(низ)";
-                    }
-
-                    isLocked = true;
-                }
-
-                return (
-                    <div className={curStyles.constructor_element} key={index}>
+        <div className={curStyles.topdiv}>
+            {items.length > 0 && (
+                <div className={curStyles.constructor_element}>
+                    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseExit}>
+                        <DragIcon type="primary" />
+                    </div>
+                    <ConstructorElement
+                        type="top"
+                        text={`${items[0].name}\n(верх)`}
+                        price={items[0].price}
+                        thumbnail={items[0].image}
+                        isLocked={true}
+                    />
+                </div>
+            )}
+            <div className={curStyles.burger_contructor_div}>
+                {items.slice(1, -1).map((item, index) => (
+                    <div className={curStyles.constructor_element} key={index + 1}>
                         <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseExit}>
                             <DragIcon type="primary" />
                         </div>
                         <ConstructorElement
-                            type={type}
-                            key={index}
-                            text={caption}
+                            text={item.name}
                             price={item.price}
                             thumbnail={item.image}
-                            isLocked={isLocked}
-                            handleClose={() => handleDelete(index)}
+                            handleClose={() => handleDelete(index + 1)}
                         />
                     </div>
-                )
-            })}
+                ))}
+            </div>
+            {items.length > 1 && (
+                <div className={curStyles.constructor_element}>
+                    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseExit}>
+                        <DragIcon type="primary" />
+                    </div>
+                    <ConstructorElement
+                        type="bottom"
+                        text={`${items[items.length - 1].name}\n(низ)`}
+                        price={items[items.length - 1].price}
+                        thumbnail={items[items.length - 1].image}
+                        isLocked={true}
+                    />
+                </div>
+            )}
             <div className={curStyles.total_price_div}>
                 <p className={`text text_type_digits-medium ${curStyles.price}`} >{price}</p>
                 <CurrencyIcon type="primary" />

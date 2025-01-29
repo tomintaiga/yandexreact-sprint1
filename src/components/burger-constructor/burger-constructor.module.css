@@ -1,4 +1,4 @@
-.burger_contructor_div {
+.topdiv {
   display: flex;
   flex-direction: column;
   padding: 16px;
@@ -6,6 +6,10 @@
   margin-left: 40px;
   max-width: 600px;
   max-height: 912px;
+}
+.burger_contructor_div {
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
 }
