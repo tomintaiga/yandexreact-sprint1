@@ -10,6 +10,13 @@ import constData from "../../utils/data";
 
 const url = "https://norma.nomoreparties.space/api/ingredients";
 
+const sortIngredients = (data) => {
+    const buns = data.filter(item => item.type === "bun");
+    const sauces = data.filter(item => item.type === "sauce");
+    const mains = data.filter(item => item.type === "main");
+    return [...buns, ...sauces, ...mains];
+}
+
 function App() {
     const [curItems, setCurItems] = React.useState([]);
     const [data, setData] = React.useState([]);
@@ -29,7 +36,7 @@ function App() {
             .then(data => {
                 // Проверка ответа сервера
                 if (data.success === true) {
-                    setData(data.data);
+                    setData(sortIngredients(data.data));
 
                     // TODO: Удалить позже
                     setCurItems(constData);
