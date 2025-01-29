@@ -6,6 +6,7 @@ import React from "react";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
+import constData from "../../utils/data";
 
 const url = "https://norma.nomoreparties.space/api/ingredients";
 
@@ -31,7 +32,7 @@ function App() {
                     setData(data.data);
 
                     // TODO: Удалить позже
-                    setCurItems(data.data);
+                    setCurItems(constData);
                 } else {
                     // Обработка ошибки
                     console.log(data.message);
