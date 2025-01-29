@@ -58,7 +58,9 @@ const BurgerConstructor = ({ items, setItems, showOrder }) => {
 
                 return (
                     <div className={curStyles.constructor_element} key={index}>
-                        <DragIcon type="primary" />
+                        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseExit}>
+                            <DragIcon type="primary" />
+                        </div>
                         <ConstructorElement
                             type={type}
                             key={index}
