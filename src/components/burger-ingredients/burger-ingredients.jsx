@@ -5,7 +5,12 @@ import curStyle from "./burger-ingredients.module.css";
 import PropTypes from "prop-types";
 import item from "../../utils/proptypes";
 
-const BurgerIngredients = ({ data, items, setItems, showDetail }) => {
+import { useSelector, useDispatch } from 'react-redux';
+
+const BurgerIngredients = ({items, setItems, showDetail }) => {
+    // ########
+    const data = useSelector(state => state.ingredient.ingredients);
+    // ########
     const [curTab, setCurTab] = React.useState("bun");
 
     const addIngredient = (ingredient) => {
@@ -69,7 +74,6 @@ const BurgerIngredients = ({ data, items, setItems, showDetail }) => {
 };
 
 BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape(item)).isRequired,
     items: PropTypes.array.isRequired,
     setItems: PropTypes.func.isRequired,
     showDetail: PropTypes.func.isRequired
