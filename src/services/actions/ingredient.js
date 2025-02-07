@@ -2,6 +2,8 @@
 export const GET_INGEDIENT_REQUEST = 'GET_INGEDIENT_REQUEST';
 export const GET_INGEDIENT_SUCCESS = 'GET_INGEDIENT_SUCCESS';
 export const GET_INGEDIENT_FAILED = 'GET_INGEDIENT_FAILED';
+export const INCREMENT_INGREDIENT_COUNTER = "INCREMENT_INGREDIENT_COUNTER";
+export const DECREMENT_INGREDIENT_COUNTER = "DECREMENT_INGREDIENT_COUNTER";
 
 const url = "https://norma.nomoreparties.space/api/ingredients";
 
@@ -31,13 +33,17 @@ export function loadIngredients(dispatch) {
             if (data.success === true) {
                 dispatch({
                     type: GET_INGEDIENT_SUCCESS,
-                    value: sortIngredients(data.data), // Записываем отсортированные ингредиенты
+                    // Тут комбинация победы
+                    // В начале - сортируем полученные энгридиенты
+                    // Затем - к каждому добавляем счетчик
+                    // Счетчик будет использоваться для отображения в компоненте энгридиента
+                    payload: sortIngredients(data.data).map(item => ({...item, count: 0})),
                 });
             } else {
                 // Обработка ошибки
                 dispatch({
                     type: GET_INGEDIENT_FAILED,
-                    value: data.message
+                    payload: data.message
                 });
             }
         })
@@ -45,7 +51,7 @@ export function loadIngredients(dispatch) {
             // Обработка ошибки
             dispatch({
                 type: GET_INGEDIENT_FAILED,
-                value: err
+                payload: err
             })
         });
 };

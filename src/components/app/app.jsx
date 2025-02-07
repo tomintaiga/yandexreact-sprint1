@@ -43,7 +43,7 @@ function App() {
                     <BurgerIngredients items={curItems} setItems={setCurItems} showDetail={showDetail} />
                 </div>
                 <div className={curStyle.child_div}>
-                    <BurgerConstructor items={curItems} setItems={setCurItems} showOrder={showOrder} />
+                    <BurgerConstructor setItems={setCurItems} showOrder={showOrder} />
                 </div>
             </div>
             {detailVisible && (

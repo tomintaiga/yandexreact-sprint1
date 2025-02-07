@@ -2,9 +2,12 @@ import React from 'react';
 import curStyles from './burger-constructor.module.css';
 import { ConstructorElement, CurrencyIcon, Button, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-import item from "../../utils/proptypes";
 
-const BurgerConstructor = ({ items, setItems, showOrder }) => {
+import { useSelector, useDispatch } from 'react-redux';
+
+const BurgerConstructor = ({setItems, showOrder }) => {
+    const items = useSelector(store => store.burger.ingredients);
+
     const price = React.useMemo(() => {
         let newPrice = 0;
         items.forEach(item => {
@@ -89,7 +92,6 @@ const BurgerConstructor = ({ items, setItems, showOrder }) => {
 }
 
 BurgerConstructor.propTypes = {
-    items: PropTypes.arrayOf(PropTypes.shape(item)).isRequired,
     setItems: PropTypes.func.isRequired,
     showOrder: PropTypes.func.isRequired
 };
