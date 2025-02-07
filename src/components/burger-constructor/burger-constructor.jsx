@@ -4,9 +4,11 @@ import { ConstructorElement, CurrencyIcon, Button, DragIcon } from '@ya.praktiku
 import PropTypes from 'prop-types';
 
 import { useSelector, useDispatch } from 'react-redux';
+import { removeIngredient } from '../../services/actions/burger-constructor';
 
 const BurgerConstructor = ({setItems, showOrder }) => {
     const items = useSelector(store => store.burger.ingredients);
+    const dispatch = useDispatch();
 
     const price = React.useMemo(() => {
         let newPrice = 0;
@@ -56,7 +58,7 @@ const BurgerConstructor = ({setItems, showOrder }) => {
                             text={item.name}
                             price={item.price}
                             thumbnail={item.image}
-                            handleClose={() => handleDelete(index + 1)}
+                            handleClose={() => removeIngredient(dispatch, item)}
                         />
                     </div>
                 ))}

@@ -1,4 +1,4 @@
-import { CONSTRUCTOR_ADD_ITEM, CONSTRUCTOR_REMOVE_ITEM } from "../actions/constructor";
+import { CONSTRUCTOR_ADD_ITEM, CONSTRUCTOR_REMOVE_ITEM } from "../actions/burger-constructor";
 
 const initialState = {
     ingredients: [],
@@ -45,7 +45,15 @@ export const burgerConstructor = (state = initialState, action) => {
         }
         case CONSTRUCTOR_REMOVE_ITEM: {
             console.log(CONSTRUCTOR_REMOVE_ITEM, state);
-            return state;
+            // Не даем удалять булочки
+            if(action.payload.type === "bun"){
+                return state;
+            }
+
+            return {
+                ...state,
+                ingredients: state.ingredients.filter(item => item._id != action.payload._id),
+            }
         }
         default: {
             return state;

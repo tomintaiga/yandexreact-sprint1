@@ -40,6 +40,11 @@ export function addIngredient(dispatch, ingredient, ingredients) {
 }
 
 export function removeIngredient(dispatch, ingredient) {
+    // Не удаляем булочки
+    if (ingredient.type === "bun") {
+        return;
+    }
+
     dispatch({
         type: CONSTRUCTOR_REMOVE_ITEM,
         payload: ingredient,

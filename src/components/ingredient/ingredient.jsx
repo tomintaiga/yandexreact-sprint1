@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import item from "../../utils/proptypes";
 import { useDispatch, useSelector } from 'react-redux';
-import { addIngredient } from '../../services/actions/constructor';
+import { addIngredient } from '../../services/actions/burger-constructor';
 
 const Ingredient = ({ ingredient }) => {
     const [isActive, setIsActive] = React.useState("text_color_inactive");
