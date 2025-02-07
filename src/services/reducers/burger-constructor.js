@@ -5,10 +5,9 @@ const initialState = {
     totalPrice: 0,
 };
 
-export const burgerConstructor = (state = initialState, action) => {
+export const burgerConstructorReducer = (state = initialState, action) => {
     switch (action.type) {
         case CONSTRUCTOR_ADD_ITEM: {
-            console.log(CONSTRUCTOR_ADD_ITEM, state);
             const cur = action.payload;
 
             // Считаем сколько булочек у нас есть
@@ -49,7 +48,6 @@ export const burgerConstructor = (state = initialState, action) => {
             }
         }
         case CONSTRUCTOR_REMOVE_ITEM: {
-            console.log(CONSTRUCTOR_REMOVE_ITEM, state);
             const cur = action.payload;
             // Не даем удалять булочки
             if(cur.type === "bun"){

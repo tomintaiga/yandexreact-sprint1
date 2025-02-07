@@ -26,7 +26,7 @@ export const ingredientReducer = (state = initialState, action) => {
         }
         case GET_INGEDIENT_FAILED: {
             // Write error to console
-            console.log(action.payload);
+            console.log(GET_INGEDIENT_FAILED, action.payload);
             return {
                 ...state,
                 ingredientsRequest: false,

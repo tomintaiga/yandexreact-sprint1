@@ -4,7 +4,6 @@ export const CONSTRUCTOR_ADD_ITEM = "CONSTRUCTOR_ADD_ITEM";
 export const CONSTRUCTOR_REMOVE_ITEM = "CONSTRUCTOR_REMOVE_ITEM";
 
 export function addIngredient(dispatch, ingredient, ingredients) {
-    console.log("Call to addIngredient for", ingredient);
 
     const addIngredient = (dispatch, ingredient) => {
         dispatch({
@@ -20,7 +19,6 @@ export function addIngredient(dispatch, ingredient, ingredients) {
     if (ingredient.type === "bun") {
         // Считаем сколько булочек у нас есть
         const count = ingredients.filter(item => item.type === "bun").length;
-        console.log("Bun count", count);
         if (count === 0) {
             // Булочек в конструкторе нет - добавляем сразу две
             addIngredient(dispatch, ingredient);
@@ -31,8 +29,6 @@ export function addIngredient(dispatch, ingredient, ingredients) {
             return
         }
     }
-
-    console.log("Not a bun");
 
     // Два варианта - если нет булочки и есть есть
     // В обоих - это проблемы редьюсера

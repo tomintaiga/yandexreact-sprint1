@@ -7,26 +7,21 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loadIngredients } from "../../services/actions/ingredient";
+import { HIDE_INGREDIENT_DETAILS } from "../../services/actions/ingredient-details";
 
 function App() {
     //######
     const dispatch = useDispatch();
+    const showDetail = useSelector(state => state.ingredientDetail.showDetail);
     //######
-    const [detailVisible, setDetailVisible] = React.useState(false);
-    const [detailData, setDetailData] = React.useState({});
     const [orderVisible, setOrderVisible] = React.useState(false);
 
     // Получить ингредиенты
     React.useState(() => {
         dispatch(loadIngredients);
     }, []);
-
-    const showDetail = (item) => {
-        setDetailData(item);
-        setDetailVisible(true);
-    }
 
     const showOrder = () => {
         setOrderVisible(true);
@@ -44,9 +39,9 @@ function App() {
                     <BurgerConstructor showOrder={showOrder} />
                 </div>
             </div>
-            {detailVisible && (
-                <Modal isOpen={detailVisible} title="Детали ингредиента" onClose={() => { setDetailVisible(false) }}>
-                    <IngredientDetails ingredient={detailData} />
+            {showDetail && (
+                <Modal isOpen={showDetail} title="Детали ингредиента" onClose={() => dispatch({type:HIDE_INGREDIENT_DETAILS})}>
+                    <IngredientDetails />
                 </Modal>
             )}
             {orderVisible && (
