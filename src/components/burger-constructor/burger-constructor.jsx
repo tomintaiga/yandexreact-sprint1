@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeIngredient } from '../../services/actions/burger-constructor';
 
-const BurgerConstructor = ({setItems, showOrder }) => {
+const BurgerConstructor = ({showOrder }) => {
     const items = useSelector(store => store.burger.ingredients);
     const dispatch = useDispatch();
 
@@ -17,12 +17,6 @@ const BurgerConstructor = ({setItems, showOrder }) => {
         });
         return newPrice;
     }, [items]);
-
-    const handleDelete = (index) => {
-        const newItems = [...items];
-        newItems.splice(index, 1);
-        setItems(newItems);
-    };
 
     const handleMouseEnter = (event) => {
         event.currentTarget.style.cursor = 'grab';
@@ -94,7 +88,6 @@ const BurgerConstructor = ({setItems, showOrder }) => {
 }
 
 BurgerConstructor.propTypes = {
-    setItems: PropTypes.func.isRequired,
     showOrder: PropTypes.func.isRequired
 };
 

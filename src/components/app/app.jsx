@@ -14,8 +14,6 @@ function App() {
     //######
     const dispatch = useDispatch();
     //######
-    const [curItems, setCurItems] = React.useState([]);
-    const [data, setData] = React.useState([]);
     const [detailVisible, setDetailVisible] = React.useState(false);
     const [detailData, setDetailData] = React.useState({});
     const [orderVisible, setOrderVisible] = React.useState(false);
@@ -40,10 +38,10 @@ function App() {
             <div className={curStyle.main_div}>
                 <div className={curStyle.child_div}>
                     <p className={`text text_type_main-large ${curStyle.constructor_title}`}>Соберите бургер</p>
-                    <BurgerIngredients items={curItems} setItems={setCurItems} showDetail={showDetail} />
+                    <BurgerIngredients />
                 </div>
                 <div className={curStyle.child_div}>
-                    <BurgerConstructor setItems={setCurItems} showOrder={showOrder} />
+                    <BurgerConstructor showOrder={showOrder} />
                 </div>
             </div>
             {detailVisible && (
