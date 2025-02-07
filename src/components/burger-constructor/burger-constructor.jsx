@@ -7,16 +7,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeIngredient } from '../../services/actions/burger-constructor';
 
 const BurgerConstructor = ({showOrder }) => {
-    const items = useSelector(store => store.burger.ingredients);
+    const items = useSelector(store => store.burger.ingredients );
+    const totalPrice = useSelector(store => store.burger.totalPrice);
     const dispatch = useDispatch();
-
-    const price = React.useMemo(() => {
-        let newPrice = 0;
-        items.forEach(item => {
-            newPrice += item.price;
-        });
-        return newPrice;
-    }, [items]);
 
     const handleMouseEnter = (event) => {
         event.currentTarget.style.cursor = 'grab';
@@ -72,7 +65,7 @@ const BurgerConstructor = ({showOrder }) => {
                 </div>
             )}
             <div className={curStyles.total_price_div}>
-                <p className={`text text_type_digits-medium ${curStyles.price}`} >{price}</p>
+                <p className={`text text_type_digits-medium ${curStyles.price}`} >{totalPrice}</p>
                 <CurrencyIcon type="primary" />
                 <span className={curStyles.order_btn}>
                     <Button type="primary"

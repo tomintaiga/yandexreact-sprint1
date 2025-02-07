@@ -2,6 +2,7 @@ import { CONSTRUCTOR_ADD_ITEM, CONSTRUCTOR_REMOVE_ITEM } from "../actions/burger
 
 const initialState = {
     ingredients: [],
+    totalPrice: 0,
 };
 
 export const burgerConstructor = (state = initialState, action) => {
@@ -18,11 +19,13 @@ export const burgerConstructor = (state = initialState, action) => {
                     return {
                         ...state,
                         ingredients: [cur, ...state.ingredients ],
+                        totalPrice: state.totalPrice+cur.price,
                     }
                 } else if(count === 1) {
                     return {
                         ...state,
                         ingredients: [...state.ingredients, cur ],
+                        totalPrice: state.totalPrice+cur.price,
                     }
                 }else {
                     // Присечь безобразия
@@ -35,24 +38,28 @@ export const burgerConstructor = (state = initialState, action) => {
                 return {
                     ...state,
                     ingredients: [cur, ...state.ingredients],
+                    totalPrice: state.totalPrice+cur.price,
                 };
             }
 
             return {
                 ...state,
                 ingredients: [state.ingredients[0], cur, ...state.ingredients.slice(1)],
+                totalPrice: state.totalPrice+cur.price,
             }
         }
         case CONSTRUCTOR_REMOVE_ITEM: {
             console.log(CONSTRUCTOR_REMOVE_ITEM, state);
+            const cur = action.payload;
             // Не даем удалять булочки
-            if(action.payload.type === "bun"){
+            if(cur.type === "bun"){
                 return state;
             }
 
             return {
                 ...state,
-                ingredients: state.ingredients.filter(item => item._id != action.payload._id),
+                ingredients: state.ingredients.filter(item => item._id != cur._id),
+                totalPrice: state.totalPrice-cur.price,
             }
         }
         default: {
