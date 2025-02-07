@@ -1,0 +1,39 @@
+.ingredient {
+    padding-top: 24px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 16px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    max-width: 250px;
+    max-height: 208px;
+    position: relative;
+}
+
+.counter {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+.img{
+    max-width: 240;
+    max-height: 120;
+    width: 240px;
+    height: 120px;
+}
+
+.currency_p {
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
+    margin-bottom: 4px;;
+}
+
+.currency_icon{
+    margin-left: 8px;
+}
