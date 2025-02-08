@@ -4,7 +4,7 @@ import { ConstructorElement, CurrencyIcon, Button, DragIcon } from '@ya.praktiku
 
 import { useSelector, useDispatch } from 'react-redux';
 import { removeIngredient } from '../../services/actions/burger-constructor';
-import { SHOW_ORDER } from '../../services/actions/order';
+import { sendOrder } from '../../services/actions/order';
 
 const BurgerConstructor = () => {
     const items = useSelector(store => store.burger.ingredients );
@@ -71,7 +71,7 @@ const BurgerConstructor = () => {
                     <Button type="primary"
                         size="medium"
                         htmlType="button"
-                        onClick={() => dispatch({type: SHOW_ORDER, payload: null})}>
+                        onClick={() => sendOrder(dispatch, items)}>
                         Оформить заказ
                     </Button>
                 </span>
