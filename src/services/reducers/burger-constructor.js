@@ -12,63 +12,76 @@ export const burgerConstructorReducer = (state = initialState, action) => {
 
             // Считаем сколько булочек у нас есть
             const count = state.ingredients.filter(item => item.type === "bun").length;
-            if(cur.type === "bun") {
+            if (cur.type === "bun") {
                 // Не больше двух булок в бургере
-                if(count === 0) {
+                if (count === 0) {
                     return {
                         ...state,
-                        ingredients: [cur, ...state.ingredients ],
-                        totalPrice: state.totalPrice+cur.price,
+                        ingredients: [cur, ...state.ingredients],
+                        totalPrice: state.totalPrice + cur.price,
                     }
-                } else if(count === 1) {
+                } else if (count === 1) {
                     return {
                         ...state,
-                        ingredients: [...state.ingredients, cur ],
-                        totalPrice: state.totalPrice+cur.price,
+                        ingredients: [...state.ingredients, cur],
+                        totalPrice: state.totalPrice + cur.price,
                     }
-                }else {
-                    // Присечь безобразия
-                    return state
+                } else {
+                    // Заменяем старую булку на новую
+                    let price = 0;
+                    const ingredients = state.ingredients.map(item => {
+                        if (item.type === "bun") {
+                            price = item.price;
+                            return cur;
+                        }
+                        return item;
+                    });
+
+                    return {
+                        ...state,
+                        ingredients: ingredients,
+                        totalPrice: state.totalPrice + cur.price * 2 - price,
+                    }
                 }
             }
 
             // Обрабатываем не булочки
-            if(count == 0) {
+            if (count == 0) {
                 return {
                     ...state,
                     ingredients: [cur, ...state.ingredients],
-                    totalPrice: state.totalPrice+cur.price,
+                    totalPrice: state.totalPrice + cur.price,
                 };
             }
 
             return {
                 ...state,
                 ingredients: [state.ingredients[0], cur, ...state.ingredients.slice(1)],
-                totalPrice: state.totalPrice+cur.price,
+                totalPrice: state.totalPrice + cur.price,
             }
         }
         case CONSTRUCTOR_REMOVE_ITEM: {
             const cur = action.payload;
             // Не даем удалять булочки
-            if(cur.type === "bun"){
+            if (cur.type === "bun") {
                 return state;
             }
 
             return {
                 ...state,
                 ingredients: state.ingredients.filter(item => item._id != cur._id),
-                totalPrice: state.totalPrice-cur.price,
+                totalPrice: state.totalPrice - cur.price,
             }
         }
         case CONSTRUCTOR_MOVE_ITEM: {
-            const {dragId, dropId} = action.payload;
+            const { dragId, dropId } = action.payload;
             const dragIndex = state.ingredients.findIndex(item => item._id === dragId);
             const dropIndex = state.ingredients.findIndex(item => item._id === dropId);
 
             const newIngredients = state.ingredients.map((item, index) => {
-                if(index === dragIndex) {
+                if (index === dragIndex) {
                     return state.ingredients[dropIndex];
-                } else if(index === dropIndex) {
+                } else if (index === dropIndex) {
                     return state.ingredients[dragIndex];
                 }
                 return item;

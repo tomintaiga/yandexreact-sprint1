@@ -27,8 +27,16 @@ export function addIngredient(dispatch, ingredient, ingredients) {
             addIngredient(dispatch, ingredient);
             return
         } else {
-            // Если у нас уже есть булочки - больше нам не надо
-            return
+            // Если у нас уже есть булочки мы заменяем и надо сбросить счетчик у старой
+            ingredients.forEach(item => {
+                if (item.type === "bun") {
+                    dispatch({
+                        type: DECREMENT_INGREDIENT_COUNTER,
+                        payload: item._id,
+                    });
+                }
+            });
+            addIngredient(dispatch, ingredient);
         }
     }
 
