@@ -23,7 +23,7 @@ const BurgerConstructorItem = ({ isTop, isBottom, item }) => {
         accept: DRAG_CONSTRUCTOR_INGREDIENT,
         drop: (newItem) => {
             // Не будем менять элемент если бросили на себя
-            if(newItem._id === item._id) {
+            if(newItem.id === item.id) {
                 return;
             }
 
@@ -34,8 +34,8 @@ const BurgerConstructorItem = ({ isTop, isBottom, item }) => {
 
             // Отправляем ID которые надо менять местами
             dispatch({ type: CONSTRUCTOR_MOVE_ITEM, payload: {
-                dragId: newItem._id,
-                dropId: item._id
+                dragId: newItem.id,
+                dropId: item.id
             }});
         }
     });

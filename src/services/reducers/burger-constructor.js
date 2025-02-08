@@ -75,8 +75,8 @@ export const burgerConstructorReducer = (state = initialState, action) => {
         }
         case CONSTRUCTOR_MOVE_ITEM: {
             const { dragId, dropId } = action.payload;
-            const dragIndex = state.ingredients.findIndex(item => item._id === dragId);
-            const dropIndex = state.ingredients.findIndex(item => item._id === dropId);
+            const dragIndex = state.ingredients.findIndex(item => item.id === dragId);
+            const dropIndex = state.ingredients.findIndex(item => item.id === dropId);
 
             const newIngredients = state.ingredients.map((item, index) => {
                 if (index === dragIndex) {

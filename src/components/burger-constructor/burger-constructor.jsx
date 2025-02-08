@@ -27,8 +27,8 @@ const BurgerConstructor = () => {
                 <BurgerConstructorItem isTop={true} item={items[0]} />
             )}
             <div className={curStyles.burger_contructor_div}>
-                {items.slice(1, -1).map((item, index) => (
-                    <BurgerConstructorItem key={index + 1} item={item} />
+                {items.slice(1, -1).map(item => (
+                    <BurgerConstructorItem key={item.id} item={item} />
                 ))}
             </div>
             {items.length > 1 && (

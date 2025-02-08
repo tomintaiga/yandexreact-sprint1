@@ -1,4 +1,5 @@
 import { INCREMENT_INGREDIENT_COUNTER, DECREMENT_INGREDIENT_COUNTER } from "./ingredient";
+import { v4 as uuid4 } from "uuid";
 
 export const CONSTRUCTOR_ADD_ITEM = "CONSTRUCTOR_ADD_ITEM";
 export const CONSTRUCTOR_REMOVE_ITEM = "CONSTRUCTOR_REMOVE_ITEM";
@@ -10,7 +11,11 @@ export function addIngredient(dispatch, ingredient, ingredients) {
     const addIngredient = (dispatch, ingredient) => {
         dispatch({
             type: CONSTRUCTOR_ADD_ITEM,
-            payload: ingredient,
+            payload: {
+                ...ingredient,
+                id: uuid4(),
+            }
+
         });
         dispatch({
             type: INCREMENT_INGREDIENT_COUNTER,
