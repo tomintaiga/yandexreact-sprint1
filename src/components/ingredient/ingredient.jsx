@@ -4,16 +4,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import item from "../../utils/proptypes";
 import { useDispatch, useSelector } from 'react-redux';
-import { addIngredient } from '../../services/actions/burger-constructor';
 import { SHOW_INGREDIENT_DETAILS } from '../../services/actions/ingredient-details';
+import { useDrag } from 'react-dnd';
+import {DRAG_INGREDIENT} from '../../services/drag/ingredient';
 
 const Ingredient = ({ ingredient }) => {
     const [isActive, setIsActive] = React.useState("text_color_inactive");
     const dispatch = useDispatch();
     const items = useSelector(state => state.burger.ingredients);
+    const [{ isDragging }, dragRef] = useDrag({
+        type: DRAG_INGREDIENT,
+        item: ingredient,
+        collect: monitor => ({
+            isDragging: monitor.isDragging()
+        })
+    });
 
     const clickHandler = () => {
-        addIngredient(dispatch, ingredient, items);
         dispatch({
             type:SHOW_INGREDIENT_DETAILS,
             payload: ingredient
@@ -21,11 +28,12 @@ const Ingredient = ({ ingredient }) => {
     }
 
     return (
-        <div className={curStyle.ingredient}
+        <div className={`${curStyle.ingredient} ${isDragging ? curStyle.dragging : ""}`}
             onMouseEnter={() => setIsActive("")}
             onMouseLeave={() => setIsActive("text_color_inactive")}
             onClick={clickHandler}
-            id={ingredient._id}>
+            id={ingredient._id}
+            ref={dragRef}>
             {ingredient.count > 0 && <Counter count={ingredient.count} size="default" className={curStyle.counter} />}
             <img src={ingredient.image} alt={ingredient.name} className={curStyle.img} />
             <p className={`text text_type_digits-default ${isActive} ${curStyle.currency_p}`}>

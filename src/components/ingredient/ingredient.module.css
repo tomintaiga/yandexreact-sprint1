@@ -37,3 +37,7 @@
 .currency_icon{
     margin-left: 8px;
 }
+
+.dragging {
+    opacity: 0.4;
+}

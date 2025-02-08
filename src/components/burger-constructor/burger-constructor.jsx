@@ -5,11 +5,21 @@ import { ConstructorElement, CurrencyIcon, Button, DragIcon } from '@ya.praktiku
 import { useSelector, useDispatch } from 'react-redux';
 import { removeIngredient } from '../../services/actions/burger-constructor';
 import { sendOrder } from '../../services/actions/order';
+import { useDrop } from 'react-dnd';
+import { DRAG_INGREDIENT } from '../../services/drag/ingredient';
+import { addIngredient } from '../../services/actions/burger-constructor';
 
 const BurgerConstructor = () => {
     const items = useSelector(store => store.burger.ingredients );
     const totalPrice = useSelector(store => store.burger.totalPrice);
     const dispatch = useDispatch();
+
+    const [, dropTarget] = useDrop({
+        accept: DRAG_INGREDIENT,
+        drop: (item) => {
+            addIngredient(dispatch, item, items);
+        }
+    });
 
     const handleMouseEnter = (event) => {
         event.currentTarget.style.cursor = 'grab';
@@ -20,7 +30,7 @@ const BurgerConstructor = () => {
     };
 
     return (
-        <div className={curStyles.topdiv}>
+        <div className={curStyles.topdiv} ref={dropTarget}>
             {items.length > 0 && (
                 <div className={curStyles.constructor_element}>
                     <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseExit}>
