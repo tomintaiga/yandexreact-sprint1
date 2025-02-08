@@ -24,7 +24,8 @@ const Ingredient = ({ ingredient }) => {
         <div className={curStyle.ingredient}
             onMouseEnter={() => setIsActive("")}
             onMouseLeave={() => setIsActive("text_color_inactive")}
-            onClick={clickHandler}>
+            onClick={clickHandler}
+            id={ingredient._id}>
             {ingredient.count > 0 && <Counter count={ingredient.count} size="default" className={curStyle.counter} />}
             <img src={ingredient.image} alt={ingredient.name} className={curStyle.img} />
             <p className={`text text_type_digits-default ${isActive} ${curStyle.currency_p}`}>
