@@ -1,3 +1,4 @@
+import { checkError } from "../../utils/request";
 
 export const GET_INGEDIENT_REQUEST = 'GET_INGEDIENT_REQUEST';
 export const GET_INGEDIENT_SUCCESS = 'GET_INGEDIENT_SUCCESS';
@@ -22,21 +23,16 @@ export function loadIngredients(dispatch) {
     });
 
     fetch(url)
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка ${res.status}`);
-        })
+        .then(checkError)
         .then(data => {
             // Проверка ответа сервера
             if (data.success === true) {
                 dispatch({
                     type: GET_INGEDIENT_SUCCESS,
                     // Тут комбинация победы
-                    // В начале - сортируем полученные энгридиенты
+                    // В начале - сортируем полученные ингредиенты
                     // Затем - к каждому добавляем счетчик
-                    // Счетчик будет использоваться для отображения в компоненте энгридиента
+                    // Счетчик будет использоваться для отображения в компоненте ингредиента
                     payload: sortIngredients(data.data).map(item => ({...item, count: 0})),
                 });
             } else {

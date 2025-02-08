@@ -1,3 +1,5 @@
+import { checkError } from "../../utils/request";
+
 export const SHOW_ORDER = "SHOW_ORDER";
 export const HIDE_ORDER = "HIDE_ORDER";
 
@@ -21,19 +23,14 @@ export function sendOrder(dispatch, order) {
 
     // Send request
     fetch(url, {
-        method: "POST",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(orderData),
-    })
-        .then(res => {
-            if(res.ok){
-                return res.json();
-            }
-            return Promise.reject(`Ошибка ${res.status}`);
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orderData),
         })
+        .then(checkError)
         .then(data => {
             if(data.success === true) {
                 dispatch({
