@@ -10,22 +10,17 @@ import OrderDetails from "../order-details/order-details";
 import { useDispatch, useSelector } from 'react-redux';
 import { loadIngredients } from "../../services/actions/ingredient";
 import { HIDE_INGREDIENT_DETAILS } from "../../services/actions/ingredient-details";
+import { HIDE_ORDER } from "../../services/actions/order";
 
 function App() {
-    //######
     const dispatch = useDispatch();
     const showDetail = useSelector(state => state.ingredientDetail.showDetail);
-    //######
-    const [orderVisible, setOrderVisible] = React.useState(false);
+    const showOrder = useSelector(state => state.order.showOrder);
 
     // Получить ингредиенты
     React.useState(() => {
         dispatch(loadIngredients);
     }, []);
-
-    const showOrder = () => {
-        setOrderVisible(true);
-    }
 
     return (
         <div className={curStyle.root_div}>
@@ -36,7 +31,7 @@ function App() {
                     <BurgerIngredients />
                 </div>
                 <div className={curStyle.child_div}>
-                    <BurgerConstructor showOrder={showOrder} />
+                    <BurgerConstructor />
                 </div>
             </div>
             {showDetail && (
@@ -44,8 +39,8 @@ function App() {
                     <IngredientDetails />
                 </Modal>
             )}
-            {orderVisible && (
-                <Modal isOpen={orderVisible} onClose={() => { setOrderVisible(false) }}>
+            {showOrder && (
+                <Modal isOpen={showOrder} onClose={() => dispatch({type:HIDE_ORDER}) }>
                     <OrderDetails />
                 </Modal>
             )}

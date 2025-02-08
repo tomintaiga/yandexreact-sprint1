@@ -1,12 +1,12 @@
 import React from 'react';
 import curStyles from './burger-constructor.module.css';
 import { ConstructorElement, CurrencyIcon, Button, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { removeIngredient } from '../../services/actions/burger-constructor';
+import { SHOW_ORDER } from '../../services/actions/order';
 
-const BurgerConstructor = ({showOrder }) => {
+const BurgerConstructor = () => {
     const items = useSelector(store => store.burger.ingredients );
     const totalPrice = useSelector(store => store.burger.totalPrice);
     const dispatch = useDispatch();
@@ -71,7 +71,7 @@ const BurgerConstructor = ({showOrder }) => {
                     <Button type="primary"
                         size="medium"
                         htmlType="button"
-                        onClick={showOrder}>
+                        onClick={() => dispatch({type: SHOW_ORDER, payload: null})}>
                         Оформить заказ
                     </Button>
                 </span>
@@ -79,9 +79,5 @@ const BurgerConstructor = ({showOrder }) => {
         </div>
     );
 }
-
-BurgerConstructor.propTypes = {
-    showOrder: PropTypes.func.isRequired
-};
 
 export default BurgerConstructor;
