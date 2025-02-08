@@ -3,7 +3,7 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 import React from 'react';
 import PropTypes from 'prop-types';
 import item from "../../utils/proptypes";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { SHOW_INGREDIENT_DETAILS } from '../../services/actions/ingredient-details';
 import { useDrag } from 'react-dnd';
 import {DRAG_INGREDIENT} from '../../services/drag/ingredient';
@@ -11,7 +11,6 @@ import {DRAG_INGREDIENT} from '../../services/drag/ingredient';
 const Ingredient = ({ ingredient }) => {
     const [isActive, setIsActive] = React.useState("text_color_inactive");
     const dispatch = useDispatch();
-    const items = useSelector(state => state.burger.ingredients);
     const [{ isDragging }, dragRef] = useDrag({
         type: DRAG_INGREDIENT,
         item: ingredient,

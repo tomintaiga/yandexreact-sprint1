@@ -11,3 +11,7 @@
 .drop_handler {
   min-height: 24px;
 }
+
+.dragging {
+  opacity: 0.4;
+}

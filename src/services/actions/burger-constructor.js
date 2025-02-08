@@ -3,6 +3,8 @@ import { INCREMENT_INGREDIENT_COUNTER, DECREMENT_INGREDIENT_COUNTER } from "./in
 export const CONSTRUCTOR_ADD_ITEM = "CONSTRUCTOR_ADD_ITEM";
 export const CONSTRUCTOR_REMOVE_ITEM = "CONSTRUCTOR_REMOVE_ITEM";
 
+export const CONSTRUCTOR_MOVE_ITEM = "CONSTRUCTOR_MOVE_ITEM";
+
 export function addIngredient(dispatch, ingredient, ingredients) {
 
     const addIngredient = (dispatch, ingredient) => {

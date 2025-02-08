@@ -1,4 +1,4 @@
-import { CONSTRUCTOR_ADD_ITEM, CONSTRUCTOR_REMOVE_ITEM } from "../actions/burger-constructor";
+import { CONSTRUCTOR_ADD_ITEM, CONSTRUCTOR_REMOVE_ITEM, CONSTRUCTOR_MOVE_ITEM } from "../actions/burger-constructor";
 
 const initialState = {
     ingredients: [],
@@ -58,6 +58,25 @@ export const burgerConstructorReducer = (state = initialState, action) => {
                 ...state,
                 ingredients: state.ingredients.filter(item => item._id != cur._id),
                 totalPrice: state.totalPrice-cur.price,
+            }
+        }
+        case CONSTRUCTOR_MOVE_ITEM: {
+            const {dragId, dropId} = action.payload;
+            const dragIndex = state.ingredients.findIndex(item => item._id === dragId);
+            const dropIndex = state.ingredients.findIndex(item => item._id === dropId);
+
+            const newIngredients = state.ingredients.map((item, index) => {
+                if(index === dragIndex) {
+                    return state.ingredients[dropIndex];
+                } else if(index === dropIndex) {
+                    return state.ingredients[dragIndex];
+                }
+                return item;
+            });
+
+            return {
+                ...state,
+                ingredients: newIngredients,
             }
         }
         default: {
