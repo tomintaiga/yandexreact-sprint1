@@ -42,17 +42,3 @@
 .order_btn{
   margin-left: 40px;
 }
-
-.constructor_element {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px;
-  border-radius: 6px;
-  width: 568px;
-  height: 80px;
-}
-
-.drop_handler {
-  min-height: 24px; 
-}

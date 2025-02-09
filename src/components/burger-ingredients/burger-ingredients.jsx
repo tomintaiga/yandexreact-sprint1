@@ -2,41 +2,32 @@ import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredient from "../ingredient/ingredient";
 import curStyle from "./burger-ingredients.module.css";
-import PropTypes from "prop-types";
-import item from "../../utils/proptypes";
+import { useSelector } from 'react-redux';
 
-const BurgerIngredients = ({ data, items, setItems, showDetail }) => {
+const BurgerIngredients = () => {
+    // ########
+    const data = useSelector(state => state.ingredient.ingredients);
+    // ########
     const [curTab, setCurTab] = React.useState("bun");
+    const containerRef = React.useRef(null);
 
-    const addIngredient = (ingredient) => {
-        showDetail(ingredient);
+    const handleScroll = () => {
+        const container = containerRef.current;
 
-        // Получаем количество булочер
-        const count = items.filter(item => item.type === "bun").length;
+        // Get fist visible element in container
+        const firstVisibleElement = Array.from(container.children).find(
+            child => child.getBoundingClientRect().top > 0
+        );
 
-        // Проверка на количество булок
-        if(ingredient.type === "bun") {
-            const count = items.filter(item => item.type === "bun").length;
+        // Now we need to map firstVisibleElement to it't valut in data array
+        const item = data.find(ingredient => ingredient._id === firstVisibleElement.id);
 
-            // Если булок нет - добавляем сразу две в начало и конец
-            if(count === 0) {
-                setItems([ingredient, ...items, ingredient]);
-                return;
-            } else {
-                // Если булка уже есть, значит их две и не делаем ничего
-                return
-            }
+        // Set current tab if it's not the same as item type
+        if (item.type !== curTab) {
+            setCurTab(item.type);
         }
-
-        // Если булочек нет - просто добавляем куда-то
-        if(count === 0) {
-            setItems([ingredient, ...items]);
-            return
-        }
-
-        // Начинка должна быть между булками =)
-        setItems([items[0], ingredient, ...items.slice(1)]);
     };
+
     return (
         <>
             <div className={curStyle.top_div}>
@@ -51,14 +42,12 @@ const BurgerIngredients = ({ data, items, setItems, showDetail }) => {
                         Начинки
                     </Tab>
                 </div>
-                <div className={curStyle.products_div}>
+                <div className={curStyle.products_div} ref={containerRef} onScroll={handleScroll}>
                     {data.map(item => {
-                        return  (
+                        return (
                             <Ingredient
                                 ingredient={item}
                                 key={item._id}
-                                handler={addIngredient}
-                                counter={items.filter(i => i._id === item._id).length}
                             />
                         )
                     })}
@@ -66,13 +55,6 @@ const BurgerIngredients = ({ data, items, setItems, showDetail }) => {
             </div>
         </>
     )
-};
-
-BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape(item)).isRequired,
-    items: PropTypes.array.isRequired,
-    setItems: PropTypes.func.isRequired,
-    showDetail: PropTypes.func.isRequired
 };
 
 export default BurgerIngredients;

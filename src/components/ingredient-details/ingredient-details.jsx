@@ -1,10 +1,10 @@
 import curStyle from './ingredient-details.module.css';
 import IngredientDetailCaption from '../ingredient-detail-caption/ingredient-detail-caption';
-import PropTypes from 'prop-types';
-import item from "../../utils/proptypes";
+import { useSelector } from 'react-redux';
 
+const IngredientDetails = () => {
+    const ingredient = useSelector(state => state.ingredientDetail.ingredient);
 
-const IngredientDetails = ({ ingredient }) => {
     return (
         <div className={curStyle.ingredient_details}>
             <img src={ingredient.image_large} alt={ingredient.name} className={curStyle.ingredient_img} />
@@ -19,10 +19,6 @@ const IngredientDetails = ({ ingredient }) => {
             </div>
         </div>
     )
-};
-
-IngredientDetails.propTypes = {
-    ingredient: PropTypes.shape(item).isRequired
 };
 
 export default IngredientDetails;

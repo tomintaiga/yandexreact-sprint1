@@ -6,83 +6,46 @@ import React from "react";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
-import constData from "../../utils/data";
 
-const url = "https://norma.nomoreparties.space/api/ingredients";
+import { useDispatch, useSelector } from 'react-redux';
+import { loadIngredients } from "../../services/actions/ingredient";
+import { HIDE_INGREDIENT_DETAILS } from "../../services/actions/ingredient-details";
+import { HIDE_ORDER } from "../../services/actions/order";
 
-// Сортировка ингредиентов
-const sortIngredients = (data) => {
-    const buns = data.filter(item => item.type === "bun");
-    const sauces = data.filter(item => item.type === "sauce");
-    const mains = data.filter(item => item.type === "main");
-    return [...buns, ...sauces, ...mains];
-}
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
-    const [curItems, setCurItems] = React.useState([]);
-    const [data, setData] = React.useState([]);
-    const [detailVisible, setDetailVisible] = React.useState(false);
-    const [detailData, setDetailData] = React.useState({});
-    const [orderVisible, setOrderVisible] = React.useState(false);
-    const sortedIngredients = React.useMemo(() => {
-        return sortIngredients(data);
-    }, [data]); // Вынес затратную операцию в useMemo
+    const dispatch = useDispatch();
+    const showDetail = useSelector(state => state.ingredientDetail.showDetail);
+    const showOrder = useSelector(state => state.order.showOrder);
 
     // Получить ингредиенты
     React.useState(() => {
-        fetch(url)
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка ${res.status}`);
-            })
-            .then(data => {
-                // Проверка ответа сервера
-                if (data.success === true) {
-                    setData(data.data);
-
-                    // TODO: Удалить позже
-                    setCurItems(constData);
-                } else {
-                    // Обработка ошибки
-                    console.log(data.message);
-                }
-            })
-            .catch(err => {
-                // Обработка ошибки
-                console.log(err);
-            });
+        dispatch(loadIngredients);
     }, []);
-
-    const showDetail = (item) => {
-        setDetailData(item);
-        setDetailVisible(true);
-    }
-
-    const showOrder = () => {
-        setOrderVisible(true);
-    }
 
     return (
         <div className={curStyle.root_div}>
             <AppHeader />
-            <div className={curStyle.main_div}>
-                <div className={curStyle.child_div}>
-                    <p className={`text text_type_main-large ${curStyle.constructor_title}`}>Соберите бургер</p>
-                    <BurgerIngredients data={sortedIngredients} items={curItems} setItems={setCurItems} showDetail={showDetail} />
+            <DndProvider backend={HTML5Backend}>
+                <div className={curStyle.main_div}>
+                    <div className={curStyle.child_div}>
+                        <p className={`text text_type_main-large ${curStyle.constructor_title}`}>Соберите бургер</p>
+                        <BurgerIngredients />
+                    </div>
+                    <div className={curStyle.child_div}>
+                        <BurgerConstructor />
+                    </div>
                 </div>
-                <div className={curStyle.child_div}>
-                    <BurgerConstructor items={curItems} setItems={setCurItems} showOrder={showOrder} />
-                </div>
-            </div>
-            {detailVisible && (
-                <Modal isOpen={detailVisible} title="Детали ингредиента" onClose={() => { setDetailVisible(false) }}>
-                    <IngredientDetails ingredient={detailData} />
+            </DndProvider>
+            {showDetail && (
+                <Modal isOpen={showDetail} title="Детали ингредиента" onClose={() => dispatch({ type: HIDE_INGREDIENT_DETAILS })}>
+                    <IngredientDetails />
                 </Modal>
             )}
-            {orderVisible && (
-                <Modal isOpen={orderVisible} onClose={() => { setOrderVisible(false) }}>
+            {showOrder && (
+                <Modal isOpen={showOrder} onClose={() => dispatch({ type: HIDE_ORDER })}>
                     <OrderDetails />
                 </Modal>
             )}
