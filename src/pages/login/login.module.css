@@ -16,6 +16,10 @@
     height: 100vh;
 }
 
-.register_p{
-    margin-top: 50px;
+.login_p{
+    margin-top: 80px;
+}
+
+.restore_p{
+    margin-top: -16px;
 }
