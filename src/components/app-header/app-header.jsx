@@ -12,7 +12,9 @@ const AppHeader = () => {
                 <BntIcon IconComponent={BurgerIcon} text="Конструктор" />
                 <BntIcon IconComponent={ListIcon} text="Лента заказов" />
             </div>
-            <Logo/>
+            <div className={headerStyle.logo_wrapper}>
+                <Logo/>
+            </div>
             <BntIcon IconComponent={ProfileIcon} text="Личный кабинет" />
         </div>
     );
