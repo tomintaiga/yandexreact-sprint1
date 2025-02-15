@@ -10,6 +10,7 @@ const Register = () => {
                 <Input type={'text'}
                     placeholder={'Имя'}
                     name={'login'}
+                    value={''}
                     onChange={e => console.log(e.target.value)} />
                 <EmailInput
                     onChange={e => console.log(e.target.value)}

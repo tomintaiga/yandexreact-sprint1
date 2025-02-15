@@ -21,6 +21,8 @@ const Profile = () => {
             <div className={curStyle.child_div}>
                 <Input
                     type={'text'}
+                    value={''}
+                    onChange={() => { }}
                     placeholder={'Имя'}
                     icon={'EditIcon'} />
                 <EmailInput

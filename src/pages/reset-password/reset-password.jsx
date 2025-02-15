@@ -7,13 +7,22 @@ const ResetPassword = () => {
             <div className={curStyle.child_div}>
                 <h2 className="text text_type_main-medium">Восстановление пароля</h2>
                 <div className={curStyle.input}>
-                    <PasswordInput name={'password'} size={'default'} value={''} onChange={() => { }} />
+                    <PasswordInput
+                        name={'password'}
+                        size={'default'}
+                        value={''}
+                        onChange={() => { }} />
                 </div>
                 <div className={curStyle.input}>
-                    <Input type={'text'} placeholder={'Введите код из письма'} />
+                    <Input
+                        type={'text'}
+                        name={'code'}
+                        value={''}
+                        onChange={() => { }}
+                        placeholder={'Введите код из письма'} />
                 </div>
                 <div className={curStyle.button}>
-                    <Button type="primary" size="medium">
+                    <Button type="primary" size="medium" htmlType={'button'}>
                         Сохранить
                     </Button>
                 </div>
