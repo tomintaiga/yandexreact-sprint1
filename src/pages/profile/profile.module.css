@@ -1,0 +1,36 @@
+.child_div{
+    display: flex;
+    flex-direction: column;
+    width: 480px;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin: 0 auto; /* Центрирование по горизонтали */
+}
+
+.top_div{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 20px;
+    position: relative;
+    height: 30vh;
+}
+
+.login_p{
+    margin-top: 80px;
+}
+
+.links_div{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-right: 60px;
+    position: absolute;
+    left: 25%;
+    width: 320px;
+}
+
+.links_bottom_p{
+    margin-top: 88px;
+}
