@@ -10,8 +10,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
     return (
-        <Root>
-            <BrowserRouter>
+        <BrowserRouter>
+            <Root>
                 <Routes>
                     <Route path="/" Component={Main} exact />
                     <Route path="/register" Component={Register} exact />
@@ -20,8 +20,9 @@ function App() {
                     <Route path="/reset-password" Component={ResetPassword} exact />
                     <Route path="/profile" Component={Profile} exact />
                 </Routes>
-            </BrowserRouter>
-        </Root>
+
+            </Root>
+        </BrowserRouter>
     );
 }
 
