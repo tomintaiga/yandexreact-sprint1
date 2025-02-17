@@ -1,5 +1,4 @@
 import { checkError } from "../../utils/request";
-import { useNavigate } from "react-router-dom";
 
 export const FORGOT_PASSWORD_REQUEST = "FORGOT_PASSWORD_REQUEST";
 export const FORGOT_PASSWORD_SUCCESS = "FORGOT_PASSWORD_SUCCESS";
@@ -7,7 +6,7 @@ export const FORGOT_PASSWORD_FAILED = "FORGOT_PASSWORD_FAILED";
 
 const url = "https://norma.nomoreparties.space/api/password-reset";
 
-export function resetPassword(dispatch, email) {
+export function forgotPassword(dispatch, email) {
     dispatch({
         type: FORGOT_PASSWORD_REQUEST
     });
@@ -28,6 +27,7 @@ export function resetPassword(dispatch, email) {
             dispatch({
                 type: FORGOT_PASSWORD_SUCCESS,
             });
+            // TODO: add redirect to /reset-password
         } else {
             dispatch({
                 type: FORGOT_PASSWORD_FAILED,

@@ -2,7 +2,7 @@ import curStyle from "./forgot-password.module.css";
 import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { resetPassword } from "../../services/actions/forgot-password";
+import { forgotPassword } from "../../services/actions/forgot-password";
 import { Link } from "react-router-dom";
 
 const ForgotPassword = () => {
@@ -18,7 +18,7 @@ const ForgotPassword = () => {
                     value={email}
                     name={'email'}
                     placeholder={'E-mail'} />
-                <Button htmlType="button" type="primary" size="medium" onClick={() => resetPassword(dispatch, email)} >
+                <Button htmlType="button" type="primary" size="medium" onClick={() => forgotPassword(dispatch, email)} >
                     Восстановить
                 </Button>
                 <p className={`text text_type_main-default text_color_inactive ${curStyle.login_p}`}>
