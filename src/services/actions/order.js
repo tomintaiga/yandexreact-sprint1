@@ -40,7 +40,7 @@ export function sendOrder(dispatch, order) {
             } else {
                 dispatch({
                     type: ORDER_REQUEST_FAILED,
-                    payload: data,message,
+                    payload: data.message,
                 });
             }
         })
