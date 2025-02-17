@@ -2,6 +2,7 @@ import React from "react";
 import curStyle from "./register.module.css";
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import Centereded from "../../components/centered/centered";
+import { Link } from "react-router-dom";
 
 const Register = () => {
     return (
@@ -27,7 +28,7 @@ const Register = () => {
             </Button>
             <p className={`text text_type_main-default text_color_inactive ${curStyle.register_p}`}>
                 Уже зарегестрированы?&nbsp;
-                <a href="#">Войти</a>
+                <Link to="/login">Войти</Link>
             </p>
         </Centereded>
     )
