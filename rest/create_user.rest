@@ -1,0 +1,8 @@
+POST https://norma.nomoreparties.space/api/auth/register HTTP/1.1
+content-type: application/json
+
+{
+"email": "aomename@yandex.ru",
+"password": "password",
+"name": "Username"
+}

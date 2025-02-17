@@ -1,14 +1,14 @@
 import { checkError } from "../../utils/request";
 
-export const FORGOT_PASSWORD_REQUEST = "FORGOT_PASSWORD_REQUEST";
-export const FORGOT_PASSWORD_SUCCESS = "FORGOT_PASSWORD_SUCCESS";
-export const FORGOT_PASSWORD_FAILED = "FORGOT_PASSWORD_FAILED";
+export const RESET_PASSWORD_REQUEST = "RESET_PASSWORD_REQUEST";
+export const RESET_PASSWORD_SUCCESS = "RESET_PASSWORD_SUCCESS";
+export const RESET_PASSWORD_FAILED = "RESET_PASSWORD_FAILED";
 
-const url = "https://norma.nomoreparties.space/api/password-reset";
+const url = "https://norma.nomoreparties.space/api/password-reset/reset";
 
-export function forgotPassword(dispatch, email) {
+export function resetPassword(dispatch, password, token) {
     dispatch({
-        type: FORGOT_PASSWORD_REQUEST
+        type: RESET_PASSWORD_REQUEST
     });
 
     fetch(url, {
@@ -18,26 +18,26 @@ export function forgotPassword(dispatch, email) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            email: email
+            password: password,
+            token: token
         }),
     })
         .then(checkError)
         .then(data => {
             if (data.success === true) {
                 dispatch({
-                    type: FORGOT_PASSWORD_SUCCESS,
+                    type: RESET_PASSWORD_SUCCESS,
                 });
-                // TODO: add redirect to /reset-password
             } else {
                 dispatch({
-                    type: FORGOT_PASSWORD_FAILED,
+                    type: RESET_PASSWORD_FAILED,
                     payload: data.message,
                 });
             }
         })
         .catch(err => {
             dispatch({
-                type: FORGOT_PASSWORD_FAILED,
+                type: RESET_PASSWORD_FAILED,
                 payload: err
             })
         });
