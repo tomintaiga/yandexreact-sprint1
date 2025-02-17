@@ -5,10 +5,21 @@ import Login from "../../pages/login/login";
 import ForgotPassword from "../../pages/forgot-password/forgot-password";
 import ResetPassword from "../../pages/reset-password/reset-password";
 import Profile from "../../pages/profile/profile";
+import Ingredient from "../../pages/ingredient/ingredient";
+import NotFound from "../../pages/not-found/not-found";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loadIngredients } from "../../services/actions/ingredient";
+import { useState } from "react";
 
 function App() {
+    const dispatch = useDispatch();
+
+    useState(() => {
+        dispatch(loadIngredients);
+    }, []);
+
     return (
         <BrowserRouter>
             <Root>
@@ -19,6 +30,8 @@ function App() {
                     <Route path="/forgot-password" Component={ForgotPassword} exact />
                     <Route path="/reset-password" Component={ResetPassword} exact />
                     <Route path="/profile" Component={Profile} exact />
+                    <Route path="/ingredients/:id" Component={Ingredient} exact />
+                    <Route path="*" Component={NotFound} />
                 </Routes>
 
             </Root>

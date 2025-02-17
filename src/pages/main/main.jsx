@@ -7,7 +7,6 @@ import Modal from '../../components/modal/modal';
 import IngredientDetails from '../../components/ingredient-details/ingredient-details';
 import OrderDetails from '../../components/order-details/order-details';
 
-import { loadIngredients } from '../../services/actions/ingredient';
 import { HIDE_INGREDIENT_DETAILS } from '../../services/actions/ingredient-details';
 import { HIDE_ORDER } from '../../services/actions/order';
 
@@ -21,11 +20,6 @@ const Main = () => {
     const dispatch = useDispatch();
     const showDetail = useSelector(state => state.ingredientDetail.showDetail);
     const showOrder = useSelector(state => state.order.showOrder);
-
-    // Получить ингредиенты
-    React.useState(() => {
-        dispatch(loadIngredients);
-    }, []);
 
     return (
         <>
