@@ -1,6 +1,7 @@
 import curStyles from './login.module.css';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import Centered from '../../components/centered/centered';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     return (
@@ -24,11 +25,11 @@ const Login = () => {
             </Button>
             <p className={`text text_type_main-default text_color_inactive ${curStyles.login_p}`}>
                 Забыли пароль?&nbsp;
-                <a href="#">Восстановить пароль</a>
+                <Link to="/forgot-password">Восстановить пароль</Link>
             </p>
             <p className={`text text_type_main-default text_color_inactive ${curStyles.restore_p}`}>
                 Вы новый пользователь?&nbsp;
-                <a href="#">Зарегистрироваться</a>
+                <Link to="/register">Зарегистрироваться</Link>
             </p>
         </Centered >
     )
