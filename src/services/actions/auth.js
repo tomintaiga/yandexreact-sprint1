@@ -55,3 +55,42 @@ export function login(dispatch, email, password) {
             })
         });
 }
+
+export function register(dispatch, email, password, name) {
+    dispatch({
+        type: AUTH_REGISTER_REQUEST
+    });
+
+    fetch(registerUrl, {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: email,
+            password: password,
+            name: name
+        }),
+    })
+        .then(checkError)
+        .then(data => {
+            if (data.success === true) {
+                dispatch({
+                    type: AUTH_REGISTER_SUCCESS,
+                    payload: data
+                });
+            } else {
+                dispatch({
+                    type: AUTH_REGISTER_FAILED,
+                    payload: data.message,
+                });
+            }
+        })
+        .catch(err => {
+            dispatch({
+                type: AUTH_REGISTER_FAILED,
+                payload: err
+            })
+        });
+}
