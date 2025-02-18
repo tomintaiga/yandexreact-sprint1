@@ -1,4 +1,5 @@
 import { checkError } from "../../utils/request";
+import { setCookie } from "../../utils/cookie";
 
 export const AUTH_LOGIN_REQUEST = "AUTH_LOGIN_REQUEST";
 export const AUTH_LOGIN_SUCCESS = "AUTH_LOGIN_SUCCESS";
@@ -41,6 +42,7 @@ export function login(dispatch, email, password) {
                     type: AUTH_LOGIN_SUCCESS,
                     payload: data
                 });
+                setCookie("token", data.accessToken);
             } else {
                 dispatch({
                     type: AUTH_LOGIN_FAILED,
@@ -80,6 +82,7 @@ export function register(dispatch, email, password, name) {
                     type: AUTH_REGISTER_SUCCESS,
                     payload: data
                 });
+                setCookie("token", data.accessToken);
             } else {
                 dispatch({
                     type: AUTH_REGISTER_FAILED,
@@ -154,6 +157,7 @@ export function refreshToken(dispatch, refreshToken) {
                     type: AUTH_TOKEN_SUCCESS,
                     payload: data
                 });
+                setCookie("token", data.accessToken);
             } else {
                 dispatch({
                     type: AUTH_TOKEN_FAILED,
