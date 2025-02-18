@@ -131,3 +131,40 @@ export function logout(dispatch, refreshToken) {
             })
         });
 }
+
+export function refreshToken(dispatch, refreshToken) {
+    dispatch({
+        type: AUTH_TOKEN_REQUEST
+    });
+
+    fetch(tokenUrl, {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            token: refreshToken
+        }),
+    })
+        .then(checkError)
+        .then(data => {
+            if (data.success === true) {
+                dispatch({
+                    type: AUTH_TOKEN_SUCCESS,
+                    payload: data
+                });
+            } else {
+                dispatch({
+                    type: AUTH_TOKEN_FAILED,
+                    payload: data.message,
+                });
+            }
+        })
+        .catch(err => {
+            dispatch({
+                type: AUTH_TOKEN_FAILED,
+                payload: err
+            })
+        });
+}
