@@ -94,3 +94,40 @@ export function register(dispatch, email, password, name) {
             })
         });
 }
+
+export function logout(dispatch, refreshToken) {
+    dispatch({
+        type: AUTH_LOGOUT_REQUEST
+    });
+
+    fetch(logoutUrl, {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            token: refreshToken
+        }),
+    })
+        .then(checkError)
+        .then(data => {
+            if (data.success === true) {
+                dispatch({
+                    type: AUTH_LOGOUT_SUCCESS,
+                    payload: data
+                });
+            } else {
+                dispatch({
+                    type: AUTH_LOGOUT_FAILED,
+                    payload: data.message,
+                });
+            }
+        })
+        .catch(err => {
+            dispatch({
+                type: AUTH_LOGOUT_FAILED,
+                payload: err
+            })
+        });
+}

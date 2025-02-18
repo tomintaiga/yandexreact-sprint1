@@ -1,5 +1,6 @@
 import { AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_FAILED } from "../actions/auth";
 import { AUTH_REGISTER_REQUEST, AUTH_REGISTER_SUCCESS, AUTH_REGISTER_FAILED } from "../actions/auth";
+import { AUTH_LOGOUT_REQUEST, AUTH_LOGOUT_SUCCESS, AUTH_LOGOUT_FAILED } from "../actions/auth";
 
 const initialState = {
     user: null,
@@ -10,6 +11,8 @@ const initialState = {
     isLoginError: false,
     isRegisterRequest: false,
     isRegisterError: false,
+    isLogoutRequest: false,
+    isLogoutError: false,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -61,6 +64,28 @@ export const authReducer = (state = initialState, action) => {
                 user: action.payload.user,
                 token: action.payload.accessToken,
                 refreshToken: action.payload.refreshToken,
+            };
+        case AUTH_LOGOUT_REQUEST:
+            return {
+                ...state,
+                isLogoutRequest: true,
+            };
+        case AUTH_LOGOUT_FAILED: {
+            console.log(action.payload);
+            return {
+                ...state,
+                isLogoutRequest: false,
+                isLogoutError: true,
+            };
+        }
+        case AUTH_LOGOUT_SUCCESS:
+            return {
+                ...state,
+                isLogoutRequest: false,
+                isAuth: false,
+                user: null,
+                token: null,
+                refreshToken: null,
             };
         default:
             return state;
