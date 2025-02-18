@@ -34,3 +34,13 @@
 .links_bottom_p{
     margin-top: 88px;
 }
+
+.link_active{
+    color: #ffffff;
+    font-weight: 600;
+    text-decoration: none; /* Удаление подчеркивания */
+}
+
+.link_inactive{
+    text-decoration: none; /* Удаление подчеркивания */
+}

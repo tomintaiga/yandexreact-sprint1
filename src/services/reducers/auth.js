@@ -1,4 +1,4 @@
-import { AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_FAILED, login } from "../actions/auth";
+import { AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_FAILED } from "../actions/auth";
 
 const initialState = {
     user: null,
