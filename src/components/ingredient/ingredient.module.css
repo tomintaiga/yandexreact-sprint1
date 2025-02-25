@@ -41,3 +41,12 @@
 .dragging {
     opacity: 0.4;
 }
+
+.link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.link:visited {
+    color: inherit;
+}
