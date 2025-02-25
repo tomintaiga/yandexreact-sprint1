@@ -1,9 +1,9 @@
 import curStyles from './login.module.css';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import Centered from '../../components/centered/centered';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { login } from '../../services/actions/auth';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Login = () => {
@@ -13,12 +13,18 @@ const Login = () => {
     const isLoginRequest = useSelector(store => store.auth.isLoginRequest);
     const isLoginError = useSelector(store => store.auth.isLoginError);
     const isAuth = useSelector(store => store.auth.isAuth);
+    const location = useLocation();
+    const navigate = useNavigate();
 
-    if(isAuth) {
-        return (
-            <Navigate to="/" />
-        )
-    }
+    // Get the intended route from the state (if available)
+    const from = location.state?.from?.pathname || '/';
+
+    useEffect(() => {
+        if (isAuth) {
+            navigate(from, {replace: true});
+        }
+    }, [isAuth]);
+
 
     return (
         <Centered>

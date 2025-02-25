@@ -12,6 +12,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loadIngredients } from "../../services/actions/ingredient";
 import { useState } from "react";
+import ProtectedRouteElement from "../protected-route-element/protected-route-element";
 
 function App() {
     const dispatch = useDispatch();
@@ -24,13 +25,15 @@ function App() {
         <BrowserRouter>
             <Root>
                 <Routes>
-                    <Route path="/" Component={Main} exact />
                     <Route path="/register" Component={Register} exact />
                     <Route path="/login" Component={Login} exact />
                     <Route path="/forgot-password" Component={ForgotPassword} exact />
                     <Route path="/reset-password" Component={ResetPassword} exact />
-                    <Route path="/profile" Component={Profile} exact />
-                    <Route path="/ingredients/:id" Component={Ingredient} exact />
+
+                    <Route path="/" element={<ProtectedRouteElement><Main /></ProtectedRouteElement>} exact />
+                    <Route path="/profile" element={<ProtectedRouteElement><Profile/></ProtectedRouteElement>} exact />
+                    <Route path="/ingredients/:id" element={<ProtectedRouteElement><Ingredient/></ProtectedRouteElement>} exact />
+
                     <Route path="*" Component={NotFound} />
                 </Routes>
 
