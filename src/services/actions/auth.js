@@ -172,3 +172,19 @@ export function refreshToken(dispatch, refreshToken) {
             })
         });
 }
+
+export const fetchWithRefresh = async (dispatch, url, options) => {
+    try {
+        const res = await fetch(url, options);
+        return await checkError(res);
+    } catch (err) {
+        if (err.message === "jwt expired") {
+            const refreshData = await refreshToken(dispatch, getCookie("refreshToken"));
+            options.headers.Authorization = `Bearer ${refreshData.accessToken}`;
+            const res = await fetch(url, options);
+            return await checkError(res);
+        } else {
+            return Promise.reject(err);
+        }
+    }
+}
