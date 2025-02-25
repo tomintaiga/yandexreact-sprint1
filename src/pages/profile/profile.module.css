@@ -1,46 +1,41 @@
-.child_div{
-    display: flex;
-    flex-direction: column;
-    width: 480px;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
-    margin: 0 auto; /* Центрирование по горизонтали */
+.child_div {
+  display: flex;
+  flex-direction: column;
+  width: 480px;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin: 0 auto; /* Центрирование по горизонтали */
+  grid-column: 2 / 3; /* Place in the second column */
 }
 
-.top_div{
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    margin-top: 20px;
-    position: relative;
-    height: 30vh;
+.top_div {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* 3 equal columns */
+  gap: 20px; /* Space between columns */
+  padding: 20px;
 }
 
-.login_p{
-    margin-top: 80px;
+.login_p {
+  margin-top: 80px;
 }
 
-.links_div{
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding-right: 60px;
-    position: absolute;
-    left: 25%;
-    width: 320px;
+.links_div {
+  display: flex;
+  flex-direction: column;
+  grid-column: 1 / 2; /* Place in the first column */
 }
 
-.links_bottom_p{
-    margin-top: 88px;
+.links_bottom_p {
+  margin-top: 88px;
 }
 
-.link_active{
-    color: #ffffff;
-    font-weight: 600;
-    text-decoration: none; /* Удаление подчеркивания */
+.link_active {
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none; /* Удаление подчеркивания */
 }
 
-.link_inactive{
-    text-decoration: none; /* Удаление подчеркивания */
+.link_inactive {
+  text-decoration: none; /* Удаление подчеркивания */
 }

@@ -1,8 +1,22 @@
 import curStyle from './profile.module.css';
 import { PasswordInput, Input, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { NavLink } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProfile } from '../../services/actions/profile';
+import { PROFILE_SET_NAME, PROFILE_SET_EMAIL, PROFILE_SET_PASSWORD } from '../../services/actions/profile';
 
 const Profile = () => {
+    const dispatch = useDispatch();
+    const name = useSelector( state => state.profile.name );
+    const email = useSelector( state => state.profile.email );
+    const pass = useSelector( state => state.profile.password );
+
+    // Load user profile
+    useEffect(() => {
+        getProfile(dispatch);
+    }, []);
+
     return (
         <div className={curStyle.top_div}>
             <div className={curStyle.links_div}>
@@ -16,8 +30,8 @@ const Profile = () => {
             <div className={curStyle.child_div}>
                 <Input
                     type={'text'}
-                    value={''}
-                    onChange={() => { }}
+                    value={name}
+                    onChange={e => dispatch({type: PROFILE_SET_NAME, payload: e.target.value})}
                     placeholder={'Имя'}
                     icon={'EditIcon'} />
                 <EmailInput
@@ -25,14 +39,14 @@ const Profile = () => {
                     size={'default'}
                     placeholder={'Логин'}
                     icon={'EditIcon'}
-                    value={''}
-                    onChange={() => { }} />
+                    value={email}
+                    onChange={e => dispatch({type: PROFILE_SET_EMAIL, payload: e.target.value})} />
                 <PasswordInput
                     name={'password'}
                     size={'default'}
-                    value={''}
+                    value={pass}
                     icon={'EditIcon'}
-                    onChange={() => { }} />
+                    onChange={e => dispatch({type: PROFILE_SET_PASSWORD, payload: e.target.value})} />
             </div>
         </div>
     )

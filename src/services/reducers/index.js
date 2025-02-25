@@ -6,6 +6,7 @@ import { orderReducer } from './order';
 import { forgotPasswordReducer } from './forgot-password';
 import { resetPasswordReducer } from './reset-password';
 import { authReducer } from './auth';
+import { profileReducer } from './profile';
 
 export const rootReducer = combineReducers({
     ingredient: ingredientReducer,
@@ -15,4 +16,5 @@ export const rootReducer = combineReducers({
     forgotPassword: forgotPasswordReducer,
     resetPassword: resetPasswordReducer,
     auth: authReducer,
+    profile: profileReducer,
 });
