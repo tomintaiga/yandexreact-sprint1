@@ -21,6 +21,8 @@ const registerUrl = `${BASE_URL}/auth/register`;
 const logoutUrl = `${BASE_URL}/auth/logout`;
 const tokenUrl = `${BASE_URL}/auth/token`;
 
+const COOKIE_EXPIRES = 24 * 60 * 60;
+
 export function login(dispatch, email, password) {
     dispatch({
         type: AUTH_LOGIN_REQUEST
@@ -44,7 +46,9 @@ export function login(dispatch, email, password) {
                     type: AUTH_LOGIN_SUCCESS,
                     payload: data
                 });
-                setCookie("token", data.accessToken);
+                setCookie("token", data.accessToken, { expires: COOKIE_EXPIRES });
+                setCookie("user", JSON.stringify(data.user), { expires: COOKIE_EXPIRES });
+                setCookie("refreshToken", data.refreshToken, { expires: COOKIE_EXPIRES });
             } else {
                 dispatch({
                     type: AUTH_LOGIN_FAILED,
@@ -84,7 +88,7 @@ export function register(dispatch, email, password, name) {
                     type: AUTH_REGISTER_SUCCESS,
                     payload: data
                 });
-                setCookie("token", data.accessToken);
+                setCookie("token", data.accessToken, { expires: COOKIE_EXPIRES });
             } else {
                 dispatch({
                     type: AUTH_REGISTER_FAILED,
@@ -159,7 +163,7 @@ export function refreshToken(dispatch, refreshToken) {
                     type: AUTH_TOKEN_SUCCESS,
                     payload: data
                 });
-                setCookie("token", data.accessToken);
+                setCookie("token", data.accessToken, { expires: COOKIE_EXPIRES });
             } else {
                 dispatch({
                     type: AUTH_TOKEN_FAILED,

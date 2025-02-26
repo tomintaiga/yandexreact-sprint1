@@ -1,10 +1,12 @@
 import curStyles from './login.module.css';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import {CenteredForm} from '../../components/centered/centered';
+import { CenteredForm } from '../../components/centered/centered';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { login } from '../../services/actions/auth';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { AUTH_LOGIN_SUCCESS } from '../../services/actions/auth';
+import { getCookie } from '../../utils/cookie';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -21,9 +23,25 @@ const Login = () => {
 
     useEffect(() => {
         if (isAuth) {
-            navigate(from, {replace: true});
+            navigate(from, { replace: true });
         }
     }, [isAuth]);
+
+    useEffect(() => {
+        const token = getCookie('token');
+        const user = getCookie('user');
+        const refreshToken = getCookie('refreshToken');
+        if (token || user || refreshToken) {
+            dispatch({
+                type: AUTH_LOGIN_SUCCESS,
+                payload: {
+                    accessToken: token,
+                    user: JSON.parse(user),
+                    refreshToken: refreshToken
+                }
+            });
+        }
+    }, []);
 
     const handleLogin = (e) => {
         e.preventDefault();
