@@ -27,7 +27,7 @@ const Profile = () => {
                     В этом разделе вы можете изменить свои персональные данные
                 </p>
             </div>
-            <div className={curStyle.child_div}>
+            <form className={curStyle.child_div}>
                 <Input
                     type={'text'}
                     value={name}
@@ -47,7 +47,7 @@ const Profile = () => {
                     value={pass}
                     icon={'EditIcon'}
                     onChange={e => dispatch({type: PROFILE_SET_PASSWORD, payload: e.target.value})} />
-            </div>
+            </form>
         </div>
     )
 };

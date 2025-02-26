@@ -1,8 +1,8 @@
 import { RESET_PASSWORD_FAILED, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_REQUEST } from "../actions/reset-password";
 
 const initialState = {
-    resetPasswordLoading: false,
-    resetPasswordLoadingError: false,
+    resetPasswordRequest: false,
+    resetPasswordError: false,
 }
 
 export const resetPasswordReducer = (state = initialState, action) => {
@@ -10,22 +10,23 @@ export const resetPasswordReducer = (state = initialState, action) => {
         case RESET_PASSWORD_REQUEST: {
             return {
                 ...state,
-                resetPasswordLoading: true,
-                resetPasswordLoadingError: false,
+                resetPasswordRequest: true,
+                resetPasswordError: false,
             }
         }
         case RESET_PASSWORD_SUCCESS: {
             return {
                 ...state,
-                resetPasswordLoading: false,
-                resetPasswordLoadingError: false,
+                resetPasswordRequest: false,
+                resetPasswordError: false,
             }
         }
         case RESET_PASSWORD_FAILED: {
+            console.log(action.payload);
             return {
                 ...state,
-                resetPasswordLoading: false,
-                resetPasswordLoadingError: true,
+                resetPasswordRequest: false,
+                resetPasswordError: true,
             }
         }
         default:

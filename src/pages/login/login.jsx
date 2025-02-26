@@ -1,6 +1,6 @@
 import curStyles from './login.module.css';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import Centered from '../../components/centered/centered';
+import {CenteredForm} from '../../components/centered/centered';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { login } from '../../services/actions/auth';
 import { useState, useEffect } from 'react';
@@ -25,9 +25,13 @@ const Login = () => {
         }
     }, [isAuth]);
 
+    const handleLogin = (e) => {
+        e.preventDefault();
+        login(dispatch, email, password);
+    }
 
     return (
-        <Centered>
+        <CenteredForm>
             <p className="text text_type_main-default">Вход</p>
             {isLoginError && <p className="text text_type_main-default text_color_inactive">Ошибка авторизации</p>}
             {isLoginRequest && <p className="text text_type_main-default text_color_inactive">Загрузка...</p>}
@@ -45,10 +49,10 @@ const Login = () => {
                 extraClass="mb-2"
             />
             <Button
-                htmlType="button"
+                htmlType="submit"
                 type="primary"
                 size="medium"
-                onClick={() => login(dispatch, email, password)}>
+                onClick={handleLogin}>
                 Войти
             </Button>
             <p className={`text text_type_main-default text_color_inactive ${curStyles.login_p}`}>
@@ -59,7 +63,7 @@ const Login = () => {
                 Вы новый пользователь?&nbsp;
                 <Link to="/register">Зарегистрироваться</Link>
             </p>
-        </Centered >
+        </CenteredForm >
     )
 }
 

@@ -9,23 +9,28 @@ const ForgotPassword = () => {
     const dispatch = useDispatch();
     const [email, setEmail] = useState("");
 
+    const handleForgotPassword = (e) => {
+        e.preventDefault();
+        forgotPassword(dispatch, email);
+    }
+
     return (
         <div className={curStyle.top_div}>
-            <div className={curStyle.child_div}>
+            <form className={curStyle.child_div}>
                 <p className="text text_type_main-default">Восстановление пароля</p>
                 <EmailInput
                     onChange={e => setEmail(e.target.value)}
                     value={email}
                     name={'email'}
                     placeholder={'E-mail'} />
-                <Button htmlType="button" type="primary" size="medium" onClick={() => forgotPassword(dispatch, email)} >
+                <Button htmlType="submit" type="primary" size="medium" onClick={handleForgotPassword} >
                     Восстановить
                 </Button>
                 <p className={`text text_type_main-default text_color_inactive ${curStyle.login_p}`}>
                     Вспомнили пароль?&nbsp;
                     <Link to="/login">Войти</Link>
                 </p>
-            </div>
+            </form>
         </div>
     );
 }

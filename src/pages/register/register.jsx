@@ -1,11 +1,12 @@
 import React from "react";
 import curStyle from "./register.module.css";
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import Centereded from "../../components/centered/centered";
+import { CenteredForm } from "../../components/centered/centered";
 import { Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../services/actions/auth";
 import { useState } from "react";
+
 
 const Register = () => {
     const dispatch = useDispatch();
@@ -21,8 +22,13 @@ const Register = () => {
         return <Navigate to="/" />
     }
 
+    const handleRegister = (e) => {
+        e.preventDefault();
+        register(dispatch, email, password, name);
+    }
+
     return (
-        <Centereded>
+        <CenteredForm>
             <p className="text text_type_main-default">Регистрация</p>
             {isRegisterError && <p className={`text text_type_main-default text_color_inactive ${curStyle.register_error}`}>Ошибка регистрации</p>}
             {isRegisterRequest && <p className={`text text_type_main-default text_color_inactive ${curStyle.register_error}`}>Регистрация...</p>}
@@ -42,10 +48,10 @@ const Register = () => {
                 extraClass="mb-2"
             />
             <Button
-                htmlType="button"
+                htmlType="submit"
                 type="primary"
                 size="medium"
-                onClick={() => register(dispatch, email, password, name)}
+                onClick={handleRegister}
             >
                 Зарегистрироваться
             </Button>
@@ -53,7 +59,7 @@ const Register = () => {
                 Уже зарегестрированы?&nbsp;
                 <Link to="/login">Войти</Link>
             </p>
-        </Centereded>
+        </CenteredForm>
     )
 }
 

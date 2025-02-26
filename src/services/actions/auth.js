@@ -16,7 +16,7 @@ export const AUTH_TOKEN_FAILED = "AUTH_TOKEN_FAILED";
 
 import { BASE_URL } from "../../utils/request";
 
-const loginUrl = `${BASE_URL}//uth/login`;
+const loginUrl = `${BASE_URL}/auth/login`;
 const registerUrl = `${BASE_URL}/auth/register`;
 const logoutUrl = `${BASE_URL}/auth/logout`;
 const tokenUrl = `${BASE_URL}/auth/token`;
