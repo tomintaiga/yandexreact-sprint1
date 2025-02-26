@@ -7,6 +7,8 @@ export const ORDER_REQUEST = "ORDER_REQUEST";
 export const ORDER_REQUEST_SUCESS = "ORDER_REQUEST_SUCESS";
 export const ORDER_REQUEST_FAILED = "ORDER_REQUEST_FAILED";
 
+import { getCookie } from "../../utils/cookie";
+
 const url = "https://norma.nomoreparties.space/api/orders";
 
 // order - must be an array of ingredients
@@ -26,7 +28,8 @@ export function sendOrder(dispatch, order) {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': getCookie("token"),
             },
             body: JSON.stringify(orderData),
         })
