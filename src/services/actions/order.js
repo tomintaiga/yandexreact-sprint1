@@ -1,5 +1,3 @@
-import { checkError } from "../../utils/request";
-
 export const SHOW_ORDER = "SHOW_ORDER";
 export const HIDE_ORDER = "HIDE_ORDER";
 
@@ -9,6 +7,8 @@ export const ORDER_REQUEST_FAILED = "ORDER_REQUEST_FAILED";
 
 import { getCookie } from "../../utils/cookie";
 import { BASE_URL } from "../../utils/request";
+
+import { fetchWithRefresh } from "./auth";
 
 const url = `${BASE_URL}/orders`;
 
@@ -25,21 +25,20 @@ export function sendOrder(dispatch, order) {
     }
 
     // Send request
-    fetch(url, {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': getCookie("token"),
-            },
-            body: JSON.stringify(orderData),
-        })
-        .then(checkError)
+    fetchWithRefresh(dispatch, url, {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': getCookie("token"),
+        },
+        body: JSON.stringify(orderData),
+    })
         .then(data => {
-            if(data.success === true) {
+            if (data.success === true) {
                 dispatch({
                     type: ORDER_REQUEST_SUCESS,
-                    payload: {name: data.name, number: data.order.number}
+                    payload: { name: data.name, number: data.order.number }
                 });
             } else {
                 dispatch({

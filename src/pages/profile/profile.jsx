@@ -10,7 +10,6 @@ const Profile = () => {
     const dispatch = useDispatch();
     const name = useSelector( state => state.profile.name );
     const email = useSelector( state => state.profile.email );
-    const pass = useSelector( state => state.profile.password );
 
     // Load user profile
     useEffect(() => {
@@ -44,7 +43,7 @@ const Profile = () => {
                 <PasswordInput
                     name={'password'}
                     size={'default'}
-                    value={pass}
+                    value={''}
                     icon={'EditIcon'}
                     onChange={e => dispatch({type: PROFILE_SET_PASSWORD, payload: e.target.value})} />
             </form>

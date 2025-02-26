@@ -28,6 +28,8 @@ export const profileReducer = (state = initialState, action) => {
                 profileRequest: false,
                 profileRequestFailed: false,
                 user: action.payload,
+                name: action.payload.name,
+                email: action.payload.email,
             }
         }
         case PROFILE_REQUEST_FAILED: {
