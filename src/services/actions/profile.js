@@ -11,8 +11,9 @@ export const PROFILE_SET_PASSWORD = "PROFILE_SET_PASSWORD";
 
 import { getCookie } from "../../utils/cookie";
 import { checkError } from "../../utils/request";
+import { BASE_URL } from "../../utils/request";
 
-const profileUrl = "https://norma.nomoreparties.space/api/auth/user";
+const profileUrl = `${BASE_URL}/auth/user`;
 
 export function getProfile(dispatch){
     dispatch({type: PROFILE_REQUEST});

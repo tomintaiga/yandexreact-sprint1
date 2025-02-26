@@ -6,7 +6,9 @@ export const GET_INGEDIENT_FAILED = 'GET_INGEDIENT_FAILED';
 export const INCREMENT_INGREDIENT_COUNTER = "INCREMENT_INGREDIENT_COUNTER";
 export const DECREMENT_INGREDIENT_COUNTER = "DECREMENT_INGREDIENT_COUNTER";
 
-const url = "https://norma.nomoreparties.space/api/ingredients";
+import { BASE_URL } from "../../utils/request";
+
+const url = `${BASE_URL}/ingredients`;
 
 // Сортировка ингредиентов
 const sortIngredients = (data) => {

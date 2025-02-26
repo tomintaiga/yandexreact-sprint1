@@ -4,7 +4,9 @@ export const RESET_PASSWORD_REQUEST = "RESET_PASSWORD_REQUEST";
 export const RESET_PASSWORD_SUCCESS = "RESET_PASSWORD_SUCCESS";
 export const RESET_PASSWORD_FAILED = "RESET_PASSWORD_FAILED";
 
-const url = "https://norma.nomoreparties.space/api/password-reset/reset";
+import { BASE_URL } from "../../utils/request";
+
+const url = `${BASE_URL}/password-reset/reset`;
 
 export function resetPassword(dispatch, password, token) {
     dispatch({

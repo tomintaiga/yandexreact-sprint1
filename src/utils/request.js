@@ -6,3 +6,4 @@ export const checkError = (response) => {
     return Promise.reject(`Ошибка ${response.status}`);
 }
 
+export const BASE_URL = "https://norma.nomoreparties.space/api";

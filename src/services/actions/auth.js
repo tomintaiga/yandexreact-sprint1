@@ -14,10 +14,12 @@ export const AUTH_TOKEN_REQUEST = "AUTH_TOKEN_REQUEST";
 export const AUTH_TOKEN_SUCCESS = "AUTH_TOKEN_SUCCESS";
 export const AUTH_TOKEN_FAILED = "AUTH_TOKEN_FAILED";
 
-const loginUrl = "https://norma.nomoreparties.space/api/auth/login";
-const registerUrl = "https://norma.nomoreparties.space/api/auth/register";
-const logoutUrl = "https://norma.nomoreparties.space/api/auth/logout";
-const tokenUrl = "https://norma.nomoreparties.space/api/auth/token";
+import { BASE_URL } from "../../utils/request";
+
+const loginUrl = `${BASE_URL}//uth/login`;
+const registerUrl = `${BASE_URL}/auth/register`;
+const logoutUrl = `${BASE_URL}/auth/logout`;
+const tokenUrl = `${BASE_URL}/auth/token`;
 
 export function login(dispatch, email, password) {
     dispatch({

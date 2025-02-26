@@ -8,8 +8,9 @@ export const ORDER_REQUEST_SUCESS = "ORDER_REQUEST_SUCESS";
 export const ORDER_REQUEST_FAILED = "ORDER_REQUEST_FAILED";
 
 import { getCookie } from "../../utils/cookie";
+import { BASE_URL } from "../../utils/request";
 
-const url = "https://norma.nomoreparties.space/api/orders";
+const url = `${BASE_URL}/orders`;
 
 // order - must be an array of ingredients
 export function sendOrder(dispatch, order) {
