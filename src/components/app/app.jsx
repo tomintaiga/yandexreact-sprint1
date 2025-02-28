@@ -46,8 +46,8 @@ function App() {
                 <Route path="/login" Component={Login} exact />
                 <Route path="/forgot-password" Component={ForgotPassword} exact />
                 <Route path="/reset-password" Component={ResetPassword} exact />
+                <Route path="/" Component={Main} exact />
 
-                <Route path="/" element={<ProtectedRouteElement><Main /></ProtectedRouteElement>} exact />
                 <Route path="/profile" element={<ProtectedRouteElement><Profile /></ProtectedRouteElement>} exact />
                 <Route path="/ingredients/:id" element={<ProtectedRouteElement><Ingredient /></ProtectedRouteElement>} exact />
 

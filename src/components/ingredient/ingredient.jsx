@@ -3,7 +3,6 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 import React from 'react';
 import PropTypes from 'prop-types';
 import item from "../../utils/proptypes";
-import { useDispatch } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import { DRAG_INGREDIENT } from '../../services/drag/ingredient';
 import { useLocation } from 'react-router-dom';
@@ -11,7 +10,6 @@ import { Link } from 'react-router-dom';
 
 const Ingredient = ({ ingredient }) => {
     const [isActive, setIsActive] = React.useState("text_color_inactive");
-    const dispatch = useDispatch();
     const location = useLocation();
 
     const [{ isDragging }, dragRef] = useDrag({
