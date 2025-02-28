@@ -1,7 +1,7 @@
 .header_div {
   display: flex;
   flex-direction: row;
-  justify-content: space-around; /* Вернуть на space-around */
+  justify-content: space-between; /* Изменить на space-between */
   align-items: center;
   box-sizing: border-box;
   background: #1c1c21;
@@ -20,4 +20,7 @@
   display: flex;
   justify-content: center;
   flex-grow: 0; /* Удалить flex-grow */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }

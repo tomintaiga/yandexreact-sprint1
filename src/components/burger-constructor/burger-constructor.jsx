@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import curStyles from './burger-constructor.module.css';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -8,11 +8,14 @@ import { useDrop } from 'react-dnd';
 import { DRAG_INGREDIENT } from '../../services/drag/ingredient';
 import { addIngredient } from '../../services/actions/burger-constructor';
 import BurgerConstructorItem from '../burger-constructo-item/burger-constructor-item';
+import { useLocation, useNavigate } from "react-router-dom";
 
 const BurgerConstructor = () => {
     const items = useSelector(store => store.burger.ingredients );
     const totalPrice = useSelector(store => store.burger.totalPrice);
     const dispatch = useDispatch();
+    const isAuth = useSelector(store => store.auth.isAuth);
+    const navigate = useNavigate();
 
     const [, dropTarget] = useDrop({
         accept: DRAG_INGREDIENT,
@@ -20,6 +23,14 @@ const BurgerConstructor = () => {
             addIngredient(dispatch, item, items);
         }
     });
+
+    const handleOrder = useCallback(() => {
+        if(isAuth) {
+            sendOrder(dispatch, items);
+        } else {
+            navigate('/login', { replace: false });
+        }
+    }, [isAuth, dispatch, items, history]);
 
     return (
         <div className={curStyles.topdiv} ref={dropTarget}>
@@ -41,7 +52,7 @@ const BurgerConstructor = () => {
                     <Button type="primary"
                         size="medium"
                         htmlType="button"
-                        onClick={() => sendOrder(dispatch, items)}>
+                        onClick={handleOrder}>
                         Оформить заказ
                     </Button>
                 </span>

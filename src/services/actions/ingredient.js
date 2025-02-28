@@ -1,12 +1,14 @@
-import { checkError } from "../../utils/request";
-
 export const GET_INGEDIENT_REQUEST = 'GET_INGEDIENT_REQUEST';
 export const GET_INGEDIENT_SUCCESS = 'GET_INGEDIENT_SUCCESS';
 export const GET_INGEDIENT_FAILED = 'GET_INGEDIENT_FAILED';
 export const INCREMENT_INGREDIENT_COUNTER = "INCREMENT_INGREDIENT_COUNTER";
 export const DECREMENT_INGREDIENT_COUNTER = "DECREMENT_INGREDIENT_COUNTER";
 
-const url = "https://norma.nomoreparties.space/api/ingredients";
+import { BASE_URL } from "../../utils/request";
+
+import { fetchWithRefresh } from "./auth";
+
+const url = `${BASE_URL}/ingredients`;
 
 // Сортировка ингредиентов
 const sortIngredients = (data) => {
@@ -22,8 +24,8 @@ export function loadIngredients(dispatch) {
         type: GET_INGEDIENT_REQUEST,
     });
 
-    fetch(url)
-        .then(checkError)
+    // Fetch ingredients
+    fetchWithRefresh(dispatch, url, null)
         .then(data => {
             // Проверка ответа сервера
             if (data.success === true) {
@@ -33,7 +35,7 @@ export function loadIngredients(dispatch) {
                     // В начале - сортируем полученные ингредиенты
                     // Затем - к каждому добавляем счетчик
                     // Счетчик будет использоваться для отображения в компоненте ингредиента
-                    payload: sortIngredients(data.data).map(item => ({...item, count: 0})),
+                    payload: sortIngredients(data.data).map(item => ({ ...item, count: 0 })),
                 });
             } else {
                 // Обработка ошибки

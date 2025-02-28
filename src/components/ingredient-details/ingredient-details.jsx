@@ -2,9 +2,17 @@ import curStyle from './ingredient-details.module.css';
 import IngredientDetailCaption from '../ingredient-detail-caption/ingredient-detail-caption';
 import { useSelector } from 'react-redux';
 
+// This wrapper get ingredient from store and pass it to IgredientDetailsData
 const IngredientDetails = () => {
     const ingredient = useSelector(state => state.ingredientDetail.ingredient);
 
+    return (
+        <IgredientDetailsData ingredient={ingredient} />
+    )
+};
+
+// This component is responsible for displaying the ingredient details
+export const IgredientDetailsData = ({ingredient}) => {
     return (
         <div className={curStyle.ingredient_details}>
             <img src={ingredient.image_large} alt={ingredient.name} className={curStyle.ingredient_img} />
@@ -18,7 +26,7 @@ const IngredientDetails = () => {
                 <IngredientDetailCaption caption="Углеводы, г" value={ingredient.carbohydrates} />
             </div>
         </div>
-    )
-};
+    );
+}
 
 export default IngredientDetails;
