@@ -3,6 +3,7 @@ import { FORGOT_PASSWORD_FAILED, FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCES
 const initialState = {
     forgotPasswordLoading: false,
     forgotPasswordLoadingError: false,
+    forgotPasswordSuccess: false,
 }
 
 export const forgotPasswordReducer = (state = initialState, action) => {
@@ -12,6 +13,7 @@ export const forgotPasswordReducer = (state = initialState, action) => {
                 ...state,
                 forgotPasswordLoading: true,
                 forgotPasswordLoadingError: false,
+                forgotPasswordSuccess: false,
             }
         }
         case FORGOT_PASSWORD_SUCCESS: {
@@ -19,7 +21,7 @@ export const forgotPasswordReducer = (state = initialState, action) => {
                 ...state,
                 forgotPasswordLoading: false,
                 forgotPasswordLoadingError: false,
-                forgotPasswordValue: null,
+                forgotPasswordSuccess: true,
             }
         }
         case FORGOT_PASSWORD_FAILED: {
@@ -27,7 +29,7 @@ export const forgotPasswordReducer = (state = initialState, action) => {
                 ...state,
                 forgotPasswordLoading: false,
                 forgotPasswordLoadingError: true,
-                forgotPasswordValue: null,
+                forgotPasswordSuccess: false
             }
         }
         default:

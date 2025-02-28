@@ -21,7 +21,7 @@ const ResetPassword = () => {
     }
 
     return (
-        <CenteredForm>
+        <CenteredForm onSubmit={handleResetPassword}>
             <h2 className="text text_type_main-medium">Восстановление пароля</h2>
             {resetPasswordError && <p className={`text text_type_main-default text_color_inactive ${curStyle.register_error}`}>Ошибка сброса пароля</p>}
             {resetPasswordRequest && <p className={`text text_type_main-default text_color_inactive ${curStyle.register_error}`}>Сброс пароля...</p>}
@@ -45,7 +45,7 @@ const ResetPassword = () => {
                     type="primary"
                     size="medium"
                     htmlType="submit"
-                    onClick={handleResetPassword} >
+                >
                     Сохранить
                 </Button>
             </div>

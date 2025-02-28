@@ -49,7 +49,7 @@ const Login = () => {
     }
 
     return (
-        <CenteredForm>
+        <CenteredForm onSubmit={handleLogin}>
             <p className="text text_type_main-default">Вход</p>
             {isLoginError && <p className="text text_type_main-default text_color_inactive">Ошибка авторизации</p>}
             {isLoginRequest && <p className="text text_type_main-default text_color_inactive">Загрузка...</p>}
@@ -70,7 +70,7 @@ const Login = () => {
                 htmlType="submit"
                 type="primary"
                 size="medium"
-                onClick={handleLogin}>
+            >
                 Войти
             </Button>
             <p className={`text text_type_main-default text_color_inactive ${curStyles.login_p}`}>

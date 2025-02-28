@@ -4,7 +4,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import item from "../../utils/proptypes";
 import { useDispatch } from 'react-redux';
-import { SHOW_INGREDIENT_DETAILS } from '../../services/actions/ingredient-details';
 import { useDrag } from 'react-dnd';
 import { DRAG_INGREDIENT } from '../../services/drag/ingredient';
 import { useLocation } from 'react-router-dom';

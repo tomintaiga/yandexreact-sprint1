@@ -28,7 +28,7 @@ const Register = () => {
     }
 
     return (
-        <CenteredForm>
+        <CenteredForm onSubmit={handleRegister}>
             <p className="text text_type_main-default">Регистрация</p>
             {isRegisterError && <p className={`text text_type_main-default text_color_inactive ${curStyle.register_error}`}>Ошибка регистрации</p>}
             {isRegisterRequest && <p className={`text text_type_main-default text_color_inactive ${curStyle.register_error}`}>Регистрация...</p>}
@@ -51,7 +51,6 @@ const Register = () => {
                 htmlType="submit"
                 type="primary"
                 size="medium"
-                onClick={handleRegister}
             >
                 Зарегистрироваться
             </Button>
