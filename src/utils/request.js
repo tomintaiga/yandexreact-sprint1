@@ -1,9 +1,9 @@
 export const checkError = (response) => {
-    if(response.ok) {
-        return response.json();
-    }
+  if (response.ok) {
+    return response.json();
+  }
 
-    return Promise.reject(`Ошибка ${response.status}`);
-}
+  return Promise.reject(`Ошибка ${response.status}`);
+};
 
-export const BASE_URL = "https://norma.nomoreparties.space/api";
+export const BASE_URL = 'https://norma.nomoreparties.space/api';
