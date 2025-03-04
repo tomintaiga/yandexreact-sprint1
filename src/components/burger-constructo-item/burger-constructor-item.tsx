@@ -1,17 +1,27 @@
+import React from 'react';
+import curStyle from './burger-constructor-item.module.css';
+import { TBurgerIngredient } from '../../../declarations/burger';
 import { removeIngredient } from '../../services/actions/burger-constructor';
 import { useDispatch } from 'react-redux';
-import curStyle from './burger-constructor-item.module.css';
 import {
   DragIcon,
   ConstructorElement,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
-import item from '../../utils/proptypes';
 import { useDrag, useDrop } from 'react-dnd';
 import { DRAG_CONSTRUCTOR_INGREDIENT } from '../../services/drag/contructor';
 import { CONSTRUCTOR_MOVE_ITEM } from '../../services/actions/burger-constructor';
 
-const BurgerConstructorItem = ({ isTop, isBottom, item }) => {
+interface IBurgerConstructorItem {
+  isTop: boolean;
+  isBottom: boolean;
+  item: TBurgerIngredient;
+}
+
+const BurgerConstructorItem: React.FC<IBurgerConstructorItem> = ({
+  isTop,
+  isBottom,
+  item,
+}) => {
   const dispatch = useDispatch();
 
   const [{ isDragging }, dragRef] = useDrag({
@@ -24,7 +34,7 @@ const BurgerConstructorItem = ({ isTop, isBottom, item }) => {
 
   const [, dropRef] = useDrop({
     accept: DRAG_CONSTRUCTOR_INGREDIENT,
-    drop: (newItem) => {
+    drop: (newItem: TBurgerIngredient) => {
       // Не будем менять элемент если бросили на себя
       if (newItem.id === item.id) {
         return;
@@ -46,11 +56,11 @@ const BurgerConstructorItem = ({ isTop, isBottom, item }) => {
     },
   });
 
-  const handleMouseEnter = (event) => {
+  const handleMouseEnter = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.currentTarget.style.cursor = 'grab';
   };
 
-  const handleMouseExit = (event) => {
+  const handleMouseExit = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.currentTarget.style.cursor = 'arrow';
   };
 
@@ -64,7 +74,7 @@ const BurgerConstructorItem = ({ isTop, isBottom, item }) => {
           <DragIcon type="primary" />
         </div>
         <ConstructorElement
-          type={isTop ? 'top' : isBottom ? 'bottom' : ''}
+          type={isTop ? 'top' : isBottom ? 'bottom' : undefined}
           text={
             isTop
               ? `${item.name}\n(верх)`
@@ -79,12 +89,6 @@ const BurgerConstructorItem = ({ isTop, isBottom, item }) => {
       </div>
     </div>
   );
-};
-
-BurgerConstructorItem.propTypes = {
-  isTop: PropTypes.bool,
-  isBottom: PropTypes.bool,
-  item: PropTypes.shape(item).isRequired,
 };
 
 export default BurgerConstructorItem;
