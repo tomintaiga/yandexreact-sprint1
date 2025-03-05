@@ -1,4 +1,5 @@
 import { TBurgerIngredient } from "./burger";
+import { TIngredient } from "./ingredient";
 import { TUser } from "./user";
 
 export type TStore = {
@@ -24,7 +25,7 @@ export type TStore = {
         ingredientsError: boolean;
     };
     ingredientDetail: {
-        ingredient: TBurgerIngredient | null;
+        ingredient: TIngredient | null;
         showDetail: boolean;
     };
     order: {

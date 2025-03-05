@@ -1,17 +1,19 @@
 import curStyle from './ingredient-details.module.css';
 import IngredientDetailCaption from '../ingredient-detail-caption/ingredient-detail-caption';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
+import { TStore } from '../../../declarations/store';
+import { TIngredient } from '../../../declarations/ingredient';
 
-// This wrapper get ingredient from store and pass it to IgredientDetailsData
-const IngredientDetails = () => {
-  const ingredient = useSelector((state) => state.ingredientDetail.ingredient);
+interface IIngredientDetails {
+  ingredient: TIngredient | null;
+}
 
-  return <IgredientDetailsData ingredient={ingredient} />;
-};
-
-// This component is responsible for displaying the ingredient details
-export const IgredientDetailsData = ({ ingredient }) => {
+export const IgredientDetailsData: React.FC<IIngredientDetails> = ({
+  ingredient,
+}) => {
+  if (!ingredient) {
+    return null;
+  }
   return (
     <div className={curStyle.ingredient_details}>
       <img
@@ -41,15 +43,12 @@ export const IgredientDetailsData = ({ ingredient }) => {
   );
 };
 
-IgredientDetailsData.propTypes = {
-  ingredient: PropTypes.shape({
-    image_large: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    calories: PropTypes.number.isRequired,
-    proteins: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired,
-  }).isRequired,
+const IngredientDetails: React.FC = () => {
+  const ingredient = useSelector(
+    (state: TStore) => state.ingredientDetail.ingredient,
+  );
+
+  return <IgredientDetailsData ingredient={ingredient} />;
 };
 
 export default IngredientDetails;

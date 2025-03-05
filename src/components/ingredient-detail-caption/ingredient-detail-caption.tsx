@@ -2,7 +2,7 @@ import curCss from './ingredient-detail-caption.module.css';
 
 interface IIngredientDetailCaption {
   caption: string;
-  value: string;
+  value: number;
 }
 
 const IngredientDetailCaption: React.FC<IIngredientDetailCaption> = ({
