@@ -14,12 +14,12 @@ import { addIngredient } from '../../services/actions/burger-constructor';
 import BurgerConstructorItem from '../burger-constructo-item/burger-constructor-item';
 import { useNavigate } from 'react-router-dom';
 import { TStore } from '../../../declarations/store';
+import { getCookie } from '../../utils/cookie';
 
 const BurgerConstructor: React.FC = () => {
   const items = useSelector((store: TStore) => store.burger.ingredients);
   const totalPrice = useSelector((store: TStore) => store.burger.totalPrice);
   const dispatch = useDispatch();
-  const isAuth = useSelector((store:TStore) => store.auth.isAuth);
   const navigate = useNavigate();
 
   const [, dropTarget] = useDrop({
@@ -30,12 +30,13 @@ const BurgerConstructor: React.FC = () => {
   });
 
   const handleOrder = useCallback(() => {
-    if (isAuth) {
+    const token = getCookie('token');
+    if (token) {
       sendOrder(dispatch, items);
     } else {
       navigate('/login', { replace: false });
     }
-  }, [isAuth, dispatch, items, navigate]);
+  }, [dispatch, items, navigate]);
 
   return (
     <div className={curStyles.topdiv} ref={dropTarget}>
