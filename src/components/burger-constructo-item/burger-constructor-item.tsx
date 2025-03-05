@@ -12,8 +12,8 @@ import { DRAG_CONSTRUCTOR_INGREDIENT } from '../../services/drag/contructor';
 import { CONSTRUCTOR_MOVE_ITEM } from '../../services/actions/burger-constructor';
 
 interface IBurgerConstructorItem {
-  isTop: boolean;
-  isBottom: boolean;
+  isTop?: boolean;
+  isBottom?: boolean;
   item: TBurgerIngredient;
 }
 

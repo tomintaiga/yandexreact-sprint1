@@ -1,3 +1,4 @@
+import React from 'react';
 import { useCallback } from 'react';
 import curStyles from './burger-constructor.module.css';
 import {
@@ -12,12 +13,13 @@ import { DRAG_INGREDIENT } from '../../services/drag/ingredient';
 import { addIngredient } from '../../services/actions/burger-constructor';
 import BurgerConstructorItem from '../burger-constructo-item/burger-constructor-item';
 import { useNavigate } from 'react-router-dom';
+import { TStore } from '../../../declarations/store';
 
-const BurgerConstructor = () => {
-  const items = useSelector((store) => store.burger.ingredients);
-  const totalPrice = useSelector((store) => store.burger.totalPrice);
+const BurgerConstructor: React.FC = () => {
+  const items = useSelector((store: TStore) => store.burger.ingredients);
+  const totalPrice = useSelector((store: TStore) => store.burger.totalPrice);
   const dispatch = useDispatch();
-  const isAuth = useSelector((store) => store.auth.isAuth);
+  const isAuth = useSelector((store:TStore) => store.auth.isAuth);
   const navigate = useNavigate();
 
   const [, dropTarget] = useDrop({
