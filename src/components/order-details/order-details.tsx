@@ -1,12 +1,13 @@
 import curStyle from './order-details.module.css';
 import check from '../../assets/check.svg';
 import { useSelector } from 'react-redux';
+import { TStore } from '../../../declarations/store';
 
-const OrderDetails = () => {
-  const order = useSelector((state) => state.order.order);
-  const orderLoading = useSelector((state) => state.order.orderLoading);
+const OrderDetails: React.FC = () => {
+  const order = useSelector((state: TStore) => state.order.order);
+  const orderLoading = useSelector((state: TStore) => state.order.orderLoading);
   const orderLoadingError = useSelector(
-    (state) => state.order.orderLoadingError,
+    (state: TStore) => state.order.orderLoadingError,
   );
 
   if (orderLoading === true) {
