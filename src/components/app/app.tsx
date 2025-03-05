@@ -1,3 +1,5 @@
+import React, { useEffect } from 'react';
+
 import Root from '../../pages/root/root';
 import Main from '../../pages/main/main';
 import Register from '../../pages/register/register';
@@ -11,19 +13,19 @@ import NotFound from '../../pages/not-found/not-found';
 import { Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadIngredients } from '../../services/actions/ingredient';
-import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ProtectedRouteElement from '../protected-route-element/protected-route-element';
 import Modal from '../modal/modal';
+import { TStore } from '../../../declarations/store';
 
-function App() {
+const App: React.FC = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
   const background = location.state && location.state.background;
   const ingredientId = location.state && location.state.id;
-  const ingredient = useSelector((state) => {
+  const ingredient = useSelector((state: TStore) => {
     if (!ingredientId) {
       return null;
     }
@@ -32,8 +34,8 @@ function App() {
     );
   });
 
-  useState(() => {
-    dispatch(loadIngredients);
+  useEffect(() => {
+    loadIngredients(dispatch);
   }, []);
 
   const handleClose = () => {
@@ -44,11 +46,11 @@ function App() {
   return (
     <Root>
       <Routes location={background || location}>
-        <Route path="/register" Component={Register} exact />
-        <Route path="/login" Component={Login} exact />
-        <Route path="/forgot-password" Component={ForgotPassword} exact />
-        <Route path="/reset-password" Component={ResetPassword} exact />
-        <Route path="/" Component={Main} exact />
+        <Route path="/register" Component={Register} />
+        <Route path="/login" Component={Login} />
+        <Route path="/forgot-password" Component={ForgotPassword} />
+        <Route path="/reset-password" Component={ResetPassword} />
+        <Route path="/" Component={Main} />
 
         <Route
           path="/profile"
@@ -57,7 +59,6 @@ function App() {
               <Profile />
             </ProtectedRouteElement>
           }
-          exact
         />
         <Route
           path="/ingredients/:id"
@@ -66,13 +67,12 @@ function App() {
               <Ingredient />
             </ProtectedRouteElement>
           }
-          exact
         />
 
         <Route path="*" Component={NotFound} />
       </Routes>
 
-      {background && (
+      {background && ingredient && (
         <Routes>
           <Route
             path="/ingredients/:id"
@@ -80,7 +80,7 @@ function App() {
               <Modal
                 onClose={handleClose}
                 isOpen={true}
-                title={ingredient?.name}
+                title={ingredient.name}
               >
                 <Ingredient />
               </Modal>
@@ -90,6 +90,6 @@ function App() {
       )}
     </Root>
   );
-}
+};
 
 export default App;
