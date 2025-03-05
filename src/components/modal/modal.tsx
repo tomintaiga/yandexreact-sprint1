@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
 import curStyle from './modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -8,11 +7,18 @@ import { useCallback } from 'react';
 
 const modalRoot = document.getElementById('modals');
 
-const Modal = ({ children, isOpen, onClose, title }) => {
+interface IModal {
+  title: string;
+  onClose: () => void;
+  children: React.ReactNode;
+  isOpen: boolean;
+}
+
+const Modal: React.FC<IModal> = ({ title, onClose, children, isOpen }) => {
   const [isHovered, setIsHovered] = React.useState(false);
 
   const handleKeyDown = useCallback(
-    (e) => {
+    (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();
       }
@@ -37,6 +43,11 @@ const Modal = ({ children, isOpen, onClose, title }) => {
     return null;
   }
 
+  if(!modalRoot) {
+    console.error('modalRoot is not found')
+    return null;
+  }
+
   return ReactDom.createPortal(
     <ModalOverlay isOpen={isOpen} onClose={onClose}>
       <div className={curStyle.modal}>
@@ -55,13 +66,6 @@ const Modal = ({ children, isOpen, onClose, title }) => {
     </ModalOverlay>,
     modalRoot,
   );
-};
-
-Modal.propTypes = {
-  children: PropTypes.node.isRequired,
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  title: PropTypes.string, // Для модалки заказа, может быть пустым
 };
 
 export default Modal;
