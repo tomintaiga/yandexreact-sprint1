@@ -4,15 +4,18 @@ import {
   Counter,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
-import PropTypes from 'prop-types';
-import item from '../../utils/proptypes';
 import { useDrag } from 'react-dnd';
 import { DRAG_INGREDIENT } from '../../services/drag/ingredient';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { TBurgerIngredient } from '../../../declarations/burger';
 
-const Ingredient = ({ ingredient }) => {
-  const [isActive, setIsActive] = React.useState('text_color_inactive');
+interface IIngredient {
+  ingredient: TBurgerIngredient;
+}
+
+const Ingredient: React.FC<IIngredient> = ({ ingredient }) => {
+  const [isActive, setIsActive] = React.useState<string>('text_color_inactive');
   const location = useLocation();
 
   const [{ isDragging }, dragRef] = useDrag({
@@ -41,7 +44,7 @@ const Ingredient = ({ ingredient }) => {
           <Counter
             count={ingredient.count}
             size="default"
-            className={curStyle.counter}
+            extraClass={curStyle.counter}
           />
         )}
         <img
@@ -63,10 +66,6 @@ const Ingredient = ({ ingredient }) => {
       </div>
     </Link>
   );
-};
-
-Ingredient.propTypes = {
-  ingredient: PropTypes.shape(item).isRequired,
 };
 
 export default Ingredient;
