@@ -10,24 +10,28 @@ import { Link, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../services/actions/auth';
 import { useState } from 'react';
+import React from 'react';
+import { TStore } from '../../../declarations/store';
 
-const Register = () => {
+const Register: React.FC = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
 
-  const isRegisterError = useSelector((store) => store.auth.isRegisterError);
-  const isRegisterRequest = useSelector(
-    (store) => store.auth.isRegisterRequest,
+  const isRegisterError = useSelector(
+    (store: TStore) => store.auth.isRegisterError,
   );
-  const isAuth = useSelector((store) => store.auth.isAuth);
+  const isRegisterRequest = useSelector(
+    (store: TStore) => store.auth.isRegisterRequest,
+  );
+  const isAuth = useSelector((store: TStore) => store.auth.isAuth);
 
   if (isAuth) {
     return <Navigate to="/" />;
   }
 
-  const handleRegister = (e) => {
+  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     register(dispatch, email, password, name);
   };
@@ -50,21 +54,21 @@ const Register = () => {
         </p>
       )}
       <Input
-        type={'text'}
-        placeholder={'Имя'}
-        name={'login'}
+        type="text"
+        placeholder="Имя"
+        name="login"
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
       <EmailInput
         onChange={(e) => setEmail(e.target.value)}
         value={email}
-        name={'email'}
+        name="email"
       />
       <PasswordInput
         onChange={(e) => setPassword(e.target.value)}
         value={password}
-        name={'password'}
+        name="password"
         extraClass="mb-2"
       />
       <Button htmlType="submit" type="primary" size="medium">
