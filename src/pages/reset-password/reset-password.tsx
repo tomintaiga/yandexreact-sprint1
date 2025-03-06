@@ -6,24 +6,26 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CenteredForm } from '../../components/centered/centered';
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { resetPassword } from '../../services/actions/reset-password';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import React from 'react';
+import { TStore } from '../../../declarations/store';
 
-const ResetPassword = () => {
+const ResetPassword: React.FC = () => {
   const dispatch = useDispatch();
   const [pass, setPass] = useState('');
   const [token, setToken] = useState('');
 
   const resetPasswordRequest = useSelector(
-    (store) => store.resetPassword.resetPasswordRequest,
+    (store: TStore) => store.resetPassword.resetPasswordRequest,
   );
   const resetPasswordError = useSelector(
-    (store) => store.resetPassword.resetPasswordError,
+    (store: TStore) => store.resetPassword.resetPasswordError,
   );
 
-  const handleResetPassword = (e) => {
+  const handleResetPassword = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     resetPassword(dispatch, pass, token);
   };
@@ -47,16 +49,16 @@ const ResetPassword = () => {
       )}
       <div className={curStyle.input}>
         <PasswordInput
-          name={'password'}
-          size={'default'}
+          name='password'
+          size='default'
           value={pass}
           onChange={(e) => setPass(e.target.value)}
         />
       </div>
       <div className={curStyle.input}>
         <Input
-          type={'text'}
-          name={'code'}
+          type='text'
+          name='code'
           value={token}
           onChange={(e) => setToken(e.target.value)}
           placeholder={'Введите код из письма'}
