@@ -13,11 +13,13 @@ import {
   PROFILE_SET_EMAIL,
   PROFILE_SET_PASSWORD,
 } from '../../services/actions/profile';
+import React from 'react';
+import { TStore } from '../../../declarations/store';
 
-const Profile = () => {
+const Profile: React.FC = () => {
   const dispatch = useDispatch();
-  const name = useSelector((state) => state.profile.name);
-  const email = useSelector((state) => state.profile.email);
+  const name = useSelector((state: TStore) => state.profile.name);
+  const email = useSelector((state: TStore) => state.profile.email);
 
   // Load user profile
   useEffect(() => {
@@ -53,29 +55,28 @@ const Profile = () => {
       </div>
       <form className={curStyle.child_div}>
         <Input
-          type={'text'}
+          type="text"
           value={name}
-          onChange={(e) =>
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             dispatch({ type: PROFILE_SET_NAME, payload: e.target.value })
           }
-          placeholder={'Имя'}
-          icon={'EditIcon'}
+          placeholder="Имя"
+          icon="EditIcon"
         />
         <EmailInput
-          name={'email'}
-          size={'default'}
-          placeholder={'Логин'}
-          icon={'EditIcon'}
+          name="email"
+          size="default"
+          placeholder="Логин"
           value={email}
           onChange={(e) =>
             dispatch({ type: PROFILE_SET_EMAIL, payload: e.target.value })
           }
         />
         <PasswordInput
-          name={'password'}
-          size={'default'}
-          value={''}
-          icon={'EditIcon'}
+          name="password"
+          size="default"
+          value=""
+          icon="EditIcon"
           onChange={(e) =>
             dispatch({ type: PROFILE_SET_PASSWORD, payload: e.target.value })
           }
