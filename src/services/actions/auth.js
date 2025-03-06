@@ -188,8 +188,9 @@ export const fetchWithRefresh = async (dispatch, url, options) => {
     const res = await fetch(url, options);
     return await checkError(res);
   } catch (err) {
+    console.log(err);
     if (err.message === 'jwt expired') {
-      const refreshData = await refreshToken(
+      const refreshData = refreshToken(
         dispatch,
         getCookie('refreshToken'),
       );
