@@ -8,7 +8,7 @@ import { useCallback } from 'react';
 const modalRoot = document.getElementById('modals');
 
 interface IModal {
-  title: string;
+  title?: string;
   onClose: () => void;
   children: React.ReactNode;
   isOpen: boolean;

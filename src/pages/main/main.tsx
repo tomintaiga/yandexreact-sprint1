@@ -14,10 +14,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
-const Main = () => {
+import React from 'react';
+import { TStore } from '../../../declarations/store';
+
+const Main: React.FC = () => {
   const dispatch = useDispatch();
-  const showDetail = useSelector((state) => state.ingredientDetail.showDetail);
-  const showOrder = useSelector((state) => state.order.showOrder);
+  const showDetail = useSelector(
+    (state: TStore) => state.ingredientDetail.showDetail,
+  );
+  const showOrder = useSelector((state: TStore) => state.order.showOrder);
 
   return (
     <>
