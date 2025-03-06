@@ -2,10 +2,12 @@ import { useParams } from 'react-router-dom';
 import { IgredientDetailsData } from '../../components/ingredient-details/ingredient-details';
 import Centered from '../../components/centered/centered';
 import { useSelector } from 'react-redux';
+import React from 'react';
+import { TStore } from '../../../declarations/store';
 
-const Ingredient = () => {
+const Ingredient: React.FC = () => {
   const { id } = useParams();
-  const ingredient = useSelector((state) =>
+  const ingredient = useSelector((state: TStore) =>
     state.ingredient.ingredients.find((item) => item._id === id),
   );
 
