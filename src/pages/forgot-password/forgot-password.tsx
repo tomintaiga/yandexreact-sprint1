@@ -4,24 +4,25 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { forgotPassword } from '../../services/actions/forgot-password';
 import { Link } from 'react-router-dom';
+import { TStore } from '../../../declarations/store';
 
-const ForgotPassword = () => {
+const ForgotPassword: React.FC = () => {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState<string>('');
   const isResetRequest = useSelector(
-    (store) => store.forgotPassword.forgotPasswordLoading,
+    (store: TStore) => store.forgotPassword.forgotPasswordLoading,
   );
   const isResetError = useSelector(
-    (store) => store.forgotPassword.forgotPasswordLoadingError,
+    (store: TStore) => store.forgotPassword.forgotPasswordLoadingError,
   );
   const isResetSuccess = useSelector(
-    (store) => store.forgotPassword.forgotPasswordSuccess,
+    (store: TStore) => store.forgotPassword.forgotPasswordSuccess,
   );
 
-  const handleForgotPassword = (e) => {
+  const handleForgotPassword = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     forgotPassword(dispatch, email);
   };
