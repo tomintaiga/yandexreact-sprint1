@@ -11,14 +11,18 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AUTH_LOGIN_SUCCESS } from '../../services/actions/auth';
 import { getCookie } from '../../utils/cookie';
+import React from 'react';
+import { TStore } from '../../../declarations/store';
 
-const Login = () => {
+const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const isLoginRequest = useSelector((store) => store.auth.isLoginRequest);
-  const isLoginError = useSelector((store) => store.auth.isLoginError);
-  const isAuth = useSelector((store) => store.auth.isAuth);
+  const isLoginRequest = useSelector(
+    (store: TStore) => store.auth.isLoginRequest,
+  );
+  const isLoginError = useSelector((store: TStore) => store.auth.isLoginError);
+  const isAuth = useSelector((store: TStore) => store.auth.isAuth);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -40,14 +44,14 @@ const Login = () => {
         type: AUTH_LOGIN_SUCCESS,
         payload: {
           accessToken: token,
-          user: JSON.parse(user),
+          user: user? JSON.parse(user) : null,
           refreshToken: refreshToken,
         },
       });
     }
   }, [dispatch]);
 
-  const handleLogin = (e) => {
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     login(dispatch, email, password);
   };
