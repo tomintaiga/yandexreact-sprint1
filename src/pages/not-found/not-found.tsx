@@ -1,6 +1,7 @@
 import Centered from '../../components/centered/centered';
+import React from 'react';
 
-const NotFound = () => {
+const NotFound: React.FC = () => {
   return (
     <Centered>
       <p className="text text_type_main-large">Такой страницы не существует</p>
