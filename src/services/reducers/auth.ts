@@ -1,7 +1,9 @@
+import { TUser } from '../../../declarations/user';
 import {
   AUTH_LOGIN_REQUEST,
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGIN_FAILED,
+  TAuthActions,
 } from '../actions/auth';
 import {
   AUTH_REGISTER_REQUEST,
@@ -19,7 +21,22 @@ import {
   AUTH_TOKEN_FAILED,
 } from '../actions/auth';
 
-const initialState = {
+type TInitialState = {
+  user: TUser | null;
+  token: string | null;
+  refreshToken: string | null;
+  isAuth: boolean;
+  isLoginRequest: boolean;
+  isLoginError: boolean;
+  isRegisterRequest: boolean;
+  isRegisterError: boolean;
+  isLogoutRequest: boolean;
+  isLogoutError: boolean;
+  isTokenRequest: boolean;
+  isTokenError: boolean;
+};
+
+const initialState: TInitialState = {
   user: null,
   token: null,
   refreshToken: null,
@@ -34,7 +51,7 @@ const initialState = {
   isTokenError: false,
 };
 
-export const authReducer = (state = initialState, action) => {
+export const authReducer = (state = initialState, action: TAuthActions) => {
   switch (action.type) {
     case AUTH_LOGIN_REQUEST:
       return {
