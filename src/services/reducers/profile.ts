@@ -1,7 +1,9 @@
+import { TUser } from '../../../declarations/user';
 import {
   PROFILE_REQUEST,
   PROFILE_REQUEST_SUCCESS,
   PROFILE_REQUEST_FAILED,
+  TProfileActions,
 } from '../actions/profile';
 import {
   PROFILE_EDIT_REQUEST,
@@ -14,7 +16,18 @@ import {
   PROFILE_SET_PASSWORD,
 } from '../actions/profile';
 
-const initialState = {
+type TInitialState = {
+  user: null | TUser;
+  name: string;
+  email: string;
+  password: string;
+  profileRequest: boolean;
+  profileRequestFailed: boolean;
+  profileEditRequest: boolean;
+  profileEditRequestFailed: boolean;
+};
+
+const initialState: TInitialState = {
   user: null,
   name: '',
   email: '',
@@ -25,7 +38,7 @@ const initialState = {
   profileEditRequestFailed: false,
 };
 
-export const profileReducer = (state = initialState, action) => {
+export const profileReducer = (state:TInitialState = initialState, action: TProfileActions) => {
   switch (action.type) {
     case PROFILE_REQUEST: {
       return {
@@ -92,7 +105,7 @@ export const profileReducer = (state = initialState, action) => {
     case PROFILE_SET_PASSWORD: {
       return {
         ...state,
-        password: action.password,
+        password: action.payload,
       };
     }
     default:
