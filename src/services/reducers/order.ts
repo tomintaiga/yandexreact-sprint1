@@ -1,18 +1,26 @@
-import { SHOW_ORDER, HIDE_ORDER } from '../actions/order';
+import { TOrder } from '../../../declarations/order';
+import { SHOW_ORDER, HIDE_ORDER, TOrderActions } from '../actions/order';
 import {
   ORDER_REQUEST,
   ORDER_REQUEST_FAILED,
   ORDER_REQUEST_SUCESS,
 } from '../actions/order';
 
-const initialState = {
+type TInitialState = {
+  showOrder: boolean;
+  order: TOrder | null;
+  orderLoading: boolean;
+  orderLoadingError: boolean;
+};
+
+const initialState: TInitialState = {
   showOrder: false,
   order: null,
   orderLoading: false,
   orderLoadingError: false,
 };
 
-export const orderReducer = (state = initialState, action) => {
+export const orderReducer = (state:TInitialState = initialState, action: TOrderActions) => {
   switch (action.type) {
     case SHOW_ORDER: {
       return {
