@@ -1,15 +1,22 @@
+import { TBurgerIngredient } from '../../../declarations/burger';
 import {
   CONSTRUCTOR_ADD_ITEM,
   CONSTRUCTOR_REMOVE_ITEM,
   CONSTRUCTOR_MOVE_ITEM,
+  TConstructorActions,
 } from '../actions/burger-constructor';
 
-const initialState = {
+type TInitialState = {
+  ingredients: Array<TBurgerIngredient>;
+  totalPrice: number;
+};
+
+const initialState: TInitialState = {
   ingredients: [],
   totalPrice: 0,
 };
 
-export const burgerConstructorReducer = (state = initialState, action) => {
+export const burgerConstructorReducer = (state:TInitialState = initialState, action: TConstructorActions) => {
   switch (action.type) {
     case CONSTRUCTOR_ADD_ITEM: {
       const cur = action.payload;

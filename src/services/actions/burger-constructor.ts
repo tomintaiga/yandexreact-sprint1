@@ -3,14 +3,36 @@ import {
   DECREMENT_INGREDIENT_COUNTER,
 } from './ingredient';
 import { v4 as uuid4 } from 'uuid';
+import { Dispatch } from 'redux';
+import { TBurgerIngredient } from '../../../declarations/burger';
 
-export const CONSTRUCTOR_ADD_ITEM = 'CONSTRUCTOR_ADD_ITEM';
-export const CONSTRUCTOR_REMOVE_ITEM = 'CONSTRUCTOR_REMOVE_ITEM';
+export const CONSTRUCTOR_ADD_ITEM:'CONSTRUCTOR_ADD_ITEM' = 'CONSTRUCTOR_ADD_ITEM';
+export const CONSTRUCTOR_REMOVE_ITEM:'CONSTRUCTOR_REMOVE_ITEM' = 'CONSTRUCTOR_REMOVE_ITEM';
 
-export const CONSTRUCTOR_MOVE_ITEM = 'CONSTRUCTOR_MOVE_ITEM';
+export const CONSTRUCTOR_MOVE_ITEM:'CONSTRUCTOR_MOVE_ITEM' = 'CONSTRUCTOR_MOVE_ITEM';
 
-export function addIngredient(dispatch, ingredient, ingredients) {
-  const addIngredient = (dispatch, ingredient) => {
+export interface TConstructorAddItem {
+  readonly type: typeof CONSTRUCTOR_ADD_ITEM;
+  readonly payload: TBurgerIngredient;
+};
+
+export interface TConstructorRemoveItem {
+  readonly type: typeof CONSTRUCTOR_REMOVE_ITEM;
+  readonly payload: TBurgerIngredient;
+};
+
+export interface TConstructorMoveItem {
+  readonly type: typeof CONSTRUCTOR_MOVE_ITEM;
+  readonly payload: {
+    dragId: string;
+    dropId: string;
+  };
+};
+
+export type TConstructorActions = TConstructorAddItem | TConstructorRemoveItem | TConstructorMoveItem;
+
+export function addIngredient(dispatch:Dispatch, ingredient: TBurgerIngredient, ingredients:Array<TBurgerIngredient>) {
+  const addIngredient = (dispatch:Dispatch, ingredient: TBurgerIngredient) => {
     dispatch({
       type: CONSTRUCTOR_ADD_ITEM,
       payload: {
@@ -51,7 +73,7 @@ export function addIngredient(dispatch, ingredient, ingredients) {
   addIngredient(dispatch, ingredient);
 }
 
-export function removeIngredient(dispatch, ingredient) {
+export function removeIngredient(dispatch:Dispatch, ingredient:TBurgerIngredient) {
   // Не удаляем булочки
   if (ingredient.type === 'bun') {
     return;
