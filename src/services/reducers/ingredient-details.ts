@@ -1,14 +1,21 @@
+import { TBurgerIngredient } from '../../../declarations/burger';
 import {
   SHOW_INGREDIENT_DETAILS,
   HIDE_INGREDIENT_DETAILS,
+  TIngredientDetailsActions,
 } from '../actions/ingredient-details';
+
+type TIinitialState = {
+  showDetail: boolean;
+  ingredient: TBurgerIngredient | null;
+};
 
 const initialState = {
   showDetail: false,
   ingredient: null,
 };
 
-export const ingredientDetailReducer = (state = initialState, action) => {
+export const ingredientDetailReducer = (state:TIinitialState = initialState, action:TIngredientDetailsActions) => {
   switch (action.type) {
     case SHOW_INGREDIENT_DETAILS: {
       return {
