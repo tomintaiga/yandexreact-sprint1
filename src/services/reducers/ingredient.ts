@@ -1,20 +1,28 @@
+import { TBurgerIngredient } from '../../../declarations/burger';
 import {
   GET_INGEDIENT_FAILED,
   GET_INGEDIENT_SUCCESS,
   GET_INGEDIENT_REQUEST,
+  TIngredientActions,
 } from '../actions/ingredient';
 import {
   INCREMENT_INGREDIENT_COUNTER,
   DECREMENT_INGREDIENT_COUNTER,
 } from '../actions/ingredient';
 
-const initialState = {
+type TInitialState = {
+  ingredients: Array<TBurgerIngredient>;
+  ingredientsRequest: boolean;
+  ingredientsError: boolean;
+};
+
+const initialState: TInitialState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsError: false,
 };
 
-export const ingredientReducer = (state = initialState, action) => {
+export const ingredientReducer = (state:TInitialState = initialState, action: TIngredientActions) => {
   switch (action.type) {
     case GET_INGEDIENT_REQUEST: {
       return {

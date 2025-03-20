@@ -288,7 +288,7 @@ export function refreshToken(
 export const fetchWithRefresh = async (
   dispatch: Dispatch,
   url: string,
-  options: RequestInit,
+  options: RequestInit | undefined,
 ): Promise<any> => {
   try {
     const res = await fetch(url, options);
@@ -300,7 +300,7 @@ export const fetchWithRefresh = async (
         dispatch,
         getCookie('refreshToken') || '',
       );
-      if (options.headers) {
+      if (options && options.headers) {
         (options.headers as Record<string, string>).Authorization =
           `Bearer ${refreshData.accessToken}`;
       }

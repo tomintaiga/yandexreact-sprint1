@@ -51,7 +51,7 @@ const initialState: TInitialState = {
   isTokenError: false,
 };
 
-export const authReducer = (state = initialState, action: TAuthActions) => {
+export const authReducer = (state:TInitialState = initialState, action: TAuthActions) => {
   switch (action.type) {
     case AUTH_LOGIN_REQUEST:
       return {

@@ -1,31 +1,65 @@
-export const GET_INGEDIENT_REQUEST = 'GET_INGEDIENT_REQUEST';
-export const GET_INGEDIENT_SUCCESS = 'GET_INGEDIENT_SUCCESS';
-export const GET_INGEDIENT_FAILED = 'GET_INGEDIENT_FAILED';
-export const INCREMENT_INGREDIENT_COUNTER = 'INCREMENT_INGREDIENT_COUNTER';
-export const DECREMENT_INGREDIENT_COUNTER = 'DECREMENT_INGREDIENT_COUNTER';
+export const GET_INGEDIENT_REQUEST:'GET_INGEDIENT_REQUEST' = 'GET_INGEDIENT_REQUEST';
+export const GET_INGEDIENT_SUCCESS:'GET_INGEDIENT_SUCCESS' = 'GET_INGEDIENT_SUCCESS';
+export const GET_INGEDIENT_FAILED:'GET_INGEDIENT_FAILED' = 'GET_INGEDIENT_FAILED';
+export const INCREMENT_INGREDIENT_COUNTER:'INCREMENT_INGREDIENT_COUNTER' = 'INCREMENT_INGREDIENT_COUNTER';
+export const DECREMENT_INGREDIENT_COUNTER:'DECREMENT_INGREDIENT_COUNTER' = 'DECREMENT_INGREDIENT_COUNTER';
 
+import { Dispatch } from 'redux';
+
+import { TBurgerIngredient } from '../../../declarations/burger';
 import { BASE_URL } from '../../utils/request';
 
 import { fetchWithRefresh } from './auth';
 
 const url = `${BASE_URL}/ingredients`;
 
+export interface IGetIngredientRequest {
+  readonly type: typeof GET_INGEDIENT_REQUEST;
+};
+
+export interface IGetIngredientSuccess {
+  readonly type: typeof GET_INGEDIENT_SUCCESS;
+  payload: Array<TBurgerIngredient>;
+};
+
+export interface IGetIngredientFailed {
+  readonly type: typeof GET_INGEDIENT_FAILED;
+  payload: string;
+};
+
+export interface IIncrementIngredientCounter {
+  readonly type: typeof INCREMENT_INGREDIENT_COUNTER;
+  payload: string;
+};
+
+export interface IDecrementIngredientCounter {
+  readonly type: typeof DECREMENT_INGREDIENT_COUNTER;
+  payload: string;
+};
+
+export type TIngredientActions =
+  | IGetIngredientRequest
+  | IGetIngredientSuccess
+  | IGetIngredientFailed
+  | IIncrementIngredientCounter
+  | IDecrementIngredientCounter;
+
 // Сортировка ингредиентов
-const sortIngredients = (data) => {
+const sortIngredients = (data:Array<TBurgerIngredient>):Array<TBurgerIngredient> => {
   const buns = data.filter((item) => item.type === 'bun');
   const sauces = data.filter((item) => item.type === 'sauce');
   const mains = data.filter((item) => item.type === 'main');
   return [...buns, ...sauces, ...mains];
 };
 
-export function loadIngredients(dispatch) {
+export function loadIngredients(dispatch: Dispatch) {
   // Set loading status
   dispatch({
     type: GET_INGEDIENT_REQUEST,
   });
 
   // Fetch ingredients
-  fetchWithRefresh(dispatch, url, null)
+  fetchWithRefresh(dispatch, url, undefined)
     .then((data) => {
       // Проверка ответа сервера
       if (data.success === true) {
