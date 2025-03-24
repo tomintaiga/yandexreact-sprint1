@@ -1,4 +1,4 @@
-import { TOrder } from '../../../declarations/order';
+import { TOrder } from '../../declarations/order';
 import { SHOW_ORDER, HIDE_ORDER, TOrderActions } from '../actions/order';
 import {
   ORDER_REQUEST,

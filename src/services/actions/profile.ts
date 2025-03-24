@@ -14,7 +14,7 @@ import { BASE_URL } from '../../utils/request';
 import { Dispatch } from 'redux';
 
 import { fetchWithRefresh } from './auth';
-import { TUser } from '../../../declarations/user';
+import { TUser } from '../../declarations/user';
 
 const profileUrl = `${BASE_URL}/auth/user`;
 

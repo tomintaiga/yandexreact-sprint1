@@ -1,4 +1,4 @@
-import { TUser } from '../../../declarations/user';
+import { TUser } from '../../declarations/user';
 import {
   AUTH_LOGIN_REQUEST,
   AUTH_LOGIN_SUCCESS,

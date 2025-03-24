@@ -1,4 +1,4 @@
-import { TBurgerIngredient } from '../../../declarations/burger';
+import { TBurgerIngredient } from '../../declarations/burger';
 import {
   SHOW_INGREDIENT_DETAILS,
   HIDE_INGREDIENT_DETAILS,

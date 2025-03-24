@@ -1,4 +1,4 @@
-import { TBurgerIngredient } from '../../../declarations/burger';
+import { TBurgerIngredient } from '../../declarations/burger';
 import {
   CONSTRUCTOR_ADD_ITEM,
   CONSTRUCTOR_REMOVE_ITEM,

@@ -4,7 +4,7 @@ import {
 } from './ingredient';
 import { v4 as uuid4 } from 'uuid';
 import { Dispatch } from 'redux';
-import { TBurgerIngredient } from '../../../declarations/burger';
+import { TBurgerIngredient } from '../../declarations/burger';
 
 export const CONSTRUCTOR_ADD_ITEM:'CONSTRUCTOR_ADD_ITEM' = 'CONSTRUCTOR_ADD_ITEM';
 export const CONSTRUCTOR_REMOVE_ITEM:'CONSTRUCTOR_REMOVE_ITEM' = 'CONSTRUCTOR_REMOVE_ITEM';

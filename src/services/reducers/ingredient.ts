@@ -1,4 +1,4 @@
-import { TBurgerIngredient } from '../../../declarations/burger';
+import { TBurgerIngredient } from '../../declarations/burger';
 import {
   GET_INGEDIENT_FAILED,
   GET_INGEDIENT_SUCCESS,

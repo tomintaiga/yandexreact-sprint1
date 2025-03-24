@@ -1,4 +1,4 @@
-import { TUser } from '../../../declarations/user';
+import { TUser } from '../../declarations/user';
 import {
   PROFILE_REQUEST,
   PROFILE_REQUEST_SUCCESS,
