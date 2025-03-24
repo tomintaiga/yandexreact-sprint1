@@ -6,7 +6,7 @@ import {
 
 import { TResetPasswordActions } from '../actions/reset-password';
 
-type TResetPasswordState = {
+export type TResetPasswordState = {
   resetPasswordRequest: boolean,
   resetPasswordError: boolean,
 };

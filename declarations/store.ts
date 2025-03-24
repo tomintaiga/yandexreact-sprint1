@@ -1,59 +1,19 @@
-import { TBurgerIngredient } from "./burger";
-import { TIngredient } from "./ingredient";
-import { TUser } from "./user";
+import { TBurgerConstructorState } from '../src/services/reducers/burger-constructor';
+import { TAuthState } from '../src/services/reducers/auth';
+import { TIgredientsState } from '../src/services/reducers/ingredient';
+import { TIngredientDetailsState } from '../src/services/reducers/ingredient-details';
+import { TOrderState } from '../src/services/reducers/order';
+import { TForgotPasswordState } from '../src/services/reducers/forgot-password';
+import { TResetPasswordState } from '../src/services/reducers/reset-password';
+import { TProfileState } from '../src/services/reducers/profile';
 
 export type TStore = {
-    burger: {
-        ingredients: TBurgerIngredient[];
-        totalPrice: number;
-    };
-    auth: {
-        isAuth: boolean;
-        isLoginRequest: boolean;
-        isLoginError: boolean;
-        isRegisterRequest: boolean;
-        isRegisterError: boolean;
-        isLogoutRequest: boolean;
-        isLogoutError: boolean;
-        isTokenRequest: boolean;
-        isTokenError: boolean;
-        user: TUser | null;
-    };
-    ingredient: {
-        ingredients: TBurgerIngredient[];
-        ingredientsRequest: boolean;
-        ingredientsError: boolean;
-    };
-    ingredientDetail: {
-        ingredient: TIngredient | null;
-        showDetail: boolean;
-    };
-    order: {
-        showOrder: boolean;
-        order: {
-            name: string;
-            number: number;
-        };
-        orderLoading: boolean;
-        orderLoadingError: boolean;
-    };
-    forgotPassword: {
-        forgotPasswordLoading: boolean;
-        forgotPasswordLoadingError: boolean;
-        forgotPasswordSuccess: boolean;
-    };
-    resetPassword: {
-        resetPasswordRequest: boolean;
-        resetPasswordError: boolean;
-    };
-    profile: {
-        user: TUser | null;
-        name: string;
-        email: string;
-        password: string;
-        profileRequest: boolean;
-        profileRequestFailed: boolean;
-        profileEditRequest: boolean;
-        profileEditRequestFailed: boolean;
-    }
+  burger: TBurgerConstructorState;
+  auth: TAuthState;
+  ingredient: TIgredientsState;
+  ingredientDetail: TIngredientDetailsState;
+  order: TOrderState;
+  forgotPassword: TForgotPasswordState;
+  resetPassword: TResetPasswordState;
+  profile: TProfileState;
 };
