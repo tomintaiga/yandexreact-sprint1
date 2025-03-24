@@ -14,7 +14,7 @@ import {
   PROFILE_SET_PASSWORD,
 } from '../../services/actions/profile';
 import React from 'react';
-import { TStore } from '../../../declarations/store';
+import { TStore } from '../../declarations/store';
 
 const Profile: React.FC = () => {
   const dispatch = useDispatch();

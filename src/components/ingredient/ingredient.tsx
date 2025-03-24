@@ -8,7 +8,7 @@ import { useDrag } from 'react-dnd';
 import { DRAG_INGREDIENT } from '../../services/drag/ingredient';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { TBurgerIngredient } from '../../../declarations/burger';
+import { TBurgerIngredient } from '../../declarations/burger';
 
 interface IIngredient {
   ingredient: TBurgerIngredient;

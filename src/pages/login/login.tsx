@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AUTH_LOGIN_SUCCESS } from '../../services/actions/auth';
 import { getCookie } from '../../utils/cookie';
 import React from 'react';
-import { TStore } from '../../../declarations/store';
+import { TStore } from '../../declarations/store';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');

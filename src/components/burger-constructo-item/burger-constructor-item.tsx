@@ -1,6 +1,6 @@
 import React from 'react';
 import curStyle from './burger-constructor-item.module.css';
-import { TBurgerIngredient } from '../../../declarations/burger';
+import { TBurgerIngredient } from '../../declarations/burger';
 import { removeIngredient } from '../../services/actions/burger-constructor';
 import { useDispatch } from 'react-redux';
 import {

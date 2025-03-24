@@ -15,7 +15,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import React from 'react';
-import { TStore } from '../../../declarations/store';
+import { TStore } from '../../declarations/store';
 
 const Main: React.FC = () => {
   const dispatch = useDispatch();

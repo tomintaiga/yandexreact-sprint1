@@ -11,7 +11,7 @@ import { resetPassword } from '../../services/actions/reset-password';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import React from 'react';
-import { TStore } from '../../../declarations/store';
+import { TStore } from '../../declarations/store';
 
 const ResetPassword: React.FC = () => {
   const dispatch = useDispatch();

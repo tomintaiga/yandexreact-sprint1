@@ -3,7 +3,7 @@ import { IgredientDetailsData } from '../../components/ingredient-details/ingred
 import Centered from '../../components/centered/centered';
 import { useSelector } from 'react-redux';
 import React from 'react';
-import { TStore } from '../../../declarations/store';
+import { TStore } from '../../declarations/store';
 
 const Ingredient: React.FC = () => {
   const { id } = useParams();

@@ -16,7 +16,7 @@ import { loadIngredients } from '../../services/actions/ingredient';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ProtectedRouteElement from '../protected-route-element/protected-route-element';
 import Modal from '../modal/modal';
-import { TStore } from '../../../declarations/store';
+import { TStore } from '../../declarations/store';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();

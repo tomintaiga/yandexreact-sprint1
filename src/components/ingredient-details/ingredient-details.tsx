@@ -1,8 +1,8 @@
 import curStyle from './ingredient-details.module.css';
 import IngredientDetailCaption from '../ingredient-detail-caption/ingredient-detail-caption';
 import { useSelector } from 'react-redux';
-import { TStore } from '../../../declarations/store';
-import { TIngredient } from '../../../declarations/ingredient';
+import { TStore } from '../../declarations/store';
+import { TIngredient } from '../../declarations/ingredient';
 
 interface IIngredientDetails {
   ingredient: TIngredient | null;

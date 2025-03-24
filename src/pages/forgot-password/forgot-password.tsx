@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import React, { useState } from 'react';
 import { forgotPassword } from '../../services/actions/forgot-password';
 import { Link } from 'react-router-dom';
-import { TStore } from '../../../declarations/store';
+import { TStore } from '../../declarations/store';
 
 const ForgotPassword: React.FC = () => {
   const dispatch = useDispatch();

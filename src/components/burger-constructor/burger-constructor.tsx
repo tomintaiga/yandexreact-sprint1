@@ -13,8 +13,9 @@ import { DRAG_INGREDIENT } from '../../services/drag/ingredient';
 import { addIngredient } from '../../services/actions/burger-constructor';
 import BurgerConstructorItem from '../burger-constructo-item/burger-constructor-item';
 import { useNavigate } from 'react-router-dom';
-import { TStore } from '../../../declarations/store';
+import { TStore } from '../../declarations/store';
 import { getCookie } from '../../utils/cookie';
+import { TBurgerIngredient } from '../../declarations/burger';
 
 const BurgerConstructor: React.FC = () => {
   const items = useSelector((store: TStore) => store.burger.ingredients);
@@ -24,7 +25,7 @@ const BurgerConstructor: React.FC = () => {
 
   const [, dropTarget] = useDrop({
     accept: DRAG_INGREDIENT,
-    drop: (item) => {
+    drop: (item: TBurgerIngredient) => {
       addIngredient(dispatch, item, items);
     },
   });

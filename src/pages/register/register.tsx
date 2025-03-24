@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../services/actions/auth';
 import { useState } from 'react';
 import React from 'react';
-import { TStore } from '../../../declarations/store';
+import { TStore } from '../../declarations/store';
 
 const Register: React.FC = () => {
   const dispatch = useDispatch();

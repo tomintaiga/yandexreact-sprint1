@@ -1,7 +1,7 @@
 import curStyle from './order-details.module.css';
 import check from '../../assets/check.svg';
 import { useSelector } from 'react-redux';
-import { TStore } from '../../../declarations/store';
+import { TStore } from '../../declarations/store';
 
 const OrderDetails: React.FC = () => {
   const order = useSelector((state: TStore) => state.order.order);
