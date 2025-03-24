@@ -66,6 +66,9 @@ importers:
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.28.0
         version: 8.28.0(@typescript-eslint/parser@8.28.0(eslint@9.18.0)(typescript@5.8.2))(eslint@9.18.0)(typescript@5.8.2)
+      '@typescript-eslint/parser':
+        specifier: ^8.28.0
+        version: 8.28.0(eslint@9.18.0)(typescript@5.8.2)
       '@vitejs/plugin-react':
         specifier: ^4.3.1
         version: 4.3.4(vite@5.4.11(@types/node@22.13.9))
