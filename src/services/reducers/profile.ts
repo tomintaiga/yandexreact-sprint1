@@ -16,7 +16,7 @@ import {
   PROFILE_SET_PASSWORD,
 } from '../actions/profile';
 
-type TProfileState = {
+export type TProfileState = {
   user: null | TUser;
   name: string;
   email: string;

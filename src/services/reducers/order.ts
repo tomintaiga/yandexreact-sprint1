@@ -6,7 +6,7 @@ import {
   ORDER_REQUEST_SUCESS,
 } from '../actions/order';
 
-type TOrderState = {
+export type TOrderState = {
   showOrder: boolean;
   order: TOrder | null;
   orderLoading: boolean;

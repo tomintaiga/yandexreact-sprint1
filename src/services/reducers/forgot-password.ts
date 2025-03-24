@@ -5,7 +5,7 @@ import {
   TForgotPasswordActions,
 } from '../actions/forgot-password';
 
-type TForgotPasswordState = {
+export type TForgotPasswordState = {
   forgotPasswordLoading: boolean;
   forgotPasswordLoadingError: boolean;
   forgotPasswordSuccess: boolean;

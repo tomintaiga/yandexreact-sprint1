@@ -10,7 +10,7 @@ import {
   DECREMENT_INGREDIENT_COUNTER,
 } from '../actions/ingredient';
 
-type TIgredientsState = {
+export type TIgredientsState = {
   ingredients: Array<TBurgerIngredient>;
   ingredientsRequest: boolean;
   ingredientsError: boolean;

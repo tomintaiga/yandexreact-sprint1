@@ -6,7 +6,7 @@ import {
   TConstructorActions,
 } from '../actions/burger-constructor';
 
-type TBurgerConstructorState = {
+export type TBurgerConstructorState = {
   ingredients: Array<TBurgerIngredient>;
   totalPrice: number;
 };

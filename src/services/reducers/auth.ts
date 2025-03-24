@@ -21,7 +21,7 @@ import {
   AUTH_TOKEN_FAILED,
 } from '../actions/auth';
 
-type TAuthState = {
+export type TAuthState = {
   user: TUser | null;
   token: string | null;
   refreshToken: string | null;
