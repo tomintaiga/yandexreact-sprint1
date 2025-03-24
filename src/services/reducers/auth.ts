@@ -21,7 +21,7 @@ import {
   AUTH_TOKEN_FAILED,
 } from '../actions/auth';
 
-type TInitialState = {
+type TAuthState = {
   user: TUser | null;
   token: string | null;
   refreshToken: string | null;
@@ -36,7 +36,7 @@ type TInitialState = {
   isTokenError: boolean;
 };
 
-const initialState: TInitialState = {
+const initialState: TAuthState = {
   user: null,
   token: null,
   refreshToken: null,
@@ -51,7 +51,7 @@ const initialState: TInitialState = {
   isTokenError: false,
 };
 
-export const authReducer = (state:TInitialState = initialState, action: TAuthActions) => {
+export const authReducer = (state:TAuthState = initialState, action: TAuthActions) => {
   switch (action.type) {
     case AUTH_LOGIN_REQUEST:
       return {

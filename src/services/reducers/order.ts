@@ -6,21 +6,21 @@ import {
   ORDER_REQUEST_SUCESS,
 } from '../actions/order';
 
-type TInitialState = {
+type TOrderState = {
   showOrder: boolean;
   order: TOrder | null;
   orderLoading: boolean;
   orderLoadingError: boolean;
 };
 
-const initialState: TInitialState = {
+const initialState: TOrderState = {
   showOrder: false,
   order: null,
   orderLoading: false,
   orderLoadingError: false,
 };
 
-export const orderReducer = (state:TInitialState = initialState, action: TOrderActions) => {
+export const orderReducer = (state:TOrderState = initialState, action: TOrderActions) => {
   switch (action.type) {
     case SHOW_ORDER: {
       return {

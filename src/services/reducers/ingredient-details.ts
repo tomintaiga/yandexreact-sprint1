@@ -5,17 +5,17 @@ import {
   TIngredientDetailsActions,
 } from '../actions/ingredient-details';
 
-type TIinitialState = {
+type TIngredientsState = {
   showDetail: boolean;
   ingredient: TBurgerIngredient | null;
 };
 
-const initialState = {
+const initialState:TIngredientsState = {
   showDetail: false,
   ingredient: null,
 };
 
-export const ingredientDetailReducer = (state:TIinitialState = initialState, action:TIngredientDetailsActions) => {
+export const ingredientDetailReducer = (state:TIngredientsState = initialState, action:TIngredientDetailsActions) => {
   switch (action.type) {
     case SHOW_INGREDIENT_DETAILS: {
       return {

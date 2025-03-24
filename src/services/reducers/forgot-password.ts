@@ -5,20 +5,20 @@ import {
   TForgotPasswordActions,
 } from '../actions/forgot-password';
 
-type TInitialState = {
+type TForgotPasswordState = {
   forgotPasswordLoading: boolean;
   forgotPasswordLoadingError: boolean;
   forgotPasswordSuccess: boolean;
 };
 
-const initialState: TInitialState = {
+const initialState: TForgotPasswordState = {
   forgotPasswordLoading: false,
   forgotPasswordLoadingError: false,
   forgotPasswordSuccess: false,
 };
 
 export const forgotPasswordReducer = (
-  state: TInitialState = initialState,
+  state: TForgotPasswordState = initialState,
   action: TForgotPasswordActions,
 ) => {
   switch (action.type) {

@@ -10,19 +10,19 @@ import {
   DECREMENT_INGREDIENT_COUNTER,
 } from '../actions/ingredient';
 
-type TInitialState = {
+type TIgredientsState = {
   ingredients: Array<TBurgerIngredient>;
   ingredientsRequest: boolean;
   ingredientsError: boolean;
 };
 
-const initialState: TInitialState = {
+const initialState: TIgredientsState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsError: false,
 };
 
-export const ingredientReducer = (state:TInitialState = initialState, action: TIngredientActions) => {
+export const ingredientReducer = (state:TIgredientsState = initialState, action: TIngredientActions) => {
   switch (action.type) {
     case GET_INGEDIENT_REQUEST: {
       return {

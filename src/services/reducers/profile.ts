@@ -16,7 +16,7 @@ import {
   PROFILE_SET_PASSWORD,
 } from '../actions/profile';
 
-type TInitialState = {
+type TProfileState = {
   user: null | TUser;
   name: string;
   email: string;
@@ -27,7 +27,7 @@ type TInitialState = {
   profileEditRequestFailed: boolean;
 };
 
-const initialState: TInitialState = {
+const initialState: TProfileState = {
   user: null,
   name: '',
   email: '',
@@ -38,7 +38,7 @@ const initialState: TInitialState = {
   profileEditRequestFailed: false,
 };
 
-export const profileReducer = (state:TInitialState = initialState, action: TProfileActions) => {
+export const profileReducer = (state:TProfileState = initialState, action: TProfileActions) => {
   switch (action.type) {
     case PROFILE_REQUEST: {
       return {
