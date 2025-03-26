@@ -7,6 +7,7 @@ import { forgotPasswordReducer } from './forgot-password';
 import { resetPasswordReducer } from './reset-password';
 import { authReducer } from './auth';
 import { profileReducer } from './profile';
+import { feedReducer } from './feed';
 
 export const rootReducer = combineReducers({
   ingredient: ingredientReducer,
@@ -17,4 +18,5 @@ export const rootReducer = combineReducers({
   resetPassword: resetPasswordReducer,
   auth: authReducer,
   profile: profileReducer,
+  feed : feedReducer,
 });
