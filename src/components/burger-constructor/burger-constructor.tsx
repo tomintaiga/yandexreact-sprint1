@@ -6,29 +6,29 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { useSelector, useDispatch } from 'react-redux';
 import { sendOrder } from '../../services/actions/order';
 import { useDrop } from 'react-dnd';
 import { DRAG_INGREDIENT } from '../../services/drag/ingredient';
-import { addIngredient } from '../../services/actions/burger-constructor';
 import BurgerConstructorItem from '../burger-constructo-item/burger-constructor-item';
 import { useNavigate } from 'react-router-dom';
-import { TStore } from '../../../declarations/store';
 import { getCookie } from '../../utils/cookie';
 
 import { TBurgerIngredient } from '../../../declarations/burger';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { addIngredientToBurger } from '../../thunks/addIngredientToBurger';
 
 // TODO: Не исправлено
 const BurgerConstructor: React.FC = () => {
-  const items = new Array<TBurgerIngredient>(); //useSelector((store: TStore) => store.burger.ingredients);
-  const totalPrice = 0;//useSelector((store: TStore) => store.burger.totalPrice);
-  const dispatch = useDispatch();
+  const items = useAppSelector((store)=> store.burgerIngredients.ingredients);
+  const totalPrice = useAppSelector((store)=> store.burgerIngredients.totalPrice);
+
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [, dropTarget] = useDrop({
     accept: DRAG_INGREDIENT,
-    drop: (item) => {
-      addIngredient(dispatch, item, items);
+    drop: (item:TBurgerIngredient) => {
+      dispatch(addIngredientToBurger(item));
     },
   });
 

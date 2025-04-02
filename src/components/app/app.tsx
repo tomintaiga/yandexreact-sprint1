@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import Root from '../../pages/root/root';
 import Main from '../../pages/main/main';

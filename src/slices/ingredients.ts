@@ -5,12 +5,10 @@ import { ingredientsApi } from '../api/ingredients';
 
 interface IBurgerIngredientsState {
     ingredients: Array<TBurgerIngredient>;
-    counters: Record<string, number>;
 }
 
 const initialState: IBurgerIngredientsState = {
     ingredients: Array<TBurgerIngredient>(),
-    counters: {}
 }
 
 export const ingredientsSlice = createSlice({
@@ -19,13 +17,23 @@ export const ingredientsSlice = createSlice({
     reducers: {
         incrementCount(state, action: PayloadAction<string>) {
             const id = action.payload;
-            state.counters[id] = (state.counters[id] || 0) + 1;
+            state.ingredients.forEach((item) => {
+                if (item._id === id) {
+                    item.count = (item.count || 0) + 1;
+                }
+            });
         },
         decrementCount(state, action: PayloadAction<string>) {
             const id = action.payload;
-            if(state.counters[id] && state.counters[id]> 0 ) {
-                state.counters[id] -=1;
-            }
+            state.ingredients.forEach((item) => {
+                if (item._id === id) {
+                    item.count = (item.count || 0) - 1;
+
+                    if (item.count < 0) {
+                        item.count = 0;
+                    }
+                }
+            });
         }
     },
     // Используется для заполнения слайса после завершения запроса к API
@@ -33,7 +41,6 @@ export const ingredientsSlice = createSlice({
         builder.addMatcher(
             ingredientsApi.endpoints.getIngredients.matchFulfilled,
             (state, action) => {
-                state.counters = {};
                 state.ingredients = action.payload
             }
         )

@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { TBurgerIngredient } from '../../declarations/burger';
 import { BASE_URL } from '../utils/request';
-import { v4 as uuid4 } from 'uuid';
 
 type TIngredientsResponse = {
   success: boolean;
@@ -27,11 +26,10 @@ export const ingredientsApi = createApi({
     getIngredients: builder.query<TBurgerIngredient[], void>({
       query: () => 'ingredients',
       transformResponse: (response: TIngredientsResponse) => {
-        // Добавляем count: 0 к каждому ингредиенту
         return sortIngredients(
           response.data.map((ingredient) => ({
             ...ingredient,
-            id: uuid4(), // Генерируем уникальный id для каждого ингредиента
+            count: 0,
           })),
         );
       },
