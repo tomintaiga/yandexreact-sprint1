@@ -19,10 +19,13 @@ import { TStore } from '../../../declarations/store';
 
 const Main: React.FC = () => {
   const dispatch = useDispatch();
-  const showDetail = useSelector(
-    (state: TStore) => state.ingredientDetail.showDetail,
-  );
-  const showOrder = useSelector((state: TStore) => state.order.showOrder);
+  // const showDetail = useSelector(
+  //   (state: TStore) => state.ingredientDetail.showDetail,
+  // );
+  // const showOrder = useSelector((state: TStore) => state.order.showOrder);
+
+  const showDetail = false;
+  const showOrder = false;
 
   return (
     <>

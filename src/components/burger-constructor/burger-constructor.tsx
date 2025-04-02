@@ -16,9 +16,12 @@ import { useNavigate } from 'react-router-dom';
 import { TStore } from '../../../declarations/store';
 import { getCookie } from '../../utils/cookie';
 
+import { TBurgerIngredient } from '../../../declarations/burger';
+
+// TODO: Не исправлено
 const BurgerConstructor: React.FC = () => {
-  const items = useSelector((store: TStore) => store.burger.ingredients);
-  const totalPrice = useSelector((store: TStore) => store.burger.totalPrice);
+  const items = new Array<TBurgerIngredient>(); //useSelector((store: TStore) => store.burger.ingredients);
+  const totalPrice = 0;//useSelector((store: TStore) => store.burger.totalPrice);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
