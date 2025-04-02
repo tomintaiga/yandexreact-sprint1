@@ -67,7 +67,7 @@ export const burgerIngredientsSlice = createSlice({
       }
 
       state.ingredients = state.ingredients.filter(
-        (item) => item._id != cur._id,
+        (item) => item.id != cur.id,
       );
       state.totalPrice -= cur.price;
     },

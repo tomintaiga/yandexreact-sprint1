@@ -11,6 +11,9 @@ import { useDrag, useDrop } from 'react-dnd';
 import { DRAG_CONSTRUCTOR_INGREDIENT } from '../../services/drag/contructor';
 import { CONSTRUCTOR_MOVE_ITEM } from '../../services/actions/burger-constructor';
 
+import { removeIngredientFromBurger } from '../../thunks/removeIngredientFromBurger';
+import { useAppDispatch } from '../../app/hooks';
+
 interface IBurgerConstructorItem {
   isTop?: boolean;
   isBottom?: boolean;
@@ -22,7 +25,7 @@ const BurgerConstructorItem: React.FC<IBurgerConstructorItem> = ({
   isBottom,
   item,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [{ isDragging }, dragRef] = useDrag({
     type: DRAG_CONSTRUCTOR_INGREDIENT,
@@ -84,7 +87,7 @@ const BurgerConstructorItem: React.FC<IBurgerConstructorItem> = ({
           }
           price={item.price}
           thumbnail={item.image}
-          handleClose={() => removeIngredient(dispatch, item)}
+          handleClose={() => dispatch(removeIngredientFromBurger(item))}
         />
       </div>
     </div>
