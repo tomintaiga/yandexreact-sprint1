@@ -13,9 +13,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { useAppSelector } from '../../app/hooks';
 
 import React from 'react';
-import { TStore } from '../../../declarations/store';
 
 const Main: React.FC = () => {
   const dispatch = useDispatch();
@@ -24,7 +24,9 @@ const Main: React.FC = () => {
   // );
   // const showOrder = useSelector((state: TStore) => state.order.showOrder);
 
-  const showDetail = false;
+  const showDetail = useAppSelector(
+    (state) => state.ingredientDetails.showDetail
+  );
   const showOrder = false;
 
   return (

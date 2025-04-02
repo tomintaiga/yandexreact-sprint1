@@ -12,31 +12,32 @@ import NotFound from '../../pages/not-found/not-found';
 
 import { Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadIngredients } from '../../services/actions/ingredient';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ProtectedRouteElement from '../protected-route-element/protected-route-element';
 import Modal from '../modal/modal';
 import { TStore } from '../../../declarations/store';
+import { useGetIngredientsQuery } from '../../slices/ingredients';
 
 const App: React.FC = () => {
-  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const background = location.state && location.state.background;
-  const ingredientId = location.state && location.state.id;
-  const ingredient = useSelector((state: TStore) => {
-    if (!ingredientId) {
-      return null;
-    }
-    return state.ingredient.ingredients.find(
-      (item) => item._id === ingredientId,
-    );
-  });
+  const {data, isLoading, isError} = useGetIngredientsQuery();
 
-  useEffect(() => {
-    loadIngredients(dispatch);
-  }, []);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (isError) {
+    return <div>Error loading ingredients</div>;
+  }
+  if (!data) {
+    return <div>No ingredients found</div>;
+  }
+
+  const background = location.state && location.state.background;
+  const ingredientId: string | undefined = location.state && location.state.id;
+  const ingredient = data.find((item) => item._id === ingredientId);
+
 
   const handleClose = () => {
     console.log('close');

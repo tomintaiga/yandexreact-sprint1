@@ -1,10 +1,12 @@
 import type { Action, ThunkAction } from '@reduxjs/toolkit'
 import { configureStore } from '@reduxjs/toolkit'
-import { ingredientsApi } from './slices/ingredients'
+import { ingredientsApi } from '../slices/ingredients'
+import ingredientDetailsReducer from '../slices/ingredient-details'
 
 export const store = configureStore({
   reducer: {
     ['ingredientsApi']: ingredientsApi.reducer,
+    ingredientDetails: ingredientDetailsReducer
   },
 
   middleware: (getDefaultMiddleware) => {
