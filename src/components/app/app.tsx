@@ -11,12 +11,10 @@ import Ingredient from '../../pages/ingredient/ingredient';
 import NotFound from '../../pages/not-found/not-found';
 
 import { Routes, Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ProtectedRouteElement from '../protected-route-element/protected-route-element';
 import Modal from '../modal/modal';
-import { TStore } from '../../../declarations/store';
-import { useGetIngredientsQuery } from '../../slices/ingredients';
+import { useGetIngredientsQuery } from '../../api/ingredients';
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -25,13 +23,13 @@ const App: React.FC = () => {
   const {data, isLoading, isError} = useGetIngredientsQuery();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>Загрузка ингредиентов...</div>;
   }
   if (isError) {
-    return <div>Error loading ingredients</div>;
+    return <div>Ошибка загрузки ингредиентов</div>;
   }
   if (!data) {
-    return <div>No ingredients found</div>;
+    return <div>Ингредиенты не найдены</div>;
   }
 
   const background = location.state && location.state.background;
@@ -40,7 +38,6 @@ const App: React.FC = () => {
 
 
   const handleClose = () => {
-    console.log('close');
     navigate(-1);
   };
 

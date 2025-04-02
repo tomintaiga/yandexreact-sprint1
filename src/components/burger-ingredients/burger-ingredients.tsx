@@ -2,22 +2,12 @@ import React from "react";
 import curStyle from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import Ingredient from '../ingredient/ingredient';
-import { useGetIngredientsQuery } from "../../slices/ingredients";
+import { useAppSelector } from "../../app/hooks";
 
 const BurgerIngredients: React.FC = () => {
-    const {data, isLoading, error} = useGetIngredientsQuery();
+    const data = useAppSelector(state => state.ingredients.ingredients);
     const [curTab, setCurTab] = React.useState<string>('bun');
     const containerRef = React.useRef<HTMLDivElement>(null);
-
-    if (isLoading) {
-      return <p className="text text_type_main-medium">Загрузка...</p>;
-    }
-    if (error) {
-      return <p className="text text_type_main-medium">Ошибка загрузки</p>;
-    }
-    if (!data) {
-      return <p className="text text_type_main-medium">Нет данных</p>;
-    }
 
     const handleScroll = () => {
       const container = containerRef.current;

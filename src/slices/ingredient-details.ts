@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "../app/store";
 import { TBurgerIngredient } from "../../declarations/burger";
 
 interface IIngredientDetailsState {
@@ -29,6 +28,5 @@ export const ingredientDetailsSlice = createSlice({
 });
 
 export const { showIngredientDetails, hideIngredientDetails } = ingredientDetailsSlice.actions;
-export const selectIngredientDetails = (state: RootState) => state.ingredientDetails;
 
 export default ingredientDetailsSlice.reducer;
