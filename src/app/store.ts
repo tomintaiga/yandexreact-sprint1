@@ -5,6 +5,7 @@ import { authApi } from '../api/auth';
 import ingredientDetailsReducer from '../slices/ingredient-details';
 import ingredientSliceReducer from '../slices/ingredients';
 import burgerIngredientsReducer from '../slices/burger-ingredients';
+import authSlice from '../slices/auth';
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     ingredientDetails: ingredientDetailsReducer,
     ingredients: ingredientSliceReducer,
     burgerIngredients: burgerIngredientsReducer,
+    auth: authSlice,
   },
 
   middleware: (getDefaultMiddleware) => {
