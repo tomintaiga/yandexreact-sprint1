@@ -19,11 +19,6 @@ import React from 'react';
 
 const Main: React.FC = () => {
   const dispatch = useDispatch();
-  // const showDetail = useSelector(
-  //   (state: TStore) => state.ingredientDetail.showDetail,
-  // );
-  // const showOrder = useSelector((state: TStore) => state.order.showOrder);
-
   const showDetail = useAppSelector(
     (state) => state.ingredientDetails.showDetail
   );
