@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getCookie, setCookie, deleteCookie } from '../utils/cookie';
 import { BASE_URL } from '../utils/request';
 import { TUser } from '../../declarations/user';
+import { forgotPassword } from '../services/actions/forgot-password';
 
 // Типы для запросов и ответов
 type LoginRequest = {
@@ -21,6 +22,10 @@ type AuthResponse = {
   refreshToken: string;
   user?: TUser;
 };
+
+type ResetResponse = {
+  success: boolean;
+}
 
 
 const baseQuery = fetchBaseQuery({
@@ -85,6 +90,14 @@ export const authApi = createApi({
       }),
     }),
 
+    forgotPassword: builder.mutation<ResetResponse, string>({
+      query: (email) => ({
+        url: 'password-reset',
+        method: 'POST',
+        body: { email },
+      }),
+    }),
+
     logout: builder.mutation<void, void>({
       query: () => ({
         url: 'auth/logout',
@@ -118,6 +131,7 @@ export const {
   useRegisterMutation,
   useLogoutMutation,
   useGetUserQuery,
+  useForgotPasswordMutation,
 } = authApi;
 
 // Для использования в API, гед нужна авторизация
