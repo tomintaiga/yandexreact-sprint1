@@ -18,7 +18,6 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useAppDispatch();
-  // const isAuth = useSelector((store: TStore) => store.auth.isAuth);
   const isAuth = useAppSelector((store) => store.auth.isAuth);
   const location = useLocation();
   const navigate = useNavigate();
