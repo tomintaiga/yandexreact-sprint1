@@ -6,11 +6,9 @@ import Modal from '../../components/modal/modal';
 import IngredientDetails from '../../components/ingredient-details/ingredient-details';
 import OrderDetails from '../../components/order-details/order-details';
 
-
-import { useDispatch } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { useAppSelector } from '../../app/hooks';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { hideIngredientDetails } from '../../slices/ingredient-details';
 
 import React from 'react';
@@ -18,7 +16,7 @@ import React from 'react';
 import { showOrder } from '../../slices/single-order';
 
 const Main: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const showDetail = useAppSelector(
     (state) => state.ingredientDetails.showDetail
   );

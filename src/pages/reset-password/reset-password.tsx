@@ -5,42 +5,38 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CenteredForm } from '../../components/centered/centered';
-import { useDispatch } from 'react-redux';
 import { FormEvent, useState } from 'react';
-import { resetPassword } from '../../services/actions/reset-password';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
-import { TStore } from '../../../declarations/store';
+import { useResetPasswordMutation } from '../../api/auth';
 
 const ResetPassword: React.FC = () => {
-  const dispatch = useDispatch();
   const [pass, setPass] = useState('');
   const [token, setToken] = useState('');
-
-  const resetPasswordRequest = useSelector(
-    (store: TStore) => store.resetPassword.resetPasswordRequest,
-  );
-  const resetPasswordError = useSelector(
-    (store: TStore) => store.resetPassword.resetPasswordError,
-  );
+  const [resetPassword, {isLoading, error}] = useResetPasswordMutation();
+  const navigate = useNavigate();
 
   const handleResetPassword = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    resetPassword(dispatch, pass, token);
+    resetPassword({ password: pass, token }).unwrap()
+    .then(data => {
+      if (data.success) {
+        navigate('/login');
+      }
+    });
   };
 
   return (
     <CenteredForm onSubmit={handleResetPassword}>
       <h2 className="text text_type_main-medium">Восстановление пароля</h2>
-      {resetPasswordError && (
+      {error && (
         <p
           className={`text text_type_main-default text_color_inactive ${curStyle.register_error}`}
         >
           Ошибка сброса пароля
         </p>
       )}
-      {resetPasswordRequest && (
+      {isLoading && (
         <p
           className={`text text_type_main-default text_color_inactive ${curStyle.register_error}`}
         >
@@ -66,7 +62,7 @@ const ResetPassword: React.FC = () => {
       </div>
       <div className={curStyle.button}>
         <Button type="primary" size="medium" htmlType="submit">
-          Сохранить
+          Обновить пароль
         </Button>
       </div>
       <p

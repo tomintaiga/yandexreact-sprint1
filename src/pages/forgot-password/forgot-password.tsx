@@ -4,13 +4,14 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForgotPasswordMutation } from '../../api/auth';
 
 const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [forgotPassword, { isLoading, error }] = useForgotPasswordMutation();
   const [isResetSuccess, setIsResetSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const handleForgotPassword = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -18,6 +19,7 @@ const ForgotPassword: React.FC = () => {
       const response = await forgotPassword(email).unwrap();
       if (response && response.success) {
         setIsResetSuccess(true);
+        navigate('/reset-password');
       } else {
         setIsResetSuccess(false);
       }

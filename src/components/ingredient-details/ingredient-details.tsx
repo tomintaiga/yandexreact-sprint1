@@ -3,6 +3,7 @@ import IngredientDetailCaption from '../ingredient-detail-caption/ingredient-det
 import { useSelector } from 'react-redux';
 import { TStore } from '../../../declarations/store';
 import { TIngredient } from '../../../declarations/ingredient';
+import React from 'react';
 
 interface IIngredientDetails {
   ingredient: TIngredient | null;

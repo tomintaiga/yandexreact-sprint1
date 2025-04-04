@@ -1,4 +1,5 @@
 import curCss from './ingredient-detail-caption.module.css';
+import React from 'react';
 
 interface IIngredientDetailCaption {
   caption: string;
