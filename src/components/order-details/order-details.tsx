@@ -1,6 +1,6 @@
 import curStyle from './order-details.module.css';
 import check from '../../assets/check.svg';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useAppSelector } from '../../app/hooks';
 import { useCreateOrderMutation } from '../../api/order';
 
@@ -8,14 +8,15 @@ const OrderDetails: React.FC = () => {
   const order = useAppSelector((state) => state.singleOrder.order);
   const items = useAppSelector((store)=> store.burgerIngredients.ingredients);
   const [createOrder, {isLoading, error}] = useCreateOrderMutation();
+  const orderCreatedRef = useRef(false);
 
   useEffect(() => {
-    if (items.length > 0) {
+    if (items.length > 0 && !orderCreatedRef.current) {
+      orderCreatedRef.current = true;
       const ingredients = items.map((item) => item._id);
       createOrder({ ingredients }).unwrap();
     }
-  }
-  , [items, createOrder]);
+  }, [items, createOrder]);
 
   if (isLoading) {
     return (

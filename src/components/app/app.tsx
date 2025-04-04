@@ -15,27 +15,45 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import ProtectedRouteElement from '../protected-route-element/protected-route-element';
 import Modal from '../modal/modal';
 import { useGetIngredientsQuery } from '../../api/ingredients';
+import Centered from '../centered/centered';
 
 const App: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const {data, isLoading, isError} = useGetIngredientsQuery();
+  const { data, isLoading, isError } = useGetIngredientsQuery();
 
   if (isLoading) {
-    return <div>Загрузка ингредиентов...</div>;
+    return (
+      <Centered>
+        <p className="text text_type_main-default text_color_inactive">
+          Загрузка ингредиентов...
+        </p>
+      </Centered>
+    );
   }
   if (isError) {
-    return <div>Ошибка загрузки ингредиентов</div>;
+    return (
+      <Centered>
+        <p className="text text_type_main-default text_color_inactive">
+          Ошибка загрузки ингредиентов. Попробуйте позже
+        </p>
+      </Centered>
+    );
   }
   if (!data) {
-    return <div>Ингредиенты не найдены</div>;
+    return (
+      <Centered>
+        <p className="text text_type_main-default text_color_inactive">
+          Ингредиенты не найдены
+        </p>
+      </Centered>
+    );
   }
 
   const background = location.state && location.state.background;
   const ingredientId: string | undefined = location.state && location.state.id;
   const ingredient = data.find((item) => item._id === ingredientId);
-
 
   const handleClose = () => {
     navigate(-1);
