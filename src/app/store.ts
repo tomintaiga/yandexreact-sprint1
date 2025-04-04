@@ -6,21 +6,26 @@ import ingredientDetailsReducer from '../slices/ingredient-details';
 import ingredientSliceReducer from '../slices/ingredients';
 import burgerIngredientsReducer from '../slices/burger-ingredients';
 import authSlice from '../slices/auth';
+import singleOrderSlice from '../slices/single-order';
+import { orderApi } from '../api/order';
 
 export const store = configureStore({
   reducer: {
     ['ingredientsApi']: ingredientsApi.reducer,
     ['authApi']: authApi.reducer,
+    ['orderApi']: orderApi.reducer,
     ingredientDetails: ingredientDetailsReducer,
     ingredients: ingredientSliceReducer,
     burgerIngredients: burgerIngredientsReducer,
     auth: authSlice,
+    singleOrder: singleOrderSlice,
   },
 
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(
       ingredientsApi.middleware,
       authApi.middleware,
+      orderApi.middleware,
     );
   },
 });

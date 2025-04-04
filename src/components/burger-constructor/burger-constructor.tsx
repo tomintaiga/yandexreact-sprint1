@@ -6,7 +6,6 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { sendOrder } from '../../services/actions/order';
 import { useDrop } from 'react-dnd';
 import { DRAG_INGREDIENT } from '../../services/drag/ingredient';
 import BurgerConstructorItem from '../burger-constructo-item/burger-constructor-item';
@@ -16,8 +15,8 @@ import { getCookie } from '../../utils/cookie';
 import { TBurgerIngredient } from '../../../declarations/burger';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { addIngredientToBurger } from '../../thunks/addIngredientToBurger';
+import { showOrder } from '../../slices/single-order';
 
-// TODO: Не исправлено
 const BurgerConstructor: React.FC = () => {
   const items = useAppSelector((store)=> store.burgerIngredients.ingredients);
   const totalPrice = useAppSelector((store)=> store.burgerIngredients.totalPrice);
@@ -35,11 +34,11 @@ const BurgerConstructor: React.FC = () => {
   const handleOrder = useCallback(() => {
     const token = getCookie('token');
     if (token) {
-      sendOrder(dispatch, items);
+      dispatch(showOrder(true));
     } else {
       navigate('/login', { replace: false });
     }
-  }, [dispatch, items, navigate]);
+  }, [dispatch, navigate]);
 
   return (
     <div className={curStyles.topdiv} ref={dropTarget}>

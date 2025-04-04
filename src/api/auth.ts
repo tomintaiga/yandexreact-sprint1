@@ -2,7 +2,6 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getCookie, setCookie, deleteCookie } from '../utils/cookie';
 import { BASE_URL } from '../utils/request';
 import { TUser } from '../../declarations/user';
-import { forgotPassword } from '../services/actions/forgot-password';
 
 // Типы для запросов и ответов
 type LoginRequest = {
@@ -28,7 +27,7 @@ type ResetResponse = {
 }
 
 
-const baseQuery = fetchBaseQuery({
+export const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
   prepareHeaders: (headers, { endpoint }) => {
     // Для login и register не добавляем токен
@@ -44,7 +43,7 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
+export const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
   let result = await baseQuery(args, api, extraOptions);
 
   if (result.error?.data === 'jwt expired') {
@@ -133,6 +132,3 @@ export const {
   useGetUserQuery,
   useForgotPasswordMutation,
 } = authApi;
-
-// Для использования в API, гед нужна авторизация
-export const AuthQuery = baseQueryWithReauth;
