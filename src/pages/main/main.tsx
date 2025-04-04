@@ -6,23 +6,21 @@ import Modal from '../../components/modal/modal';
 import IngredientDetails from '../../components/ingredient-details/ingredient-details';
 import OrderDetails from '../../components/order-details/order-details';
 
-import { HIDE_INGREDIENT_DETAILS } from '../../services/actions/ingredient-details';
-import { HIDE_ORDER } from '../../services/actions/order';
-
-import { useDispatch, useSelector } from 'react-redux';
-
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { hideIngredientDetails } from '../../slices/ingredient-details';
 
 import React from 'react';
-import { TStore } from '../../declarations/store';
+
+import { showOrder } from '../../slices/single-order';
 
 const Main: React.FC = () => {
-  const dispatch = useDispatch();
-  const showDetail = useSelector(
-    (state: TStore) => state.ingredientDetail.showDetail,
+  const dispatch = useAppDispatch();
+  const showDetail = useAppSelector(
+    (state) => state.ingredientDetails.showDetail
   );
-  const showOrder = useSelector((state: TStore) => state.order.showOrder);
+  const showOrderFlag = useAppSelector((state) => state.singleOrder.showOrder);
 
   return (
     <>
@@ -45,15 +43,15 @@ const Main: React.FC = () => {
         <Modal
           isOpen={showDetail}
           title="Детали ингредиента"
-          onClose={() => dispatch({ type: HIDE_INGREDIENT_DETAILS })}
+          onClose={() => hideIngredientDetails()}
         >
           <IngredientDetails />
         </Modal>
       )}
-      {showOrder && (
+      {showOrderFlag && (
         <Modal
-          isOpen={showOrder}
-          onClose={() => dispatch({ type: HIDE_ORDER })}
+          isOpen={showOrderFlag}
+          onClose={() => dispatch(showOrder(false))}
         >
           <OrderDetails />
         </Modal>

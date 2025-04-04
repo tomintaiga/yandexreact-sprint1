@@ -7,25 +7,18 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CenteredForm } from '../../components/centered/centered';
 import { Link, Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { register } from '../../services/actions/auth';
 import { useState } from 'react';
 import React from 'react';
-import { TStore } from '../../declarations/store';
+import { useAppSelector } from '../../app/hooks';
+import { useRegisterMutation } from '../../api/auth';
 
 const Register: React.FC = () => {
-  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
 
-  const isRegisterError = useSelector(
-    (store: TStore) => store.auth.isRegisterError,
-  );
-  const isRegisterRequest = useSelector(
-    (store: TStore) => store.auth.isRegisterRequest,
-  );
-  const isAuth = useSelector((store: TStore) => store.auth.isAuth);
+  const [register, { isLoading, error }] = useRegisterMutation();
+  const isAuth = useAppSelector((store) => store.auth.isAuth);
 
   if (isAuth) {
     return <Navigate to="/" />;
@@ -33,20 +26,20 @@ const Register: React.FC = () => {
 
   const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    register(dispatch, email, password, name);
+    register({ email, password, name })
   };
 
   return (
     <CenteredForm onSubmit={handleRegister}>
       <p className="text text_type_main-default">Регистрация</p>
-      {isRegisterError && (
+      {error && (
         <p
           className={`text text_type_main-default text_color_inactive ${curStyle.register_error}`}
         >
           Ошибка регистрации
         </p>
       )}
-      {isRegisterRequest && (
+      {isLoading && (
         <p
           className={`text text_type_main-default text_color_inactive ${curStyle.register_error}`}
         >

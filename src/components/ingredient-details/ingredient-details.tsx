@@ -1,8 +1,8 @@
 import curStyle from './ingredient-details.module.css';
 import IngredientDetailCaption from '../ingredient-detail-caption/ingredient-detail-caption';
-import { useSelector } from 'react-redux';
-import { TStore } from '../../declarations/store';
-import { TIngredient } from '../../declarations/ingredient';
+import { useAppSelector } from '../../app/hooks';
+import { TIngredient } from '../../../declarations/ingredient';
+import React from 'react';
 
 interface IIngredientDetails {
   ingredient: TIngredient | null;
@@ -44,9 +44,7 @@ export const IgredientDetailsData: React.FC<IIngredientDetails> = ({
 };
 
 const IngredientDetails: React.FC = () => {
-  const ingredient = useSelector(
-    (state: TStore) => state.ingredientDetail.ingredient,
-  );
+  const ingredient = useAppSelector(state => state.ingredientDetails.ingredient);
 
   return <IgredientDetailsData ingredient={ingredient} />;
 };

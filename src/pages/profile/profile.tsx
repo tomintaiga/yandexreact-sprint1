@@ -5,26 +5,56 @@ import {
   EmailInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { NavLink } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getProfile } from '../../services/actions/profile';
-import {
-  PROFILE_SET_NAME,
-  PROFILE_SET_EMAIL,
-  PROFILE_SET_PASSWORD,
-} from '../../services/actions/profile';
 import React from 'react';
-import { TStore } from '../../declarations/store';
+import {
+  useGetProfileQuery,
+  useUpdateProfileMutation,
+} from '../../api/profile';
+import { TUser } from '../../../declarations/user';
 
 const Profile: React.FC = () => {
-  const dispatch = useDispatch();
-  const name = useSelector((state: TStore) => state.profile.name);
-  const email = useSelector((state: TStore) => state.profile.email);
+  const { data, isLoading, error } = useGetProfileQuery();
+  const [updateProfile, { isLoading: isUpdating, error: updateError }] =
+    useUpdateProfileMutation();
 
-  // Load user profile
-  useEffect(() => {
-    getProfile(dispatch);
-  }, [dispatch]);
+  const handleOrder = async (user: TUser) => {
+    try {
+      const response = await updateProfile(user).unwrap();
+      console.log('User updated:', response);
+    } catch (err) {
+      console.error('Failed to update user:', err);
+    }
+  };
+
+  if (!data) {
+    return (
+      <p
+        className={`text text_type_main-default text_color_inactive ${curStyle.links_bottom_p}`}
+      >
+        Пользователь не найден
+      </p>
+    );
+  }
+
+  if (isLoading || isUpdating) {
+    return (
+      <p
+        className={`text text_type_main-default text_color_inactive ${curStyle.links_bottom_p}`}
+      >
+        Загрузка...
+      </p>
+    );
+  }
+
+  if (error || updateError) {
+    return (
+      <p
+        className={`text text_type_main-default text_color_inactive ${curStyle.links_bottom_p}`}
+      >
+        Ошибка загрузки данных
+      </p>
+    );
+  }
 
   return (
     <div className={curStyle.top_div}>
@@ -56,9 +86,9 @@ const Profile: React.FC = () => {
       <form className={curStyle.child_div}>
         <Input
           type="text"
-          value={name}
+          value={data.user.name}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            dispatch({ type: PROFILE_SET_NAME, payload: e.target.value })
+            handleOrder({ ...data.user, name: e.target.value })
           }
           placeholder="Имя"
           icon="EditIcon"
@@ -67,10 +97,8 @@ const Profile: React.FC = () => {
           name="email"
           size="default"
           placeholder="Логин"
-          value={email}
-          onChange={(e) =>
-            dispatch({ type: PROFILE_SET_EMAIL, payload: e.target.value })
-          }
+          value={data.user.email}
+          onChange={(e) => handleOrder({ ...data.user, email: e.target.value })}
         />
         <PasswordInput
           name="password"
@@ -78,7 +106,7 @@ const Profile: React.FC = () => {
           value=""
           icon="EditIcon"
           onChange={(e) =>
-            dispatch({ type: PROFILE_SET_PASSWORD, payload: e.target.value })
+            handleOrder({ ...data.user, password: e.target.value })
           }
         />
       </form>

@@ -3,40 +3,39 @@ import {
   EmailInput,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
 import React, { useState } from 'react';
-import { forgotPassword } from '../../services/actions/forgot-password';
-import { Link } from 'react-router-dom';
-import { TStore } from '../../declarations/store';
+import { Link, useNavigate } from 'react-router-dom';
+import { useForgotPasswordMutation } from '../../api/auth';
 
 const ForgotPassword: React.FC = () => {
-  const dispatch = useDispatch();
   const [email, setEmail] = useState<string>('');
-  const isResetRequest = useSelector(
-    (store: TStore) => store.forgotPassword.forgotPasswordLoading,
-  );
-  const isResetError = useSelector(
-    (store: TStore) => store.forgotPassword.forgotPasswordLoadingError,
-  );
-  const isResetSuccess = useSelector(
-    (store: TStore) => store.forgotPassword.forgotPasswordSuccess,
-  );
+  const [forgotPassword, { isLoading, error }] = useForgotPasswordMutation();
+  const [isResetSuccess, setIsResetSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const handleForgotPassword = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    forgotPassword(dispatch, email);
+    (async () => {
+      const response = await forgotPassword(email).unwrap();
+      if (response && response.success) {
+        setIsResetSuccess(true);
+        navigate('/reset-password');
+      } else {
+        setIsResetSuccess(false);
+      }
+    })();
   };
 
   return (
     <div className={curStyle.top_div}>
       <form className={curStyle.child_div} onSubmit={handleForgotPassword}>
         <p className="text text_type_main-default">Восстановление пароля</p>
-        {isResetError && (
+        {error && (
           <p className="text text_type_main-default text_color_inactive">
             Ошибка сброса пароля
           </p>
         )}
-        {isResetRequest && (
+        {isLoading && (
           <p className="text text_type_main-default text_color_inactive">
             Загрузка...
           </p>

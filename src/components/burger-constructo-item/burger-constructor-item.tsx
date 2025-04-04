@@ -1,15 +1,16 @@
 import React from 'react';
 import curStyle from './burger-constructor-item.module.css';
-import { TBurgerIngredient } from '../../declarations/burger';
-import { removeIngredient } from '../../services/actions/burger-constructor';
-import { useDispatch } from 'react-redux';
+import { TBurgerIngredient } from '../../../declarations/burger';
 import {
   DragIcon,
   ConstructorElement,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag, useDrop } from 'react-dnd';
 import { DRAG_CONSTRUCTOR_INGREDIENT } from '../../services/drag/contructor';
-import { CONSTRUCTOR_MOVE_ITEM } from '../../services/actions/burger-constructor';
+
+import { removeIngredientFromBurger } from '../../thunks/removeIngredientFromBurger';
+import { useAppDispatch } from '../../app/hooks';
+import { moveIngredient } from '../../slices/burger-ingredients';
 
 interface IBurgerConstructorItem {
   isTop?: boolean;
@@ -22,7 +23,7 @@ const BurgerConstructorItem: React.FC<IBurgerConstructorItem> = ({
   isBottom,
   item,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [{ isDragging }, dragRef] = useDrag({
     type: DRAG_CONSTRUCTOR_INGREDIENT,
@@ -46,13 +47,7 @@ const BurgerConstructorItem: React.FC<IBurgerConstructorItem> = ({
       }
 
       // Отправляем ID которые надо менять местами
-      dispatch({
-        type: CONSTRUCTOR_MOVE_ITEM,
-        payload: {
-          dragId: newItem.id,
-          dropId: item.id,
-        },
-      });
+      dispatch(moveIngredient({dragId: newItem.id, dropId: item.id}));
     },
   });
 
@@ -84,7 +79,7 @@ const BurgerConstructorItem: React.FC<IBurgerConstructorItem> = ({
           }
           price={item.price}
           thumbnail={item.image}
-          handleClose={() => removeIngredient(dispatch, item)}
+          handleClose={() => dispatch(removeIngredientFromBurger(item))}
         />
       </div>
     </div>

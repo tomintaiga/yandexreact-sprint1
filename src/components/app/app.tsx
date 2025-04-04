@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import Root from '../../pages/root/root';
 import Main from '../../pages/main/main';
@@ -11,35 +11,51 @@ import Ingredient from '../../pages/ingredient/ingredient';
 import NotFound from '../../pages/not-found/not-found';
 
 import { Routes, Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { loadIngredients } from '../../services/actions/ingredient';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ProtectedRouteElement from '../protected-route-element/protected-route-element';
 import Modal from '../modal/modal';
-import { TStore } from '../../declarations/store';
+import { useGetIngredientsQuery } from '../../api/ingredients';
+import Centered from '../centered/centered';
 
 const App: React.FC = () => {
-  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const background = location.state && location.state.background;
-  const ingredientId = location.state && location.state.id;
-  const ingredient = useSelector((state: TStore) => {
-    if (!ingredientId) {
-      return null;
-    }
-    return state.ingredient.ingredients.find(
-      (item) => item._id === ingredientId,
-    );
-  });
+  const { data, isLoading, isError } = useGetIngredientsQuery();
 
-  useEffect(() => {
-    loadIngredients(dispatch);
-  }, []);
+  if (isLoading) {
+    return (
+      <Centered>
+        <p className="text text_type_main-default text_color_inactive">
+          Загрузка ингредиентов...
+        </p>
+      </Centered>
+    );
+  }
+  if (isError) {
+    return (
+      <Centered>
+        <p className="text text_type_main-default text_color_inactive">
+          Ошибка загрузки ингредиентов. Попробуйте позже
+        </p>
+      </Centered>
+    );
+  }
+  if (!data) {
+    return (
+      <Centered>
+        <p className="text text_type_main-default text_color_inactive">
+          Ингредиенты не найдены
+        </p>
+      </Centered>
+    );
+  }
+
+  const background = location.state && location.state.background;
+  const ingredientId: string | undefined = location.state && location.state.id;
+  const ingredient = data.find((item) => item._id === ingredientId);
 
   const handleClose = () => {
-    console.log('close');
     navigate(-1);
   };
 
