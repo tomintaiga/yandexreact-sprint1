@@ -5,18 +5,26 @@ import {
   EmailInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import {
-  PROFILE_SET_NAME,
-  PROFILE_SET_EMAIL,
-  PROFILE_SET_PASSWORD,
-} from '../../services/actions/profile';
 import React from 'react';
-import { useGetProfileQuery } from '../../api/profile';
+import {
+  useGetProfileQuery,
+  useUpdateProfileMutation,
+} from '../../api/profile';
+import { TUser } from '../../../declarations/user';
 
 const Profile: React.FC = () => {
-  const dispatch = useDispatch();
   const { data, isLoading, error } = useGetProfileQuery();
+  const [updateProfile, { isLoading: isUpdating, error: updateError }] =
+    useUpdateProfileMutation();
+
+  const handleOrder = async (user: TUser) => {
+    try {
+      const response = await updateProfile(user).unwrap();
+      console.log('User updated:', response);
+    } catch (err) {
+      console.error('Failed to update user:', err);
+    }
+  };
 
   if (!data) {
     return (
@@ -28,7 +36,7 @@ const Profile: React.FC = () => {
     );
   }
 
-  if (isLoading) {
+  if (isLoading || isUpdating) {
     return (
       <p
         className={`text text_type_main-default text_color_inactive ${curStyle.links_bottom_p}`}
@@ -38,7 +46,7 @@ const Profile: React.FC = () => {
     );
   }
 
-  if (error) {
+  if (error || updateError) {
     return (
       <p
         className={`text text_type_main-default text_color_inactive ${curStyle.links_bottom_p}`}
@@ -80,7 +88,7 @@ const Profile: React.FC = () => {
           type="text"
           value={data.user.name}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            dispatch({ type: PROFILE_SET_NAME, payload: e.target.value })
+            handleOrder({ ...data.user, name: e.target.value })
           }
           placeholder="Имя"
           icon="EditIcon"
@@ -90,9 +98,7 @@ const Profile: React.FC = () => {
           size="default"
           placeholder="Логин"
           value={data.user.email}
-          onChange={(e) =>
-            dispatch({ type: PROFILE_SET_EMAIL, payload: e.target.value })
-          }
+          onChange={(e) => handleOrder({ ...data.user, email: e.target.value })}
         />
         <PasswordInput
           name="password"
@@ -100,7 +106,7 @@ const Profile: React.FC = () => {
           value=""
           icon="EditIcon"
           onChange={(e) =>
-            dispatch({ type: PROFILE_SET_PASSWORD, payload: e.target.value })
+            handleOrder({ ...data.user, password: e.target.value })
           }
         />
       </form>

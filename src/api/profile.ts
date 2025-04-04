@@ -10,9 +10,11 @@ type TProfileResponse = {
 export const profileApi = createApi({
   reducerPath: 'profileApi',
   baseQuery: baseQueryWithReauth,
+  tagTypes: ['Profile'],
   endpoints: (builder) => ({
     getProfile: builder.query<TProfileResponse, void>({
       query: () => '/auth/user',
+      providesTags: ['Profile'],
     }),
     updateProfile: builder.mutation<TProfileResponse, Partial<TUser>>({
       query: (userData) => ({
@@ -20,6 +22,7 @@ export const profileApi = createApi({
         method: 'PATCH',
         body: userData,
       }),
+      invalidatesTags: ['Profile'],
     }),
   }),
 });
