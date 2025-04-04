@@ -43,7 +43,7 @@ export const baseQuery = fetchBaseQuery({
 });
 
 export const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
-  let result = await baseQuery(args, api, extraOptions);
+  const result = await baseQuery(args, api, extraOptions);
 
   // TODO: испраивть типы
   console.log('baseQueryWithReauth', result);
@@ -67,7 +67,7 @@ export const baseQueryWithReauth = async (args: any, api: any, extraOptions: any
     if (data && data.success) {
       setCookie('token', data.accessToken);
       setCookie('refreshToken', data.refreshToken);
-      result = await baseQuery(args, api, extraOptions);
+      return await baseQuery(args, api, extraOptions);
     }
   }
 
