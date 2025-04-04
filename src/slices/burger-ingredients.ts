@@ -29,7 +29,7 @@ export const burgerIngredientsSlice = createSlice({
         if (count === 0) {
           // Булочек в конструкторе нет - добавляем сразу две
           state.ingredients = [cur, ...state.ingredients, cur];
-          state.totalPrice += cur.price;
+          state.totalPrice += cur.price * 2;
         } else {
           // Заменяем старую булку на новую
           let price = 0;
@@ -66,9 +66,7 @@ export const burgerIngredientsSlice = createSlice({
         return;
       }
 
-      state.ingredients = state.ingredients.filter(
-        (item) => item.id != cur.id,
-      );
+      state.ingredients = state.ingredients.filter((item) => item.id != cur.id);
       state.totalPrice -= cur.price;
     },
     moveIngredient(
