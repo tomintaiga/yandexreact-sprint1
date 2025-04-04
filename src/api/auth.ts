@@ -26,7 +26,6 @@ type ResetResponse = {
   success: boolean;
 }
 
-
 export const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
   prepareHeaders: (headers, { endpoint }) => {
@@ -46,7 +45,13 @@ export const baseQuery = fetchBaseQuery({
 export const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
   let result = await baseQuery(args, api, extraOptions);
 
-  if (result.error?.data === 'jwt expired') {
+  // TODO: испраивть типы
+  console.log('baseQueryWithReauth', result);
+  if(result.error) {
+    console.error('Error in baseQueryWithReauth:', result.error);
+  }
+
+  if (result.error?.data?.message === 'jwt expired') {
     const refreshResult = await baseQuery(
       {
         url: 'auth/token',
@@ -116,11 +121,6 @@ export const authApi = createApi({
         }
       },
     }),
-
-    // Дополнительно можно добавить endpoint для получения данных пользователя
-    getUser: builder.query({
-      query: () => 'auth/user',
-    }),
   }),
 });
 
@@ -129,6 +129,5 @@ export const {
   useLoginMutation,
   useRegisterMutation,
   useLogoutMutation,
-  useGetUserQuery,
   useForgotPasswordMutation,
 } = authApi;
