@@ -1,7 +1,7 @@
 import { AppDispatch, RootState } from '../app/store';
 import { incrementCount, decrementCount } from '../slices/ingredients';
 import { addIngredient } from '../slices/burger-ingredients';
-import { TBurgerIngredient } from '../../declarations/burger';
+import { TBurgerIngredient } from '../../declarations/burger'
 import { v4 as uuid4 } from 'uuid';
 
 export const addIngredientToBurger =
