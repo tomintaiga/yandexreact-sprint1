@@ -11,8 +11,7 @@ import { DRAG_INGREDIENT } from '../../services/drag/ingredient';
 import BurgerConstructorItem from '../burger-constructo-item/burger-constructor-item';
 import { useNavigate } from 'react-router-dom';
 import { getCookie } from '../../utils/cookie';
-import { TBurgerIngredient } from '../../declarations/burger';
-
+import { TBurgerIngredient } from '../../../declarations/burger';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { addIngredientToBurger } from '../../thunks/addIngredientToBurger';
 import { showOrder } from '../../slices/single-order';
