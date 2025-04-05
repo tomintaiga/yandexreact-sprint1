@@ -24,3 +24,10 @@
   opacity: 0.6;
   position: relative;
 }
+
+.top_div{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}

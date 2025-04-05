@@ -1,13 +1,17 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import OrderItemIngredient from '../order-item-ingredient/order-item-ingredient';
 import { useAppSelector } from '../../app/hooks';
 import curStyle from './order-item-ingredient-list.module.css';
 import { TBurgerIngredient } from '../../../declarations/burger';
+import Price from '../price/price';
 
 const OrderItemIngredientList: React.FC<{ ingredients: Array<string> }> = ({
   ingredients,
 }) => {
   const orderItems = useAppSelector((store) => store.ingredients.ingredients);
+  const orderPrice = useMemo(() => {
+    return orderItems.reduce((acc, item) => acc + item.price, 0);
+  }, [orderItems]);
 
   const filterItems = useCallback(
     (ingredients: Array<string>) => {
@@ -27,22 +31,29 @@ const OrderItemIngredientList: React.FC<{ ingredients: Array<string> }> = ({
     : filteredItems.slice(0, maxSize);
 
   return (
-    <div className={curStyle.order_list}>
-      {showOverflow && (
-        <div className={curStyle.overflow_item}>
-          <OrderItemIngredient
-            image={filteredItems[maxSize - 1].image_mobile}
-            caption={`+${overflow}`}
-          />
-        </div>
-      )}
-      {itemsToShow
-        .map((item, index) => (
-          <div key={`${item._id}-${index}`} className={curStyle.order_item} style={{ zIndex: itemsToShow.length - index }}>
-            <OrderItemIngredient image={item.image_mobile} />
+    <div className={curStyle.top_div}>
+      <div className={curStyle.order_list}>
+        {showOverflow && (
+          <div className={curStyle.overflow_item}>
+            <OrderItemIngredient
+              image={filteredItems[maxSize - 1].image_mobile}
+              caption={`+${overflow}`}
+            />
           </div>
-        ))
-        .reverse()}
+        )}
+        {itemsToShow
+          .map((item, index) => (
+            <div
+              key={`${item._id}-${index}`}
+              className={curStyle.order_item}
+              style={{ zIndex: itemsToShow.length - index }}
+            >
+              <OrderItemIngredient image={item.image_mobile} />
+            </div>
+          ))
+          .reverse()}
+      </div>
+      <Price price={orderPrice} isActive={true} />
     </div>
   );
 };

@@ -1,21 +1,19 @@
 import curStyle from './ingredient.module.css';
-import {
-  CurrencyIcon,
-  Counter,
-} from '@ya.praktikum/react-developer-burger-ui-components';
+import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 import { useDrag } from 'react-dnd';
 import { DRAG_INGREDIENT } from '../../services/drag/ingredient';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { TBurgerIngredient } from '../../declarations/burger';
+import { TBurgerIngredient } from '../../../declarations/burger'
+import Price from '../price/price';
 
 interface IIngredient {
   ingredient: TBurgerIngredient;
 }
 
 const Ingredient: React.FC<IIngredient> = ({ ingredient }) => {
-  const [isActive, setIsActive] = React.useState<string>('text_color_inactive');
+  const [isActive, setIsActive] = React.useState<boolean>(false);
   const location = useLocation();
 
   const [{ isDragging }, dragRef] = useDrag({
@@ -36,8 +34,8 @@ const Ingredient: React.FC<IIngredient> = ({ ingredient }) => {
     >
       <div
         className={`${curStyle.ingredient} ${isDragging ? curStyle.dragging : ''}`}
-        onMouseEnter={() => setIsActive('')}
-        onMouseLeave={() => setIsActive('text_color_inactive')}
+        onMouseEnter={() => setIsActive(true)}
+        onMouseLeave={() => setIsActive(false)}
         ref={dragRef}
       >
         {ingredient.count > 0 && (
@@ -52,15 +50,11 @@ const Ingredient: React.FC<IIngredient> = ({ ingredient }) => {
           alt={ingredient.name}
           className={curStyle.img}
         />
-        <p
-          className={`text text_type_digits-default ${isActive} ${curStyle.currency_p}`}
-        >
-          {ingredient.price}
-          <span className={curStyle.currency_icon}>
-            <CurrencyIcon type="primary" />
-          </span>
-        </p>
-        <p className={`text text_type_main-default ${isActive}`}>
+        <Price
+          price={ingredient.price}
+          isActive={isActive}
+          />
+        <p className={`text text_type_main-default ${isActive ? '' : 'text_color_inactive'}`}>
           {ingredient.name}
         </p>
       </div>
