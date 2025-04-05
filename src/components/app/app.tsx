@@ -18,6 +18,7 @@ import ProtectedRouteElement from '../protected-route-element/protected-route-el
 import Modal from '../modal/modal';
 import { useGetIngredientsQuery } from '../../api/ingredients';
 import Centered from '../centered/centered';
+import { IWsOrder } from '../../../declarations/ws-order';
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -55,7 +56,11 @@ const App: React.FC = () => {
 
   const background = location.state && location.state.background;
   const ingredientId: string | undefined = location.state && location.state.id;
+  const type: string | undefined = location.state && location.state.type;
   const ingredient = data.find((item) => item._id === ingredientId);
+
+
+  console.log("type:", type);
 
   const handleClose = () => {
     navigate(-1);
@@ -96,6 +101,19 @@ const App: React.FC = () => {
                 title={ingredient.name}
               >
                 <Ingredient />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+
+      {background && type === 'order' && (
+        <Routes>
+          <Route
+            path="/feed/:id"
+            element={
+              <Modal onClose={handleClose} isOpen={true}>
+                <Order />
               </Modal>
             }
           />

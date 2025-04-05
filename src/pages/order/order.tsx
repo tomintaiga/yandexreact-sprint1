@@ -1,20 +1,25 @@
 import React from 'react';
 import SingleOrder from '../../components/single-order/single-order';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useAppSelector } from '../../app/hooks';
 import Centered from '../../components/centered/centered';
-import curStyle from './order.module.css';
 
 const Order: React.FC = () => {
-  const location = useLocation();
-  const order = location.state?.order;
-
-  return (
-    <div className={curStyle.root_div}>
-      <Centered>
-        {order ? <SingleOrder order={order} /> : <p className="text text_type_main-large">Заказ не найден</p>}
-      </Centered>
-    </div>
+  const { id } = useParams();
+  const storeOrder = useAppSelector((state) =>
+    state.wsOrders.orders.find((order) => order._id === id),
   );
+
+
+  if (!storeOrder) {
+    return (
+      <Centered>
+        <p className="text text_type_main-large">Заказ не найден</p>
+      </Centered>
+    );
+  }
+
+  return <SingleOrder order={storeOrder} />;
 };
 
 export default Order;

@@ -18,11 +18,7 @@ const Ingredient: React.FC = () => {
     );
   }
 
-  return (
-    <Centered>
-      <IgredientDetailsData ingredient={ingredient} />
-    </Centered>
-  );
+  return <IgredientDetailsData ingredient={ingredient} />;
 };
 
 export default Ingredient;

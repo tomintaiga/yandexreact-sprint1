@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import curStyle from './order-list-item.module.css';
 import { IWsOrder } from '../../../declarations/ws-order';
 import OrderItemIngredientList from '../order-item-ingredient-list/order-item-ingredient-list';
@@ -10,13 +10,20 @@ interface IOrderListItemProps {
   urlPrefix?: string;
 }
 
-const OrderListItem: React.FC<IOrderListItemProps> = ({ order, urlPrefix = "/feed" }) => {
+const OrderListItem: React.FC<IOrderListItemProps> = ({
+  order,
+  urlPrefix = '/feed',
+}) => {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => setIsHovered(false);
-  const handleClick = () => navigate(`${urlPrefix}/${order.number}`, { state: { order } });
+  const handleClick = () =>
+    navigate(`${urlPrefix}/${order._id}`, {
+      state: { background: location, type: 'order', order },
+    });
 
   return (
     <div
@@ -27,7 +34,9 @@ const OrderListItem: React.FC<IOrderListItemProps> = ({ order, urlPrefix = "/fee
     >
       <div className={curStyle.item_container}>
         <p className="text text_type_digits-default">#{order.number}</p>
-        <p className="text text_type_main-default text_color_inactive">{formatRelativeDate(order.createdAt)}</p>
+        <p className="text text_type_main-default text_color_inactive">
+          {formatRelativeDate(order.createdAt)}
+        </p>
       </div>
       <p className="text text_type_main-default">{order.name}</p>
       <OrderItemIngredientList ingredients={order.ingredients} />

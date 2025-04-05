@@ -34,17 +34,11 @@ const Modal: React.FC<IModal> = ({ title, onClose, children, isOpen }) => {
     }
 
     return () => {
-      // Не забыть отписаться
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen, handleKeyDown]);
 
-  if (!isOpen) {
-    return null;
-  }
-
-  if(!modalRoot) {
-    console.error('modalRoot is not found')
+  if (!isOpen || !modalRoot) {
     return null;
   }
 
@@ -61,10 +55,12 @@ const Modal: React.FC<IModal> = ({ title, onClose, children, isOpen }) => {
             <CloseIcon type={isHovered ? 'primary' : 'secondary'} />
           </div>
         </div>
-        {children}
+        <div className={curStyle.modal_content}>
+          {children}
+        </div>
       </div>
     </ModalOverlay>,
-    modalRoot,
+    modalRoot
   );
 };
 

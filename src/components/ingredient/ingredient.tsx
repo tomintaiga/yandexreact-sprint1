@@ -28,7 +28,7 @@ const Ingredient: React.FC<IIngredient> = ({ ingredient }) => {
     <Link
       key={ingredient._id}
       to={`/ingredients/${ingredient._id}`}
-      state={{ background: location, id: ingredient._id }}
+      state={{ background: location, id: ingredient._id, type: 'ingredient' }}
       className={curStyle.link}
       id={ingredient._id}
     >
