@@ -16,3 +16,8 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.item_hovered {
+  opacity: 0.5;
+  cursor: pointer;
+}
