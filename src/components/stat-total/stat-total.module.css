@@ -1,0 +1,20 @@
+.stat_div_total {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.top_div {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.stat_title,
+.stat_number {
+  text-align: left;
+  width: 100%;
+}

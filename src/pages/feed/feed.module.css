@@ -11,6 +11,7 @@
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    width: 100%;
 }
 
 .title {
@@ -23,4 +24,12 @@
   max-height: 912px;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.content_div {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 60px;
 }
