@@ -10,14 +10,8 @@ import {
 const OrderList: React.FC = () => {
   const dispatch = useAppDispatch();
   const isMounted = useRef(false);
-  const { orders, total, totalToday, wsConnected } = useAppSelector(
+  const { orders, wsConnected } = useAppSelector(
     (state) => state.wsOrders,
-  );
-
-  console.log(
-    'Total:', total,
-    'Total Today:', totalToday,
-    'Connected:', wsConnected,
   );
 
   useEffect(() => {
