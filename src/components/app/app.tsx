@@ -19,7 +19,6 @@ import Modal from '../modal/modal';
 import { useGetIngredientsQuery } from '../../api/ingredients';
 import Centered from '../centered/centered';
 
-
 const App: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -71,21 +70,14 @@ const App: React.FC = () => {
         <Route path="/reset-password" Component={ResetPassword} />
         <Route path="/" Component={Main} />
         <Route path="/feed" Component={Feed} />
-        <Route path='/feed/:id' Component={Order} />
+        <Route path="/feed/:id" Component={Order} />
+        <Route path="/ingredients/:id" Component={Ingredient} />
 
         <Route
           path="/profile/*"
           element={
             <ProtectedRouteElement>
               <ProfileRoutes />
-            </ProtectedRouteElement>
-          }
-        />
-        <Route
-          path="/ingredients/:id"
-          element={
-            <ProtectedRouteElement>
-              <Ingredient />
             </ProtectedRouteElement>
           }
         />
