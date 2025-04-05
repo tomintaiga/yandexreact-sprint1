@@ -1,18 +1,14 @@
 import { TBurgerIngredient } from "./burger";
+import { TOwner } from "./owner";
 
 export type TOrder = {
+    name: string;
+    number: number;
     ingredients: Array<TBurgerIngredient>;
     _id: string;
-    owner: {
-        name: string;
-        email: string;
-        createdAt: string;
-        updatedAt: string;
-    }
     status: string;
     createdAt: string;
     updatedAt: string;
-    name: string;
-    number: number;
+    owner: TOwner;
     price: number;
-}
+};

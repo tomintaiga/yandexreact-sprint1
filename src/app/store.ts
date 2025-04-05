@@ -9,6 +9,8 @@ import authSlice from '../slices/auth';
 import singleOrderSlice from '../slices/single-order';
 import { orderApi } from '../api/order';
 import { profileApi } from '../api/profile';
+import { wsOrderMiddleware } from '../middleware/order-middleware';
+import wsOrdersSliceReducer from '../slices/ws-order';
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +23,7 @@ export const store = configureStore({
     burgerIngredients: burgerIngredientsReducer,
     auth: authSlice,
     singleOrder: singleOrderSlice,
+    wsOrders: wsOrdersSliceReducer,
   },
 
   middleware: (getDefaultMiddleware) => {
@@ -28,7 +31,8 @@ export const store = configureStore({
       ingredientsApi.middleware,
       authApi.middleware,
       orderApi.middleware,
-      profileApi.middleware
+      profileApi.middleware,
+      wsOrderMiddleware(),
     );
   },
 });

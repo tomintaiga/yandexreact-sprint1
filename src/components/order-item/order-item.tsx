@@ -1,5 +1,5 @@
 import React from 'react';
-import { TOrder } from '../../declarations/order';
+import { TOrder } from '../../../declarations/order'
 import curStyle from './order-item.module.css';
 
 const OrderDetails: React.FC<{ order: TOrder }> = ({ order }) => {

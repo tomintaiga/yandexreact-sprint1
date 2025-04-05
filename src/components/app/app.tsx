@@ -9,6 +9,7 @@ import ResetPassword from '../../pages/reset-password/reset-password';
 import Profile from '../../pages/profile/profile';
 import Ingredient from '../../pages/ingredient/ingredient';
 import NotFound from '../../pages/not-found/not-found';
+import Feed from '../../pages/feed/feed';
 
 import { Routes, Route } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -16,6 +17,7 @@ import ProtectedRouteElement from '../protected-route-element/protected-route-el
 import Modal from '../modal/modal';
 import { useGetIngredientsQuery } from '../../api/ingredients';
 import Centered from '../centered/centered';
+
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -67,6 +69,7 @@ const App: React.FC = () => {
         <Route path="/forgot-password" Component={ForgotPassword} />
         <Route path="/reset-password" Component={ResetPassword} />
         <Route path="/" Component={Main} />
+        <Route path="/feed" Component={Feed} />
 
         <Route
           path="/profile"
