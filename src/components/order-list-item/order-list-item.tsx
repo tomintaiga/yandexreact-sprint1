@@ -5,13 +5,18 @@ import { IWsOrder } from '../../../declarations/ws-order';
 import OrderItemIngredientList from '../order-item-ingredient-list/order-item-ingredient-list';
 import { formatRelativeDate } from '../../utils/date';
 
-const OrderListItem: React.FC<{ order: IWsOrder }> = ({ order }) => {
+interface IOrderListItemProps {
+  order: IWsOrder;
+  urlPrefix?: string;
+}
+
+const OrderListItem: React.FC<IOrderListItemProps> = ({ order, urlPrefix = "/feed" }) => {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
 
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => setIsHovered(false);
-  const handleClick = () => navigate(`/feed/${order.number}`, { state: { order } });
+  const handleClick = () => navigate(`${urlPrefix}/${order.number}`, { state: { order } });
 
   return (
     <div

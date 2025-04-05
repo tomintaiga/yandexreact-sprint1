@@ -1,8 +1,11 @@
 import React from 'react';
 import curStyle from './profile.module.css';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
 
 const Profile: React.FC = () => {
+  const location = useLocation();
+  const isOrdersRoute = location.pathname.startsWith('/profile/orders');
+
   return (
     <div className={curStyle.top_div}>
       <div className={curStyle.links_div}>
@@ -10,9 +13,7 @@ const Profile: React.FC = () => {
           to="/profile"
           end
           className={({ isActive }) =>
-            isActive
-              ? `text text_type_main-medium ${curStyle.link_active}`
-              : `text text_type_main-medium text_color_inactive ${curStyle.link_inactive}`
+            `text text_type_main-medium ${isActive ? curStyle.link_active : curStyle.link_inactive}`
           }
         >
           Профиль
@@ -20,16 +21,14 @@ const Profile: React.FC = () => {
         <NavLink
           to="/profile/orders"
           className={({ isActive }) =>
-            isActive
-              ? `text text_type_main-medium ${curStyle.link_active}`
-              : `text text_type_main-medium text_color_inactive ${curStyle.link_inactive}`
+            `text text_type_main-medium ${isActive ? curStyle.link_active : curStyle.link_inactive}`
           }
         >
           История заказов
         </NavLink>
         <NavLink
           to="/logout"
-          className={`text text_type_main-medium text_color_inactive ${curStyle.link_inactive}`}
+          className={`text text_type_main-medium ${curStyle.link_inactive}`}
         >
           Выход
         </NavLink>
@@ -39,7 +38,7 @@ const Profile: React.FC = () => {
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </div>
-      <div>
+      <div className={`${curStyle.child_div} ${isOrdersRoute ? curStyle.child_div_wide : ''}`}>
         <Outlet />
       </div>
     </div>

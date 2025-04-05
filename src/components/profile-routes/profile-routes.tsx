@@ -5,6 +5,7 @@ import ProfileForm from '../../components/profile-form/profile-form';
 import ProfileOrder from '../profile-order/profile-order';
 import { useGetProfileQuery } from '../../api/profile';
 import Centered from '../centered/centered';
+import Order from '../../pages/order/order';
 
 const ProfileRoutes: React.FC = () => {
   const { data, isLoading, error } = useGetProfileQuery();
@@ -45,6 +46,7 @@ const ProfileRoutes: React.FC = () => {
       <Route path="/" element={<Profile />}>
         <Route index element={<ProfileForm user={data.user} />} />
         <Route path="orders" element={<ProfileOrder />} />
+        <Route path="orders/:id" element={<Order />} />
       </Route>
     </Routes>
   );

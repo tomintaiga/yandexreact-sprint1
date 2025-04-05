@@ -1,4 +1,5 @@
 .root_div{
     max-height: 960px;
     overflow: hidden;
+    width: 100%;
 }

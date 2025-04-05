@@ -5,7 +5,7 @@ import {
   wsConnectionSuccess,
   wsConnectionError,
   wsConnectionClosed,
-} from '../slices/ws-order'
+} from '../slices/ws-private-order'
 import { IWsOrder } from '../../declarations/ws-order';
 
 export const WS_BASE_URL = 'wss://norma.nomoreparties.space/';
@@ -17,13 +17,13 @@ interface IWsMessage {
   totalToday: number;
 }
 
-export const WS_ORDERS_CONNECTION_START = 'WS_ORDERS_CONNECTION_START';
-export const WS_ORDERS_CONNECTION_STOP = 'WS_ORDERS_CONNECTION_STOP';
-export const WS_ORDERS_SEND_MESSAGE=  'WS_ORDERS_SEND_MESSAGE';
+export const WS_PRIVATE_ORDERS_CONNECTION_START = 'WS_PRIVATE_ORDERS_CONNECTION_START';
+export const WS_PRIVATEORDERS_CONNECTION_STOP = 'WS_PRIVATEORDERS_CONNECTION_STOP';
+export const WS_PRIVATEORDERS_SEND_MESSAGE=  'WS_PRIVATEORDERS_SEND_MESSAGE';
 
 
 
-export const wsOrderMiddleware = (): Middleware => {
+export const wsPrivateOrderMiddleware = (): Middleware => {
   return (store) => {
     let socket: WebSocket | null = null;
 
@@ -31,8 +31,8 @@ export const wsOrderMiddleware = (): Middleware => {
       const { dispatch } = store as { dispatch: AppDispatch };
       const { type, payload } = action;
 
-      if (type === WS_ORDERS_CONNECTION_START) {
-        const url = `${WS_BASE_URL}orders/all`;
+      if (type === WS_PRIVATE_ORDERS_CONNECTION_START) {
+        const url = `${WS_BASE_URL}orders?token=${payload.token}`;
 
         socket = new WebSocket(url);
         console.log('Connecting to WebSocket:', url);
@@ -79,12 +79,12 @@ export const wsOrderMiddleware = (): Middleware => {
         };
       }
 
-      if (type === WS_ORDERS_CONNECTION_STOP && socket) {
+      if (type === WS_PRIVATEORDERS_CONNECTION_STOP && socket) {
         socket.close();
       }
 
       if (
-        type === WS_ORDERS_SEND_MESSAGE &&
+        type === WS_PRIVATEORDERS_SEND_MESSAGE &&
         socket?.readyState === WebSocket.OPEN
       ) {
         socket.send(JSON.stringify(payload));
@@ -95,10 +95,12 @@ export const wsOrderMiddleware = (): Middleware => {
   };
 };
 
-export const wsOrdersPublicConnectionStart = () => ({
-  type: WS_ORDERS_CONNECTION_START,
-  payload: { token: null },
+
+export const wsOrdersPrivateConnectionStart = (token: string) => ({
+  type: WS_PRIVATE_ORDERS_CONNECTION_START,
+  payload: { token },
 });
+
 export const wsOrdersConnectionStop = () => ({
-  type: WS_ORDERS_CONNECTION_STOP,
+  type: WS_PRIVATEORDERS_CONNECTION_STOP,
 });
