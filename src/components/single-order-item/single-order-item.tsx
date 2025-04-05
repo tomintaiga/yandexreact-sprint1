@@ -7,10 +7,9 @@ import OrderItemIngredient from '../order-item-ingredient/order-item-ingredient'
 interface ISingleOrderItem {
   ingredient: TBurgerIngredient;
   count: number;
-  price: number;
 }
 
-const SingleOrderItem: React.FC<ISingleOrderItem> = ({ ingredient, count, price }) => {
+const SingleOrderItem: React.FC<ISingleOrderItem> = ({ ingredient, count }) => {
   return (
     <div className={curStyle.ingredient_row}>
       <div className={curStyle.ingredient_info}>

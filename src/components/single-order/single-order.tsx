@@ -64,7 +64,6 @@ const SingleOrder: React.FC<{ order: IWsOrder }> = ({ order }) => {
               key={item.ingredient._id}
               ingredient={item.ingredient}
               count={item.count}
-              price={item.price}
             />
           ))}
           </div>
