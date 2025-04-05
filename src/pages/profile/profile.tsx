@@ -17,7 +17,7 @@ const Profile: React.FC = () => {
   const [updateProfile, { isLoading: isUpdating, error: updateError }] =
     useUpdateProfileMutation();
 
-  const handleOrder = async (user: TUser) => {
+  const handleUpdate = async (user: TUser) => {
     try {
       const response = await updateProfile(user).unwrap();
       console.log('User updated:', response);
@@ -88,7 +88,7 @@ const Profile: React.FC = () => {
           type="text"
           value={data.user.name}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            handleOrder({ ...data.user, name: e.target.value })
+            handleUpdate({ ...data.user, name: e.target.value })
           }
           placeholder="Имя"
           icon="EditIcon"
@@ -98,7 +98,7 @@ const Profile: React.FC = () => {
           size="default"
           placeholder="Логин"
           value={data.user.email}
-          onChange={(e) => handleOrder({ ...data.user, email: e.target.value })}
+          onChange={(e) => handleUpdate({ ...data.user, email: e.target.value })}
         />
         <PasswordInput
           name="password"
@@ -106,7 +106,7 @@ const Profile: React.FC = () => {
           value=""
           icon="EditIcon"
           onChange={(e) =>
-            handleOrder({ ...data.user, password: e.target.value })
+            handleUpdate({ ...data.user, password: e.target.value })
           }
         />
       </form>
