@@ -18,7 +18,6 @@ import ProtectedRouteElement from '../protected-route-element/protected-route-el
 import Modal from '../modal/modal';
 import { useGetIngredientsQuery } from '../../api/ingredients';
 import Centered from '../centered/centered';
-import { IWsOrder } from '../../../declarations/ws-order';
 
 const App: React.FC = () => {
   const location = useLocation();
