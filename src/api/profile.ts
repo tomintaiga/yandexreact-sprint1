@@ -22,6 +22,13 @@ export const profileApi = createApi({
         method: 'PATCH',
         body: userData,
       }),
+      onQueryStarted: async (userData, { dispatch, queryFulfilled }) => {
+        try{
+          await queryFulfilled;
+        } catch (err) {
+          dispatch(profileApi.util.invalidateTags(['Profile']));
+        }
+      },
       invalidatesTags: ['Profile'],
     }),
   }),

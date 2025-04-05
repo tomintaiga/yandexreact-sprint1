@@ -6,7 +6,7 @@ import Register from '../../pages/register/register';
 import Login from '../../pages/login/login';
 import ForgotPassword from '../../pages/forgot-password/forgot-password';
 import ResetPassword from '../../pages/reset-password/reset-password';
-import Profile from '../../pages/profile/profile';
+import ProfileRoutes from '../profile-routes/profile-routes';
 import Ingredient from '../../pages/ingredient/ingredient';
 import NotFound from '../../pages/not-found/not-found';
 import Feed from '../../pages/feed/feed';
@@ -74,10 +74,10 @@ const App: React.FC = () => {
         <Route path='/feed/:id' Component={Order} />
 
         <Route
-          path="/profile"
+          path="/profile/*"
           element={
             <ProtectedRouteElement>
-              <Profile />
+              <ProfileRoutes />
             </ProtectedRouteElement>
           }
         />

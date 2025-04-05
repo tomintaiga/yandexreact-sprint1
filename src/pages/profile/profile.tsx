@@ -1,73 +1,29 @@
-import curStyle from './profile.module.css';
-import {
-  PasswordInput,
-  Input,
-  EmailInput,
-} from '@ya.praktikum/react-developer-burger-ui-components';
-import { NavLink } from 'react-router-dom';
 import React from 'react';
-import {
-  useGetProfileQuery,
-  useUpdateProfileMutation,
-} from '../../api/profile';
-import { TUser } from '../../../declarations/user';
+import curStyle from './profile.module.css';
+import { NavLink, Outlet } from 'react-router-dom';
 
 const Profile: React.FC = () => {
-  const { data, isLoading, error } = useGetProfileQuery();
-  const [updateProfile, { isLoading: isUpdating, error: updateError }] =
-    useUpdateProfileMutation();
-
-  const handleUpdate = async (user: TUser) => {
-    try {
-      const response = await updateProfile(user).unwrap();
-      console.log('User updated:', response);
-    } catch (err) {
-      console.error('Failed to update user:', err);
-    }
-  };
-
-  if (!data) {
-    return (
-      <p
-        className={`text text_type_main-default text_color_inactive ${curStyle.links_bottom_p}`}
-      >
-        Пользователь не найден
-      </p>
-    );
-  }
-
-  if (isLoading || isUpdating) {
-    return (
-      <p
-        className={`text text_type_main-default text_color_inactive ${curStyle.links_bottom_p}`}
-      >
-        Загрузка...
-      </p>
-    );
-  }
-
-  if (error || updateError) {
-    return (
-      <p
-        className={`text text_type_main-default text_color_inactive ${curStyle.links_bottom_p}`}
-      >
-        Ошибка загрузки данных
-      </p>
-    );
-  }
-
   return (
     <div className={curStyle.top_div}>
       <div className={curStyle.links_div}>
         <NavLink
           to="/profile"
-          className={`text text_type_main-medium ${curStyle.link_active}`}
+          end
+          className={({ isActive }) =>
+            isActive
+              ? `text text_type_main-medium ${curStyle.link_active}`
+              : `text text_type_main-medium text_color_inactive ${curStyle.link_inactive}`
+          }
         >
           Профиль
         </NavLink>
         <NavLink
           to="/profile/orders"
-          className={`text text_type_main-medium text_color_inactive ${curStyle.link_inactive}`}
+          className={({ isActive }) =>
+            isActive
+              ? `text text_type_main-medium ${curStyle.link_active}`
+              : `text text_type_main-medium text_color_inactive ${curStyle.link_inactive}`
+          }
         >
           История заказов
         </NavLink>
@@ -83,33 +39,9 @@ const Profile: React.FC = () => {
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </div>
-      <form className={curStyle.child_div}>
-        <Input
-          type="text"
-          value={data.user.name}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            handleUpdate({ ...data.user, name: e.target.value })
-          }
-          placeholder="Имя"
-          icon="EditIcon"
-        />
-        <EmailInput
-          name="email"
-          size="default"
-          placeholder="Логин"
-          value={data.user.email}
-          onChange={(e) => handleUpdate({ ...data.user, email: e.target.value })}
-        />
-        <PasswordInput
-          name="password"
-          size="default"
-          value=""
-          icon="EditIcon"
-          onChange={(e) =>
-            handleUpdate({ ...data.user, password: e.target.value })
-          }
-        />
-      </form>
+      <div>
+        <Outlet />
+      </div>
     </div>
   );
 };

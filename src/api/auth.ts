@@ -68,6 +68,11 @@ export const baseQueryWithReauth = async (args: any, api: any, extraOptions: any
       setCookie('token', data.accessToken);
       setCookie('refreshToken', data.refreshToken);
       return await baseQuery(args, api, extraOptions);
+    } else {
+      // Если обновление токена не удалось, то удаляем токены и возвращаем ошибку
+      deleteCookie('token');
+      deleteCookie('refreshToken');
+      return refreshResult;
     }
   }
 
@@ -77,6 +82,7 @@ export const baseQueryWithReauth = async (args: any, api: any, extraOptions: any
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: baseQueryWithReauth,
+  tagTypes: ['Auth'],
   endpoints: (builder) => ({
     login: builder.mutation<AuthResponse, LoginRequest>({
       query: (credentials) => ({
@@ -84,6 +90,7 @@ export const authApi = createApi({
         method: 'POST',
         body: credentials,
       }),
+      invalidatesTags: ['Auth'],
     }),
 
     register: builder.mutation<AuthResponse, RegisterRequest>({
@@ -118,6 +125,7 @@ export const authApi = createApi({
           token: getCookie('refreshToken'),
         },
       }),
+      invalidatesTags: ['Auth'],
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
