@@ -18,7 +18,9 @@ const AppHeader: React.FC = () => {
         <Link to="/">
           <BntIcon IconComponent={BurgerIcon} text="Конструктор" />
         </Link>
-        <BntIcon IconComponent={ListIcon} text="Лента заказов" />
+        <Link to="/feed">
+          <BntIcon IconComponent={ListIcon} text="Лента заказов" />
+        </Link>
       </div>
       <div className={headerStyle.logo_wrapper}>
         <Logo />
