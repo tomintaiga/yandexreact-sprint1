@@ -90,9 +90,13 @@ export const burgerIngredientsSlice = createSlice({
         return item;
       });
     },
+    clearIngredients(state) {
+      state.ingredients = [];
+      state.totalPrice = 0;
+    },
   },
 });
 
-export const { addIngredient, removeIngredient, moveIngredient } =
+export const { addIngredient, removeIngredient, moveIngredient, clearIngredients } =
   burgerIngredientsSlice.actions;
 export default burgerIngredientsSlice.reducer;

@@ -34,6 +34,11 @@ export const ingredientsSlice = createSlice({
                     }
                 }
             });
+        },
+        clearCount(state) {
+            state.ingredients.forEach((item) => {
+                item.count = 0;
+            });
         }
     },
     // Используется для заполнения слайса после завершения запроса к API
@@ -47,5 +52,5 @@ export const ingredientsSlice = createSlice({
     }
 });
 
-export const {incrementCount, decrementCount} = ingredientsSlice.actions;
+export const {incrementCount, decrementCount, clearCount} = ingredientsSlice.actions;
 export default ingredientsSlice.reducer;

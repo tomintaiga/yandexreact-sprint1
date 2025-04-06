@@ -1,14 +1,16 @@
 import curStyle from './order-details.module.css';
 import check from '../../assets/check.svg';
 import React, { useEffect, useRef } from 'react';
-import { useAppSelector } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { useCreateOrderMutation } from '../../api/order';
+import { clearConstructor } from '../../thunks/clearConstructor';
 
 const OrderDetails: React.FC = () => {
   const order = useAppSelector((state) => state.singleOrder.order);
-  const items = useAppSelector((store)=> store.burgerIngredients.ingredients);
-  const [createOrder, {isLoading, error}] = useCreateOrderMutation();
+  const items = useAppSelector((store) => store.burgerIngredients.ingredients);
+  const [createOrder, { isLoading, error }] = useCreateOrderMutation();
   const orderCreatedRef = useRef(false);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (items.length > 0 && !orderCreatedRef.current) {
@@ -17,6 +19,12 @@ const OrderDetails: React.FC = () => {
       createOrder({ ingredients }).unwrap();
     }
   }, [items, createOrder]);
+
+  useEffect(() => {
+    if (order !== null) {
+      dispatch(clearConstructor());
+    }
+  }, [order, dispatch]);
 
   if (isLoading) {
     return (
