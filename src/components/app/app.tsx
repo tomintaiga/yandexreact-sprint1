@@ -71,7 +71,7 @@ const App: React.FC = () => {
         <Route path="/reset-password" Component={ResetPassword} />
         <Route path="/" Component={Main} />
         <Route path="/feed" Component={Feed} />
-        <Route path="/feed/:id" Component={Order} />
+        <Route path="/feed/:id" element={<Centered><Order/></Centered>} />
         <Route path="/ingredients/:id" Component={Ingredient} />
 
         <Route
