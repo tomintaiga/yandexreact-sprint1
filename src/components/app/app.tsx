@@ -116,6 +116,14 @@ const App: React.FC = () => {
               </Modal>
             }
           />
+          <Route
+            path="/profile/orders/:id"
+            element={
+              <Modal onClose={handleClose} isOpen={true}>
+                <Order />
+              </Modal>
+            }
+          />
         </Routes>
       )}
     </Root>
