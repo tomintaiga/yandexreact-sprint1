@@ -58,9 +58,6 @@ const App: React.FC = () => {
   const type: string | undefined = location.state && location.state.type;
   const ingredient = data.find((item) => item._id === ingredientId);
 
-
-  console.log("type:", type);
-
   const handleClose = () => {
     navigate(-1);
   };
