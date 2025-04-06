@@ -11,8 +11,6 @@ import { orderApi } from '../api/order';
 import { profileApi } from '../api/profile';
 import { wsOrderMiddleware } from '../middleware/order-middleware';
 import wsOrdersSliceReducer from '../slices/ws-order';
-import { wsPrivateOrderMiddleware } from '../middleware/private-order';
-import wsPrivateOrderSliceReducer from '../slices/ws-private-order';
 
 export const store = configureStore({
   reducer: {
@@ -26,7 +24,6 @@ export const store = configureStore({
     auth: authSlice,
     singleOrder: singleOrderSlice,
     wsOrders: wsOrdersSliceReducer,
-    wsPrivateOrders: wsPrivateOrderSliceReducer,
   },
 
   middleware: (getDefaultMiddleware) => {
@@ -36,7 +33,6 @@ export const store = configureStore({
       orderApi.middleware,
       profileApi.middleware,
       wsOrderMiddleware(),
-      wsPrivateOrderMiddleware(),
     );
   },
 });

@@ -5,6 +5,7 @@ import curStyle from './order-list.module.css';
 import OrderListItem from '../order-list-item/order-list-item';
 import {
   wsOrdersPublicConnectionStart,
+  wsOrdersConnectionStop
 } from '../../middleware/order-middleware';
 
 const OrderList: React.FC = () => {
@@ -19,6 +20,12 @@ const OrderList: React.FC = () => {
       isMounted.current = true;
       dispatch(wsOrdersPublicConnectionStart());
     }
+
+    return () => {
+      if (wsConnected) {
+        dispatch(wsOrdersConnectionStop());
+      }
+    };
   }, [dispatch, wsConnected]);
 
   return (

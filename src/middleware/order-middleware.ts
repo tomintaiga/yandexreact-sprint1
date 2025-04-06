@@ -32,7 +32,9 @@ export const wsOrderMiddleware = (): Middleware => {
       const { type, payload } = action;
 
       if (type === WS_ORDERS_CONNECTION_START) {
-        const url = `${WS_BASE_URL}orders/all`;
+        const url = payload.token
+          ? `${WS_BASE_URL}orders?token=${payload.token}`
+          : `${WS_BASE_URL}orders/all`;
 
         socket = new WebSocket(url);
         console.log('Connecting to WebSocket:', url);
@@ -95,6 +97,11 @@ export const wsOrderMiddleware = (): Middleware => {
   };
 };
 
+
+export const wsOrdersPrivateConnectionStart = (token: string) => ({
+  type: WS_ORDERS_CONNECTION_START,
+  payload: { token },
+});
 export const wsOrdersPublicConnectionStart = () => ({
   type: WS_ORDERS_CONNECTION_START,
   payload: { token: null },

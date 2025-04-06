@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import curStyle from './profile-order.module.css';
 import OrderListItem from '../order-list-item/order-list-item';
-import { wsOrdersPrivateConnectionStart } from '../../middleware/private-order';
+import { wsOrdersPrivateConnectionStart, wsOrdersConnectionStop } from '../../middleware/order-middleware';
 import { getCookie } from '../../utils/cookie';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ const ProfileOrder: React.FC = () => {
   const navigate = useNavigate();
 
   const { orders, wsConnected } = useAppSelector(
-    (state) => state.wsPrivateOrders,
+    (state) => state.wsOrders,
   );
 
   useEffect(() => {
@@ -34,6 +34,12 @@ const ProfileOrder: React.FC = () => {
 
       dispatch(wsOrdersPrivateConnectionStart(token));
     }
+
+    return () => {
+      if (wsConnected) {
+        dispatch(wsOrdersConnectionStop());
+      }
+    };
   }, [dispatch, wsConnected, navigate]);
 
   return (
