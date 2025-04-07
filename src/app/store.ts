@@ -32,7 +32,7 @@ export const store = configureStore({
       authApi.middleware,
       orderApi.middleware,
       profileApi.middleware,
-      wsOrderMiddleware(),
+      wsOrderMiddleware,
     );
   },
 });
