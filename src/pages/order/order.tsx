@@ -5,23 +5,23 @@ import { useAppSelector } from '../../app/hooks';
 import Centered from '../../components/centered/centered';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
-
 const Order: React.FC = () => {
   const { id } = useParams();
-  const order = useAppSelector((state) => state.wsOrders.orders.find((item) => item._id === id));
+  const order = useAppSelector((state) =>
+    state.wsOrders.orders.find((item) => item._id === id),
+  );
   console.log('order', order);
   const navigate = useNavigate();
 
-  if(!order) {
+  if (!order) {
     return (
       <Centered>
         <p className="text text_type_main-large">Заказ не найден</p>
         <Button
-          htmlType="button"
-          type="secondary"
+          type="primary"
           size="medium"
+          htmlType="button"
           onClick={() => navigate(-1)}
-          className="mt-4"
         >
           Вернуться назад
         </Button>
