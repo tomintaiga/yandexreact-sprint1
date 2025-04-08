@@ -71,7 +71,14 @@ const App: React.FC = () => {
         <Route path="/reset-password" Component={ResetPassword} />
         <Route path="/" Component={Main} />
         <Route path="/feed" Component={Feed} />
-        <Route path="/feed/:id" element={<Centered><Order/></Centered>} />
+        <Route
+          path="/feed/:id"
+          element={
+            <Centered>
+              <Order />
+            </Centered>
+          }
+        />
         <Route path="/ingredients/:id" Component={Ingredient} />
 
         <Route
@@ -117,7 +124,9 @@ const App: React.FC = () => {
             path="/profile/orders/:id"
             element={
               <Modal onClose={handleClose} isOpen={true}>
-                <Order />
+                <ProtectedRouteElement>
+                  <Order />
+                </ProtectedRouteElement>
               </Modal>
             }
           />
