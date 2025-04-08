@@ -6,7 +6,6 @@ import wsOrdersReducer, {
   IWsOrdersState,
 } from './ws-order';
 import { describe, expect, it } from '@jest/globals';
-import type {IWsOrder} from '../../declarations/ws-order';
 
 describe('wsOrdersSlice reducers', () => {
   const initialState: IWsOrdersState = {
@@ -15,6 +14,12 @@ describe('wsOrdersSlice reducers', () => {
     total: 0,
     totalToday: 0,
   };
+
+  it('should handle initial state', () => {
+    const action = { type: undefined };
+    const state = wsOrdersReducer(initialState, action);
+    expect(state).toEqual(initialState);
+  });
 
   it('should handle wsConnectionSuccess', () => {
     const nextState = wsOrdersReducer(initialState, wsConnectionSuccess());
@@ -27,7 +32,10 @@ describe('wsOrdersSlice reducers', () => {
 
   it('should handle wsConnectionError', () => {
     const errorMessage = 'Connection failed';
-    const nextState = wsOrdersReducer(initialState, wsConnectionError(errorMessage));
+    const nextState = wsOrdersReducer(
+      initialState,
+      wsConnectionError(errorMessage),
+    );
     expect(nextState).toEqual({
       ...initialState,
       wsConnected: false,

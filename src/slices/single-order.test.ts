@@ -3,6 +3,12 @@ import { showOrder, initialState } from './single-order';
 import singleOrderSlice from './single-order';
 
 describe('Show order action creator', () => {
+  it('should handle initial state', () => {
+    const action = { type: undefined };
+    const state = singleOrderSlice(initialState, action);
+    expect(state).toEqual(initialState);
+  });
+
   it('should return the correct action', () => {
     const testAction = showOrder(true);
     expect(testAction.type).toBe('singleOrder/showOrder');
