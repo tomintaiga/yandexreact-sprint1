@@ -10,10 +10,13 @@ const Order: React.FC = () => {
   const order = useAppSelector((state) =>
     state.wsOrders.orders.find((item) => item._id === id),
   );
-  console.log('order', order);
   const navigate = useNavigate();
+  const storedOrderJson = localStorage.getItem('order');
+  const storedOrder = storedOrderJson ? JSON.parse(storedOrderJson) : null;
 
-  if (!order) {
+  const useOrder = storedOrder || order;
+
+  if (!useOrder) {
     return (
       <Centered>
         <p className="text text_type_main-large">Заказ не найден</p>
@@ -29,7 +32,9 @@ const Order: React.FC = () => {
     );
   }
 
-  return <SingleOrder order={order} />;
+  localStorage.setItem('order', JSON.stringify(useOrder));
+
+  return <SingleOrder order={useOrder} />;
 };
 
 export default Order;
