@@ -31,17 +31,23 @@ export const burgerIngredientsSlice = createSlice({
           state.ingredients = [cur, ...state.ingredients, cur];
           state.totalPrice += cur.price * 2;
         } else {
+          // Подсчет, сколько стоят старые булки
+          let price = state.ingredients.reduce((acc, item) => {
+            if (item.type === 'bun') {
+              return acc + item.price;
+            }
+            return acc;
+          }, 0);
+
           // Заменяем старую булку на новую
-          let price = 0;
           const ingredients = state.ingredients.map((item) => {
             if (item.type === 'bun') {
-              price = item.price;
               return cur;
             }
             return item;
           });
 
-          state.totalPrice += cur.price * 2 - price;
+          state.totalPrice = state.totalPrice - price + cur.price * 2;
           state.ingredients = ingredients;
         }
       } else {

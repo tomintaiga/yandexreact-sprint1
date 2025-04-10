@@ -1,58 +1,76 @@
+import data from '../../src/utils/data';
+
 describe('service is available', () => {
+  beforeEach(() => {
+    cy.intercept('GET', '**/ingredients', {
+      statusCode: 200,
+      body: { success: true, data },
+    }).as('getIngredients');
+  });
+
   it('should be available on localhost:5173', () => {
     cy.visit('http://localhost:5173/');
+    cy.wait('@getIngredients');
   });
 });
 
 describe('burger constructor', () => {
+  const BUN_ID = data[0]._id;
+  const BUN_PRICE = data[0].price;
+  const MAIN_ID = data[1]._id;
+  const SAUCE_ID = data[3]._id;
+  const BUN2_ID = data[15]._id;
+  const BUN2_PRICE = data[15].price;
+
   beforeEach(() => {
+    cy.intercept('GET', '**/ingredients', {
+      statusCode: 200,
+      body: { success: true, data },
+    }).as('getIngredients');
     cy.visit('http://localhost:5173/');
+    cy.wait('@getIngredients');
   });
 
   it('should drag and drop ingredients', () => {
-    cy.get(
-      '[data-testid="ingredient-draghandle-643d69a5c3f7b9001cfa093c"]',
-    ).trigger('dragstart');
+    cy.get(`[data-testid="ingredient-draghandle-${BUN_ID}"]`).trigger(
+      'dragstart',
+    );
     cy.get('[data-testid="burger-constructor"]').trigger('drop');
     cy.get(
-      '[data-testid="constructor-ingredient-draghandle-643d69a5c3f7b9001cfa093c"]',
+      `[data-testid="constructor-ingredient-draghandle-${BUN_ID}"]`,
     ).should('have.css', 'visibility', 'hidden');
   });
 
-  it('should set protper price', () => {
-    cy.get(
-      '[data-testid="ingredient-draghandle-643d69a5c3f7b9001cfa093c"]',
-    ).trigger('dragstart');
+  it('should set proper price', () => {
+    cy.get(`[data-testid="ingredient-draghandle-${BUN_ID}"]`).trigger(
+      'dragstart',
+    );
     cy.get('[data-testid="burger-constructor"]').trigger('drop');
     cy.get('[data-testid="constructor-total-price"]').should(
       'have.text',
-      '2510',
+      `${BUN_PRICE * 2}`,
     );
   });
 
   it('should replace bun', () => {
     // Первая булка
-    cy.get(
-      '[data-testid="ingredient-draghandle-643d69a5c3f7b9001cfa093c"]',
-    ).trigger('dragstart');
+    cy.get(`[data-testid="ingredient-draghandle-${BUN_ID}"]`).trigger(
+      'dragstart',
+    );
     cy.get('[data-testid="burger-constructor"]').trigger('drop');
     // Вторая булка
-    cy.get(
-      '[data-testid="ingredient-draghandle-643d69a5c3f7b9001cfa093d"]',
-    ).trigger('dragstart');
+    cy.get(`[data-testid="ingredient-draghandle-${BUN2_ID}"]`).trigger(
+      'dragstart',
+    );
     cy.get('[data-testid="burger-constructor"]').trigger('drop');
     // Проверяем, что цена изменилась
     cy.get('[data-testid="constructor-total-price"]').should(
       'have.text',
-      '3231',
+      `${BUN2_PRICE * 2}`,
     );
   });
 
-  const BUN_ID = '643d69a5c3f7b9001cfa093c';
-  const MAIN_ID = '643d69a5c3f7b9001cfa0941';
-  const SAUCE_ID = '643d69a5c3f7b9001cfa0943';
-
-  it('should moeve ingredients', () => {
+  it('should move ingredients', () => {
     // Булка
     cy.get(`[data-testid="ingredient-draghandle-${BUN_ID}"]`).trigger(
       'dragstart',
@@ -73,7 +91,7 @@ describe('burger constructor', () => {
     );
     cy.get('[data-testid="burger-constructor"]').trigger('drop');
 
-    // Сейчас состояние булка соус начинка буока
+    // Сейчас состояние булка соус начинка булка
 
     cy.get(
       `[data-testid="constructor-ingredient-draghandle-${MAIN_ID}"]`,
