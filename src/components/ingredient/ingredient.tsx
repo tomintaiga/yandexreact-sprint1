@@ -37,12 +37,14 @@ const Ingredient: React.FC<IIngredient> = ({ ingredient }) => {
         onMouseEnter={() => setIsActive(true)}
         onMouseLeave={() => setIsActive(false)}
         ref={dragRef}
+        data-testid={`ingredient-draghandle-${ingredient._id}`}
       >
         {ingredient.count > 0 && (
           <Counter
             count={ingredient.count}
             size="default"
             extraClass={curStyle.counter}
+            data-testid={`counter-${ingredient._id}`}
           />
         )}
         <img
