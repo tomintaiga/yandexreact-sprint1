@@ -126,4 +126,18 @@ describe('burger constructor', () => {
       expect(actualOrder).to.deep.equal(expectedOrder);
     });
   });
+
+  it('should update counter value when ingredient is added', () => {
+    // Проверяем для булки
+    cy.get(`[data-testid="ingredient-draghandle-${BUN_ID}"]`).as('bun');
+    cy.get('@bun').trigger('dragstart');
+    cy.get('[data-testid="burger-constructor"]').trigger('drop');
+    cy.get('@bun').find('div.counter > p').should('have.text', '2');
+
+    // Проверяем для не булки
+    cy.get(`[data-testid="ingredient-draghandle-${MAIN_ID}"]`).as('main');
+    cy.get('@main').trigger('dragstart');
+    cy.get('[data-testid="burger-constructor"]').trigger('drop');
+    cy.get('@main').find('div.counter > p').should('have.text', '1');
+  });
 });
