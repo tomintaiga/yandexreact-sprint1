@@ -7,5 +7,8 @@ export default defineConfig({
   base: '',
   server:{
     host: true,
+  },
+  build: {
+    outDir: 'build',
   }
 })
