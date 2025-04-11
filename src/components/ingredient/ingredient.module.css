@@ -27,17 +27,6 @@
     height: 120px;
 }
 
-.currency_p {
-    display: flex;
-    align-items: center;
-    margin-top: 4px;
-    margin-bottom: 4px;;
-}
-
-.currency_icon{
-    margin-left: 8px;
-}
-
 .dragging {
     opacity: 0.4;
 }

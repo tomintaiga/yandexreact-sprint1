@@ -6,25 +6,22 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CenteredForm } from '../../components/centered/centered';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { login } from '../../services/actions/auth';
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AUTH_LOGIN_SUCCESS } from '../../services/actions/auth';
-import { getCookie } from '../../utils/cookie';
+import { getCookie, setCookie } from '../../utils/cookie';
 import React from 'react';
-import { TStore } from '../../../declarations/store';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { setCredentials } from '../../slices/auth';
+import { TUser } from '../../../declarations/user';
+import { useLoginMutation } from '../../api/auth';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
-  const isLoginRequest = useSelector(
-    (store: TStore) => store.auth.isLoginRequest,
-  );
-  const isLoginError = useSelector((store: TStore) => store.auth.isLoginError);
-  const isAuth = useSelector((store: TStore) => store.auth.isAuth);
+  const dispatch = useAppDispatch();
+  const isAuth = useAppSelector((store) => store.auth.isAuth);
   const location = useLocation();
   const navigate = useNavigate();
+  const [login, { isLoading, error }] = useLoginMutation();
 
   // Get the intended route from the state (if available)
   const from = location.state?.from?.pathname || '/';
@@ -39,32 +36,37 @@ const Login: React.FC = () => {
     const token = getCookie('token');
     const user = getCookie('user');
     const refreshToken = getCookie('refreshToken');
-    if (token || user || refreshToken) {
-      dispatch({
-        type: AUTH_LOGIN_SUCCESS,
-        payload: {
-          accessToken: token,
-          user: user? JSON.parse(user) : null,
-          refreshToken: refreshToken,
-        },
-      });
+    if (token && user && refreshToken) {
+      const userItem = JSON.parse(user) as TUser;
+      if (userItem) {
+        dispatch(setCredentials({ user: userItem, token, refreshToken }));
+      }
     }
   }, [dispatch]);
 
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    login(dispatch, email, password);
+    (async () => {
+      try {
+        const response = await login({ email, password }).unwrap();
+        setCookie('token', response.accessToken);
+        setCookie('refreshToken', response.refreshToken);
+        setCookie('user', JSON.stringify(response.user));
+      } catch (error) {
+        console.error('Login failed:', error);
+      }
+    })();
   };
 
   return (
-    <CenteredForm onSubmit={handleLogin}>
+    <CenteredForm onSubmit={handleSubmit}>
       <p className="text text_type_main-default">Вход</p>
-      {isLoginError && (
+      {error && (
         <p className="text text_type_main-default text_color_inactive">
           Ошибка авторизации
         </p>
       )}
-      {isLoginRequest && (
+      {isLoading && (
         <p className="text text_type_main-default text_color_inactive">
           Загрузка...
         </p>

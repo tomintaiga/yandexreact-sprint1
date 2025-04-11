@@ -1,0 +1,33 @@
+.order_list {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  position: relative;
+  height: 64px;
+}
+
+.order_item {
+  position: relative;
+  margin-right: -16px;
+  z-index: 1;
+}
+
+.order_item:first-child {
+  z-index: 10;
+}
+
+.order_item:last-child {
+  z-index: 0;
+}
+
+.overflow_item {
+  opacity: 0.6;
+  position: relative;
+}
+
+.top_div{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}

@@ -15,3 +15,9 @@
 .dragging {
   opacity: 0.4;
 }
+
+.drag_icon_container {
+  width: 24px;
+  display: flex;
+  justify-content: center;
+}

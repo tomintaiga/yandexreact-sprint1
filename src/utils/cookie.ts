@@ -83,3 +83,13 @@ export const getCookie = (name: string): string | null => {
 
       return matches ? decodeURIComponent(matches[1]) : null;
 }
+
+/**
+ * deleteCookie - Deletes a cookie with the given name.
+ * @param name - The name of the cookie to delete.
+ */
+export function deleteCookie(name: string) {
+  setCookie(name, '', {
+    'max-age': -1,
+  })
+}

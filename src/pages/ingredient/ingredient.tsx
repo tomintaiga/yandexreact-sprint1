@@ -1,14 +1,13 @@
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { IgredientDetailsData } from '../../components/ingredient-details/ingredient-details';
 import Centered from '../../components/centered/centered';
-import { useSelector } from 'react-redux';
-import React from 'react';
-import { TStore } from '../../../declarations/store';
+import { useAppSelector } from '../../app/hooks';
 
 const Ingredient: React.FC = () => {
   const { id } = useParams();
-  const ingredient = useSelector((state: TStore) =>
-    state.ingredient.ingredients.find((item) => item._id === id),
+  const ingredient = useAppSelector((state) =>
+    state.ingredients.ingredients.find((item) => item._id === id),
   );
 
   if (!ingredient) {
@@ -19,11 +18,7 @@ const Ingredient: React.FC = () => {
     );
   }
 
-  return (
-    <Centered>
-      <IgredientDetailsData ingredient={ingredient} />
-    </Centered>
-  );
+  return <IgredientDetailsData ingredient={ingredient} />;
 };
 
 export default Ingredient;

@@ -1,12 +1,11 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { TStore } from "../../../declarations/store";
 import curStyle from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import Ingredient from '../ingredient/ingredient';
+import { useAppSelector } from "../../app/hooks";
 
 const BurgerIngredients: React.FC = () => {
-    const data = useSelector((state:TStore) => state.ingredient.ingredients);
+    const data = useAppSelector(state => state.ingredients.ingredients);
     const [curTab, setCurTab] = React.useState<string>('bun');
     const containerRef = React.useRef<HTMLDivElement>(null);
 

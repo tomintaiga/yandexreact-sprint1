@@ -4,23 +4,29 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 720px;
-  height: 593px;
-  /* interface/accent */
-
+  max-height: 593px;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   background: #1c1c21;
   z-index: 100;
+  overflow: hidden;
 }
 
 .modal_header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 40px;
-  margin-left: 40px;
-  margin-right: 40px;
+  padding: 40px 40px 0; /* Отступ только сверху и по бокам */
+  flex-shrink: 0;
+}
+
+.modal_content {
+  padding: 0 40px 40px; /* Отступы только по бокам и снизу */
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: calc(593px - 88px); /* 88px = высота заголовка (40px padding-top + 48px высота текста) */
+  margin-top: 0; /* Убираем отступ сверху */
 }
 
 .modal_header div:hover {

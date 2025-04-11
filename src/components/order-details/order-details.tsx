@@ -1,16 +1,32 @@
 import curStyle from './order-details.module.css';
 import check from '../../assets/check.svg';
-import { useSelector } from 'react-redux';
-import { TStore } from '../../../declarations/store';
+import React, { useEffect, useRef } from 'react';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useCreateOrderMutation } from '../../api/order';
+import { clearConstructor } from '../../thunks/clearConstructor';
 
 const OrderDetails: React.FC = () => {
-  const order = useSelector((state: TStore) => state.order.order);
-  const orderLoading = useSelector((state: TStore) => state.order.orderLoading);
-  const orderLoadingError = useSelector(
-    (state: TStore) => state.order.orderLoadingError,
-  );
+  const order = useAppSelector((state) => state.singleOrder.order);
+  const items = useAppSelector((store) => store.burgerIngredients.ingredients);
+  const [createOrder, { isLoading, error }] = useCreateOrderMutation();
+  const orderCreatedRef = useRef(false);
+  const dispatch = useAppDispatch();
 
-  if (orderLoading === true) {
+  useEffect(() => {
+    if (items.length > 0 && !orderCreatedRef.current) {
+      orderCreatedRef.current = true;
+      const ingredients = items.map((item) => item._id);
+      createOrder({ ingredients }).unwrap();
+    }
+  }, [items, createOrder]);
+
+  useEffect(() => {
+    if (order !== null) {
+      dispatch(clearConstructor());
+    }
+  }, [order, dispatch]);
+
+  if (isLoading) {
     return (
       <div className={curStyle.order_root}>
         <p className="text text_type_main-default">Создаем заказ...</p>
@@ -18,7 +34,7 @@ const OrderDetails: React.FC = () => {
     );
   }
 
-  if (orderLoadingError === true) {
+  if (error) {
     return (
       <div className={curStyle.order_root}>
         <p className="text text_type_main-default">

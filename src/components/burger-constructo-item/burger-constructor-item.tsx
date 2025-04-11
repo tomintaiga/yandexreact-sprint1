@@ -1,15 +1,15 @@
 import React from 'react';
 import curStyle from './burger-constructor-item.module.css';
 import { TBurgerIngredient } from '../../../declarations/burger';
-import { removeIngredient } from '../../services/actions/burger-constructor';
-import { useDispatch } from 'react-redux';
 import {
   DragIcon,
   ConstructorElement,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag, useDrop } from 'react-dnd';
 import { DRAG_CONSTRUCTOR_INGREDIENT } from '../../services/drag/contructor';
-import { CONSTRUCTOR_MOVE_ITEM } from '../../services/actions/burger-constructor';
+import { removeIngredientFromBurger } from '../../thunks/removeIngredientFromBurger';
+import { useAppDispatch } from '../../app/hooks';
+import { moveIngredient } from '../../slices/burger-ingredients';
 
 interface IBurgerConstructorItem {
   isTop?: boolean;
@@ -22,7 +22,7 @@ const BurgerConstructorItem: React.FC<IBurgerConstructorItem> = ({
   isBottom,
   item,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [{ isDragging }, dragRef] = useDrag({
     type: DRAG_CONSTRUCTOR_INGREDIENT,
@@ -35,56 +35,50 @@ const BurgerConstructorItem: React.FC<IBurgerConstructorItem> = ({
   const [, dropRef] = useDrop({
     accept: DRAG_CONSTRUCTOR_INGREDIENT,
     drop: (newItem: TBurgerIngredient) => {
-      // Не будем менять элемент если бросили на себя
-      if (newItem.id === item.id) {
-        return;
-      }
-
-      // Не даем трогать наши булочки
-      if (isTop || isBottom) {
-        return;
-      }
-
-      // Отправляем ID которые надо менять местами
-      dispatch({
-        type: CONSTRUCTOR_MOVE_ITEM,
-        payload: {
-          dragId: newItem.id,
-          dropId: item.id,
-        },
-      });
+      if (newItem.id === item.id) return;
+      if (isTop || isBottom) return;
+      dispatch(moveIngredient({ dragId: newItem.id, dropId: item.id }));
     },
   });
 
-  const handleMouseEnter = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleMouseEnter = (event: React.MouseEvent<HTMLDivElement>) => {
     event.currentTarget.style.cursor = 'grab';
   };
 
-  const handleMouseExit = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleMouseExit = (event: React.MouseEvent<HTMLDivElement>) => {
     event.currentTarget.style.cursor = 'arrow';
   };
 
   return (
     <div ref={dropRef}>
       <div
-        className={`${curStyle.constructor_element} ${isDragging ? curStyle.dragging : ''}`}
+        className={`${curStyle.constructor_element} ${
+          isDragging ? curStyle.dragging : ''
+        }`}
         ref={isTop || isBottom ? null : dragRef}
       >
-        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseExit}>
-          <DragIcon type="primary" />
+        {/* Всегда рендерим контейнер для иконки, но скрываем его для булочек */}
+        <div 
+          className={curStyle.drag_icon_container}
+          style={{ visibility: isTop || isBottom ? 'hidden' : 'visible' }}
+          onMouseEnter={handleMouseEnter} 
+          onMouseLeave={handleMouseExit}
+        >
+          {!isTop && !isBottom && <DragIcon type="primary" />}
         </div>
+
         <ConstructorElement
           type={isTop ? 'top' : isBottom ? 'bottom' : undefined}
           text={
             isTop
               ? `${item.name}\n(верх)`
               : isBottom
-                ? `${item.name}\n(низ)`
-                : item.name
+              ? `${item.name}\n(низ)`
+              : item.name
           }
           price={item.price}
           thumbnail={item.image}
-          handleClose={() => removeIngredient(dispatch, item)}
+          handleClose={() => dispatch(removeIngredientFromBurger(item))}
         />
       </div>
     </div>
