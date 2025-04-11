@@ -46,8 +46,8 @@ const OrderDetails: React.FC = () => {
 
   if (order !== null) {
     return (
-      <div className={curStyle.order_root}>
-        <p className={`text text_type_digits-large ${curStyle.order_number}`}>
+      <div className={curStyle.order_root} data-testid="order-details">
+        <p className={`text text_type_digits-large ${curStyle.order_number}`} data-testid="order-number">
           {order.number}
         </p>
         <p

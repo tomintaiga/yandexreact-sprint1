@@ -57,7 +57,7 @@ const BurgerConstructor: React.FC = () => {
           {totalPrice}
         </p>
         <CurrencyIcon type="primary" />
-        <span className={curStyles.order_btn}>
+        <span className={curStyles.order_btn} data-testid="order-button">
           <Button
             type="primary"
             size="medium"

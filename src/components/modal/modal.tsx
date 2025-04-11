@@ -51,6 +51,7 @@ const Modal: React.FC<IModal> = ({ title, onClose, children, isOpen }) => {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onClick={onClose}
+            data-testid="modal-close-button"
           >
             <CloseIcon type={isHovered ? 'primary' : 'secondary'} />
           </div>
