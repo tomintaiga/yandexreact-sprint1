@@ -40,7 +40,7 @@ const BurgerConstructor: React.FC = () => {
   }, [dispatch, navigate]);
 
   return (
-    <div className={curStyles.topdiv} ref={dropTarget}>
+    <div className={curStyles.topdiv} ref={dropTarget} data-testid="burger-constructor">
       {items.length > 0 && (
         <BurgerConstructorItem isTop={true} item={items[0]} />
       )}
@@ -53,11 +53,11 @@ const BurgerConstructor: React.FC = () => {
         <BurgerConstructorItem isBottom={true} item={items[items.length - 1]} />
       )}
       <div className={curStyles.total_price_div}>
-        <p className={`text text_type_digits-medium ${curStyles.price}`}>
+        <p className={`text text_type_digits-medium ${curStyles.price}`} data-testid="constructor-total-price">
           {totalPrice}
         </p>
         <CurrencyIcon type="primary" />
-        <span className={curStyles.order_btn}>
+        <span className={curStyles.order_btn} data-testid="order-button">
           <Button
             type="primary"
             size="medium"

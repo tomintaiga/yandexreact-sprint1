@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IWsOrder } from '../../declarations/ws-order';
 
-interface IWsOrdersState {
+export interface IWsOrdersState {
   wsConnected: boolean;
   orders: IWsOrder[];
   total: number;

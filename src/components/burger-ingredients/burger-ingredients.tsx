@@ -49,7 +49,7 @@ const BurgerIngredients: React.FC = () => {
             onScroll={handleScroll}
           >
             {data.map((item) => {
-              return <Ingredient ingredient={item} key={item._id} />;
+              return <Ingredient ingredient={item} key={item._id} data-testid={`ingredient-${item._id}`} />;
             })}
           </div>
         </div>

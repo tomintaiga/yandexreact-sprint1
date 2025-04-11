@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TUser } from '../../declarations/user';
 import { authApi } from '../api/auth';
 
-interface IAuthState {
+export interface IAuthState {
     user: TUser | null;
     token: string | null;
     refreshToken: string | null;

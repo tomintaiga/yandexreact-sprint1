@@ -2,12 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { orderApi } from '../api/order';
 import { TOrder } from '../../declarations/order';
 
-interface ISingleOrderState {
+export interface ISingleOrderState {
     order: TOrder | null;
     showOrder: boolean;
 };
 
-const initialState: ISingleOrderState = {
+export const initialState: ISingleOrderState = {
     order: null,
     showOrder: false,
 };

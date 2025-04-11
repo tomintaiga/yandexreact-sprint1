@@ -50,7 +50,7 @@ const BurgerConstructorItem: React.FC<IBurgerConstructorItem> = ({
   };
 
   return (
-    <div ref={dropRef}>
+    <div ref={dropRef} data-testid={`constructor-item-${item._id}`}>
       <div
         className={`${curStyle.constructor_element} ${
           isDragging ? curStyle.dragging : ''
@@ -58,11 +58,12 @@ const BurgerConstructorItem: React.FC<IBurgerConstructorItem> = ({
         ref={isTop || isBottom ? null : dragRef}
       >
         {/* Всегда рендерим контейнер для иконки, но скрываем его для булочек */}
-        <div 
+        <div
           className={curStyle.drag_icon_container}
           style={{ visibility: isTop || isBottom ? 'hidden' : 'visible' }}
-          onMouseEnter={handleMouseEnter} 
+          onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseExit}
+          data-testid={`constructor-ingredient-draghandle-${item._id}`}
         >
           {!isTop && !isBottom && <DragIcon type="primary" />}
         </div>
@@ -73,8 +74,8 @@ const BurgerConstructorItem: React.FC<IBurgerConstructorItem> = ({
             isTop
               ? `${item.name}\n(верх)`
               : isBottom
-              ? `${item.name}\n(низ)`
-              : item.name
+                ? `${item.name}\n(низ)`
+                : item.name
           }
           price={item.price}
           thumbnail={item.image}
